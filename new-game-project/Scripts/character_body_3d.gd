@@ -26,8 +26,6 @@ var gravity = 9.8
 @onready var head = $Head
 @onready var camera = $Head/CameraSmooth/Camera3D
 
-#stats
-@export var char_stats : AttributesAndAbilities
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -36,13 +34,13 @@ func _ready():
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion:
-		head.rotate_y(-event.relative.x * SENSITIVITY)
-		camera.rotate_x(-event.relative.y * SENSITIVITY)
-		camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
-	if event.is_action_pressed("ui_cancel") and get_tree().paused == false: # Pause Menu
-		$PauseMenu.pause()
-	if event.is_action_pressed("char_menu_button") and get_tree().paused == false: # Character Menu
-		$CharacterMenu.pause()
+		if Input.is_action_pressed("Free Camera"):
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		else:
+			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+			head.rotate_y(-event.relative.x * SENSITIVITY)
+			camera.rotate_x(-event.relative.y * SENSITIVITY)
+			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
 #------------------------------------------------------------------------------------------
 
 func _physics_process(delta: float) -> void:

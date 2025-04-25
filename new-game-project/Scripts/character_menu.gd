@@ -1,8 +1,10 @@
 extends Control
 
-@onready var char_stats = %Player.char_stats
+@export var char_stats : AttributesAndAbilities
 
 @onready var resume_button: Button = find_child("Resume")
+@onready var revert_button: Button = find_child("Revert")
+@onready var accept_changes_button: Button = find_child("Accept Changes")
 #FUCKKKKK
 @onready var strength_button : Button = find_child("Strength")
 @onready var dexterity_button : Button = find_child("Dexterity")
@@ -60,12 +62,15 @@ extends Control
 
 var unfilled_dot = preload("res://Assets/Textures/unfilled_dot.png")
 var filled_dot = preload("res://Assets/Textures/filled_dot.png")
-
+var temp_dot = preload("res://Assets/Textures/temp_dot.png")
+var temp_dict = {}
 
 
 func _ready():
 	$AnimationPlayer.play("RESET")
 	resume_button.pressed.connect(resume)
+	revert_button.pressed.connect(revert)
+	accept_changes_button.pressed.connect(accept_changes)
 	for stat_name in char_stats.stat_list:
 		var button = self.get("%s_button" % stat_name)
 		button.pressed.connect(_on_pressed.bind(stat_name))
@@ -77,25 +82,38 @@ func _ready():
 			else:
 				container.get_child(n).texture = unfilled_dot
 
-func update_stats(value : int, stats : AttributesAndAbilities, stat : String) -> void:
-	stats.stats_inc_dec(value, stat)
+func update_stats(value : int, stats : AttributesAndAbilities, stat : String, temp : bool) -> void:
 	var container = self.get("%s_button_container" % stat)
 	for n in container.get_child_count():
 		if stats.get(stat) > n:
 			container.get_child(n).texture = filled_dot
+		elif (stats.get(stat) + value) > n && temp:
+			container.get_child(n).texture = temp_dot
 		else:
 			container.get_child(n).texture = unfilled_dot
 	
 
 func _on_pressed(stat):
-	update_stats(1, char_stats, stat)
+	if !(temp_dict.has(stat)):
+		temp_dict[stat] = 0
+	temp_dict[stat] += 1
+	update_stats(temp_dict[stat], char_stats, stat, true)
 	
-	
+func revert():
+	for stat_name in temp_dict:
+		update_stats(0, char_stats, stat_name, false)
+	temp_dict.clear()
+
+func accept_changes():
+	for stat_name in temp_dict:
+		char_stats.stats_inc_dec(temp_dict[stat_name], stat_name)
+		update_stats(0, char_stats, stat_name, false)
 	
 func resume():
 	get_tree().paused = false
 	$AnimationPlayer.play("Unpause")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	revert()
 
 func pause():
 	get_tree().paused = true
