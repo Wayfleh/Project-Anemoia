@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://fxbf8c7twnby"]
+
+[ext_resource type="AudioStream" uid="uid://yrmp4an8as4u" path="res://Custom_Resources/Music/Fugue State.wav" id="1_0bsy8"]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer"]
+stream = ExtResource("1_0bsy8")
+volume_db = -25.752
+autoplay = true
