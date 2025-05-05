@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dx2vh4imgoe53"]
 
-[ext_resource type="Script" uid="uid://bomd2efhr7dwe" path="res://Scripts/label.gd" id="1_vmceb"]
+[ext_resource type="Script" uid="uid://bomd2efhr7dwe" path="res://Scripts/Dialogue/label.gd" id="1_vmceb"]
 
 [node name="TextBox" type="Label"]
 script = ExtResource("1_vmceb")

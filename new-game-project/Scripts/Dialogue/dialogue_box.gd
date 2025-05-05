@@ -18,8 +18,10 @@ func _ready():
 func clear_dialogue_box():
 	for label in text_history:
 		$Scroll/Margin/History.remove_child(label)
+		label.queue_free()
 	clear_choices()
 	text_history = []
+	
 
 func clear_choices():
 	for choice in choice_buttons:
@@ -47,7 +49,8 @@ func add_choice(choice_text: String, page_break: bool):
 		shortcut.events.push_back(event)
 		button_obj.shortcut = shortcut
 	$Scroll/Margin/History.add_child(button_obj)
-	scroll.scroll_vertical = scrollbar.max_value
+	print(scrollbar.max_value)
+	print(scroll.scroll_vertical)
 
 func _on_choice_selected(choice_index: int):
 	if !choice_buttons[choice_index].continue_button:

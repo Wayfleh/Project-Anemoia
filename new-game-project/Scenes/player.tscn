@@ -11,36 +11,6 @@ points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607,
 
 [sub_resource type="Resource" id="Resource_6t5aa"]
 script = ExtResource("3_6t5aa")
-charisma = 1
-manipulation = 1
-appearance = 0
-perception = 1
-intelligence = 1
-wits = 1
-awareness = 0
-brawl = 0
-empathy = 0
-intimidation = 0
-subterfuge = 0
-firearms = 0
-larceny = 0
-etiquette = 0
-crafts = 0
-stealth = 0
-technology = 0
-investigation = 0
-academics = 0
-occult = 0
-politics = 0
-max_attribute = 5
-stat_list = null
-health = 7
-blood_pool = 10
-humanity = 7
-willpower = 5
-strength = 1
-dexterity = 1
-stamina = 1
 metadata/_custom_type_script = "uid://dst2q7ir2mjal"
 
 [node name="Player" type="CharacterBody3D"]
