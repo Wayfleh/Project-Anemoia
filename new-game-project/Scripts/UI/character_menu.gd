@@ -71,10 +71,10 @@ func _ready():
 	resume_button.pressed.connect(resume)
 	revert_button.pressed.connect(revert)
 	accept_changes_button.pressed.connect(accept_changes)
-	for stat_name in char_stats.stat_list:
+	for stat_name in PlayerStats.stat_list:
 		var button = self.get("%s_button" % stat_name)
 		button.pressed.connect(_on_pressed.bind(stat_name))
-		var rating = char_stats.stat_list[stat_name]
+		var rating = PlayerStats.stat_list[stat_name]
 		var container = self.get("%s_button_container" % stat_name)
 		for n in container.get_child_count():
 			if rating > n:
@@ -82,12 +82,12 @@ func _ready():
 			else:
 				container.get_child(n).texture = unfilled_dot
 
-func update_stats(value : int, stats : AttributesAndAbilities, stat : String, temp : bool) -> void:
+func update_stats(value : int, stat : String, temp : bool) -> void:
 	var container = self.get("%s_button_container" % stat)
 	for n in container.get_child_count():
-		if stats.get(stat) > n:
+		if PlayerStats.get(stat) > n:
 			container.get_child(n).texture = filled_dot
-		elif (stats.get(stat) + value) > n && temp:
+		elif (PlayerStats.get(stat) + value) > n && temp:
 			container.get_child(n).texture = temp_dot
 		else:
 			container.get_child(n).texture = unfilled_dot
@@ -97,17 +97,18 @@ func _on_pressed(stat):
 	if !(temp_dict.has(stat)):
 		temp_dict[stat] = 0
 	temp_dict[stat] += 1
-	update_stats(temp_dict[stat], char_stats, stat, true)
+	update_stats(temp_dict[stat], stat, true)
 	
 func revert():
 	for stat_name in temp_dict:
-		update_stats(0, char_stats, stat_name, false)
+		update_stats(0, stat_name, false)
 	temp_dict.clear()
 
 func accept_changes():
 	for stat_name in temp_dict:
-		char_stats.stats_inc_dec(temp_dict[stat_name], stat_name)
-		update_stats(0, char_stats, stat_name, false)
+		PlayerStats.stats_inc_dec(temp_dict[stat_name], stat_name)
+		update_stats(0, stat_name, false)
+	temp_dict.clear()
 	
 func resume():
 	get_tree().paused = false

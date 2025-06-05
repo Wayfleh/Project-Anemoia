@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://dihnfq6kttt7"]
+[gd_scene load_steps=11 format=3 uid="uid://cd0miqvn2wed"]
 
-[ext_resource type="Script" uid="uid://c7lw6b7t3pt6f" path="res://Scripts/pause_menu.gd" id="1_k0w1u"]
+[ext_resource type="Script" uid="uid://c7lw6b7t3pt6f" path="res://Scripts/UI/pause_menu.gd" id="1_k0w1u"]
 [ext_resource type="Shader" uid="uid://q6p4ei6p4gd2" path="res://Scripts/shaders/pause_menu.gdshader" id="2_1och7"]
+[ext_resource type="Script" uid="uid://bmuruwctr0l4" path="res://Scripts/UI/debug_menu.gd" id="3_r2i2h"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bpi0q"]
 shader = ExtResource("2_1och7")
@@ -141,6 +142,7 @@ _data = {
 }
 
 [node name="PauseMenu" type="Control"]
+process_mode = 3
 visible = false
 layout_mode = 3
 anchors_preset = 15
@@ -168,9 +170,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -181.0
-offset_top = -190.0
+offset_top = -250.0
 offset_right = 181.0
-offset_bottom = 190.0
+offset_bottom = 300.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -178,7 +180,7 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/separation = 75
+theme_override_constants/separation = 50
 
 [node name="Resume" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
@@ -189,11 +191,52 @@ text = "Resume"
 layout_mode = 2
 text = "Restart"
 
+[node name="Save" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Save"
+
+[node name="Load" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Load"
+
 [node name="Quit" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
 text = "Quit"
+
+[node name="Debug" type="Button" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+text = "Debug"
+
+[node name="Debug Menu" type="PanelContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 0
+offset_right = 410.0
+offset_bottom = 1080.0
+script = ExtResource("3_r2i2h")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Debug Menu"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 50
+
+[node name="Close Debug" type="Button" parent="Debug Menu/VBoxContainer"]
+layout_mode = 2
+text = "Close Debug"
+
+[node name="Add Personality" type="Button" parent="Debug Menu/VBoxContainer"]
+layout_mode = 2
+text = "Add Personality"
+
+[node name="Print Current Personalities" type="Button" parent="Debug Menu/VBoxContainer"]
+layout_mode = 2
+text = "Print Personalities
+"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_sjs17")
 }
+
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Save" to="." method="_on_save_pressed"]
+[connection signal="pressed" from="PanelContainer/VBoxContainer/Load" to="." method="_on_load_pressed"]

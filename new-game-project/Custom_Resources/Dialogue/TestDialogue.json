@@ -28,15 +28,5 @@
 			640.0,
 			620.0
 		]
-	},
-	{
-		"commands_raw": "hello\n---\nok we are done now",
-		"gnode_name": "end of dialogue",
-		"id": 3.0,
-		"name": "end of dialogue",
-		"position": [
-			1000.0,
-			380.0
-		]
 	}
 ]

@@ -10,7 +10,7 @@ config_version=5
 
 [application]
 
-config/name="New Game Project"
+config/name="Anemoia"
 run/main_scene="uid://bxfh01tfrsiym"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
@@ -19,6 +19,9 @@ config/icon="res://icon.svg"
 
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 BgMsic="*res://Scenes/BG_MSIC.tscn"
+PlayerStats="*res://Scripts/Singleton/Player_stats.gd"
+SignalBus="*res://Scripts/Singleton/Signal_bus.gd"
+ConfigFileHandler="*res://Scripts/Singleton/ConfigFileHandler.gd"
 
 [dialogic]
 
@@ -43,6 +46,10 @@ project/assembly_name="New Game Project"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/ez_dialogue/plugin.cfg")
+
+[global_group]
+
+ToBeSaved="For SaveData"
 
 [input]
 

@@ -1,3 +1,5 @@
+#Depreciated, use Player_stats singleton instead
+
 class_name AttributesAndAbilities
 extends BaseStats
 

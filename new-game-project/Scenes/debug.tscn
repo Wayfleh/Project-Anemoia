@@ -47,7 +47,7 @@ size = Vector3(33, 0.001, 34)
 
 [node name="Player" parent="." instance=ExtResource("1_raf04")]
 unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.49234, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.49234, 4.02787)
 
 [node name="Walls" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.6337, 0, -0.544176)

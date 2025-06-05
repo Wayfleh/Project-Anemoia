@@ -1,10 +1,10 @@
-class_name Personality extends Resource
+class_name Personalities extends Resource
 
-var patience := 5
-var name : String
-var resonance : String
-var active : bool
-var stat_list : Dictionary[String, int] = {}
+@export var patience := 5
+@export var name : String
+@export var resonance : String
+@export var active : bool
+@export var stat_list : Dictionary[String, int] = {}
 
 signal impatient
 
@@ -15,7 +15,7 @@ func change_patience(value : int):
 		emit_signal("impatient")
 
 func instantiate(json) -> Resource:
-	var new_personality : Personality = self.duplicate()
+	var new_personality : Personalities = self.duplicate()
 	new_personality.name = json["name"]
 	new_personality.resonance = json["resonance"]
 	for stat_name in json["stats"]:
