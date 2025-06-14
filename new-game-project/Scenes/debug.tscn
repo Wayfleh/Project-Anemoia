@@ -1,6 +1,7 @@
-[gd_scene load_steps=10 format=3 uid="uid://bjsnq0ppd5lvt"]
+[gd_scene load_steps=11 format=3 uid="uid://bjsnq0ppd5lvt"]
 
 [ext_resource type="PackedScene" uid="uid://ba5uyaf3u1gqj" path="res://Scenes/player.tscn" id="1_raf04"]
+[ext_resource type="PackedScene" uid="uid://bcitmtf2vsbah" path="res://Props/TestInteractCube.tscn" id="2_axs6p"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1uwqr"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -30,7 +31,7 @@ albedo_color = Color(0.882353, 0.419608, 1, 1)
 [sub_resource type="ORMMaterial3D" id="ORMMaterial3D_rdi1l"]
 albedo_color = Color(0.0862745, 0.0666667, 0.701961, 1)
 
-[node name="Node3D" type="Node3D"]
+[node name="Node3D2" type="Node3D"]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
@@ -45,9 +46,10 @@ material_override = SubResource("ORMMaterial3D_txpwr")
 use_collision = true
 size = Vector3(33, 0.001, 34)
 
-[node name="Player" parent="." instance=ExtResource("1_raf04")]
+[node name="Player" parent="." groups=["player"] instance=ExtResource("1_raf04")]
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.49234, 4.02787)
+collision_layer = 2
 
 [node name="Walls" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.6337, 0, -0.544176)
@@ -134,3 +136,20 @@ use_collision = true
 size = Vector3(8.03931, 1, 4.47681)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Interactables" type="Node3D" parent="."]
+
+[node name="TestInteractCube" parent="Interactables" instance=ExtResource("2_axs6p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.544, 0.832769, 9.88433)
+
+[node name="TestInteractCube2" parent="Interactables" instance=ExtResource("2_axs6p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.544, 0.832769, 7.27043)
+
+[node name="TestInteractCube3" parent="Interactables" instance=ExtResource("2_axs6p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.544, 0.832769, 5.0247)
+
+[node name="TestInteractCube4" parent="Interactables" instance=ExtResource("2_axs6p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.544, 0.832769, 2.71286)
+
+[node name="TestInteractCube5" parent="Interactables" instance=ExtResource("2_axs6p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.544, 0.832769, 0.289143)

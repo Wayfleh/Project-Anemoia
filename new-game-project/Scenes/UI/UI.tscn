@@ -1,14 +1,17 @@
 [gd_scene load_steps=11 format=3 uid="uid://bxfh01tfrsiym"]
 
 [ext_resource type="Script" path="res://main.gd" id="1_48q88"]
-[ext_resource type="Script" path="res://sub_viewport_container.gd" id="2_xjg7p"]
 [ext_resource type="PackedScene" uid="uid://bjsnq0ppd5lvt" path="res://Scenes/debug.tscn" id="3_mg6lk"]
-[ext_resource type="PackedScene" uid="uid://cd0miqvn2wed" path="res://Scenes/UI/pause_menu.tscn" id="4_wunin"]
-[ext_resource type="PackedScene" uid="uid://dbeuohj1sqjj6" path="res://Scenes/UI/character_menu.tscn" id="5_j04uc"]
+[ext_resource type="PackedScene" uid="uid://dihnfq6kttt7" path="res://Scenes/UI/pause_menu.tscn" id="4_wunin"]
+[ext_resource type="PackedScene" uid="uid://svknhjbc2uv5" path="res://Scenes/UI/character_menu.tscn" id="5_j04uc"]
 [ext_resource type="JSON" path="res://Custom_Resources/Dialogue/FirstRealAttempt.json" id="5_w8wei"]
 [ext_resource type="Script" uid="uid://yi6bynbi8jwi" path="res://Custom_Resources/Attributes_and_Abilities.gd" id="6_vqx31"]
 [ext_resource type="PackedScene" uid="uid://bvpm0yb8t23n4" path="res://Scenes/UI/Dialogue/dialogue_box.tscn" id="7_xjg7p"]
 [ext_resource type="Script" uid="uid://dsu6ad1pmr5do" path="res://Scripts/Save_Loader.gd" id="9_8wlyu"]
+
+[sub_resource type="GDScript" id="GDScript_w8wei"]
+script/source = "extends SubViewportContainer
+"
 
 [sub_resource type="Resource" id="Resource_2n5f6"]
 script = ExtResource("6_vqx31")
@@ -71,7 +74,7 @@ anchor_bottom = 1.0
 offset_right = 1400.0
 grow_vertical = 2
 stretch = true
-script = ExtResource("2_xjg7p")
+script = SubResource("GDScript_w8wei")
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 unique_name_in_owner = true
@@ -94,7 +97,7 @@ debug_json = ExtResource("5_w8wei")
 layout_mode = 2
 anchors_preset = 0
 
-[node name="CharacterMenu" parent="." instance=ExtResource("5_j04uc")]
+[node name="CharacterMenu" parent="." groups=["ToBeSaved"] instance=ExtResource("5_j04uc")]
 layout_mode = 2
 anchors_preset = 0
 char_stats = SubResource("Resource_2n5f6")

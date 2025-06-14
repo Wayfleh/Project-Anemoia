@@ -10,3 +10,4 @@ const SAVE_GAME_PATH := "user://save.tres"
 @export var personalities: Resource = preload("res://Custom_Resources/Personalities.gd")
 @export var personality_list = []
 @export var player_position: Vector3
+@export var interactable_flags: Array[bool] = []

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dbeuohj1sqjj6"]
+[gd_scene load_steps=12 format=3 uid="uid://svknhjbc2uv5"]
 
 [ext_resource type="Script" uid="uid://dnaeyc4ba8j75" path="res://Scripts/UI/character_menu.gd" id="1_k8yv0"]
 [ext_resource type="Shader" uid="uid://q6p4ei6p4gd2" path="res://Scripts/shaders/pause_menu.gdshader" id="2_wolrq"]

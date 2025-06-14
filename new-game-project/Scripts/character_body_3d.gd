@@ -179,3 +179,6 @@ func _slide_camera_smooth_back_to_origin(delta):
 	_saved_camera_global_pos = %CameraSmooth.global_position
 	if %CameraSmooth.position.y == 0:
 		_saved_camera_global_pos = null
+
+func on_load_game():
+	return

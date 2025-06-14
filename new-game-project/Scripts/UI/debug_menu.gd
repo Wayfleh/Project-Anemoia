@@ -14,7 +14,7 @@ func close_menu() -> void:
 	self.visible = false
 
 func personality_test_add() -> void:
-	PlayerStats.personality_list[1].active = true
+	PlayerStats.add_personality(1)
 
 func personality_test_print() -> void:
 	for i in PlayerStats.personality_list:

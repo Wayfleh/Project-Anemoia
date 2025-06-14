@@ -2,13 +2,13 @@
 	"Samuel": {
 		"name" : "Samuel",
 		"resonance" : "Sanguinious",
-		"stats" : {"strength" : 1, "subterfuge" : 1, "stealth" : 2},
+		"stats" : {"Strength" : 1, "Subterfuge" : 1, "Stealth" : 2},
 		"active" : true,
 	},
 	"Mary": {
 		"name" : "Mary",
 		"resonance" : "Melancholy",
-		"stats" : {"occult" : 1},
+		"stats" : {"Occult" : 1},
 		"active" : false
 	}
 }
