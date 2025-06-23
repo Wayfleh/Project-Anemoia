@@ -1,7 +1,12 @@
-[gd_scene load_steps=6 format=3 uid="uid://ba5uyaf3u1gqj"]
+[gd_scene load_steps=11 format=3 uid="uid://ba5uyaf3u1gqj"]
 
-[ext_resource type="Script" uid="uid://d1bh02aggnndt" path="res://Scripts/character_body_3d.gd" id="1_fkybt"]
+[ext_resource type="Script" uid="uid://d1bh02aggnndt" path="res://Scripts/Player/character_body_3d.gd" id="1_fkybt"]
 [ext_resource type="PackedScene" uid="uid://b5jkk3vmaq2vk" path="res://System/Interaction/player_interactor.tscn" id="2_cvnsp"]
+[ext_resource type="Script" uid="uid://dwqv65m8ieqgg" path="res://addons/finite_state_machine/scripts/state_machine.gd" id="3_vgqql"]
+[ext_resource type="Script" uid="uid://c2cvu3cfbasxl" path="res://Scripts/Player/dialogue_state_machine.gd" id="3_x3wgy"]
+[ext_resource type="Script" uid="uid://caxkgqpala854" path="res://Scripts/Player/StateMachine/DialogueStates/free_move.gd" id="4_3smsa"]
+[ext_resource type="Script" uid="uid://cy5cvsq5uplwa" path="res://addons/finite_state_machine/scripts/state_machine_state.gd" id="4_fkybt"]
+[ext_resource type="Script" uid="uid://cecaplrwvwvq" path="res://Scripts/Player/StateMachine/DialogueStates/frozen.gd" id="5_3smsa"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_lvjdj"]
 
@@ -29,6 +34,7 @@ unique_name_in_owner = true
 [node name="Camera3D" type="Camera3D" parent="Head/CameraSmooth"]
 
 [node name="PlayerInteractor" parent="Head" node_paths=PackedStringArray("player") instance=ExtResource("2_cvnsp")]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.525, 0)
 player = NodePath("../..")
 
@@ -45,5 +51,34 @@ target_position = Vector3(0, -0.55, 0)
 unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.00912, 0)
 target_position = Vector3(0, -0.75, 0)
+
+[node name="DialogueStates" type="Node" parent="." node_paths=PackedStringArray("current_state")]
+script = ExtResource("3_x3wgy")
+current_state = NodePath("FreeMove")
+metadata/_custom_type_script = "uid://dwqv65m8ieqgg"
+
+[node name="FreeMove" type="Node" parent="DialogueStates"]
+script = ExtResource("4_3smsa")
+metadata/_custom_type_script = "uid://cy5cvsq5uplwa"
+
+[node name="Frozen" type="Node" parent="DialogueStates"]
+script = ExtResource("5_3smsa")
+metadata/_custom_type_script = "uid://cy5cvsq5uplwa"
+
+[node name="CameraLock" type="Node" parent="DialogueStates"]
+script = ExtResource("4_fkybt")
+metadata/_custom_type_script = "uid://cy5cvsq5uplwa"
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("3_vgqql")
+metadata/_custom_type_script = "uid://dwqv65m8ieqgg"
+
+[node name="Moving" type="Node" parent="StateMachine"]
+script = ExtResource("4_fkybt")
+metadata/_custom_type_script = "uid://cy5cvsq5uplwa"
+
+[node name="NotMoving" type="Node" parent="StateMachine"]
+script = ExtResource("4_fkybt")
+metadata/_custom_type_script = "uid://cy5cvsq5uplwa"
 
 [editable path="Head/PlayerInteractor"]

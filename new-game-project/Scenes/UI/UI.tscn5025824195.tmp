@@ -105,5 +105,3 @@ unique_name_in_owner = true
 script = ExtResource("9_8wlyu")
 
 [editable path="SubViewportContainer/SubViewport/Node3D"]
-[editable path="SubViewportContainer/SubViewport/Node3D/Player"]
-[editable path="SubViewportContainer/SubViewport/Node3D/Player/Head/PlayerInteractor"]

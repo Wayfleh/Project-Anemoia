@@ -1,0 +1,56 @@
+[gd_scene load_steps=10 format=3 uid="uid://bekbt7mjgksqf"]
+
+[ext_resource type="Script" uid="uid://co7jbi1hp853j" path="res://System/NPCs/test_npc.gd" id="1_aqosn"]
+[ext_resource type="ArrayMesh" uid="uid://d1il6x66b0ry2" path="res://Assets/Models/BASICHUMANBUS/BasicHuman.tres" id="2_rch4b"]
+[ext_resource type="JSON" path="res://Custom_Resources/Dialogue/Test2SidedDialogue.json" id="2_tsiqt"]
+[ext_resource type="PackedScene" uid="uid://bxq3vqnlp86yr" path="res://System/Interaction/Talkable_Interactable.tscn" id="3_rch4b"]
+[ext_resource type="Script" uid="uid://dwqv65m8ieqgg" path="res://addons/finite_state_machine/scripts/state_machine.gd" id="5_ucv1k"]
+[ext_resource type="Script" uid="uid://dtkpjifl3srcq" path="res://System/NPCs/StateMachines/TestNPC/idle.gd" id="6_n0eo6"]
+[ext_resource type="Script" uid="uid://dtsm2ljfjpdyx" path="res://System/NPCs/StateMachines/TestNPC/dialogue.gd" id="7_ucv1k"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rch4b"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_tsiqt"]
+height = 2.20213
+
+[node name="TestNpc" type="CharacterBody3D"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 0, 0, 0)
+script = ExtResource("1_aqosn")
+dialogue = ExtResource("2_tsiqt")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 1, 0)
+mesh = ExtResource("2_rch4b")
+surface_material_override/0 = SubResource("StandardMaterial3D_rch4b")
+
+[node name="RayCast3D" type="RayCast3D" parent="MeshInstance3D"]
+transform = Transform3D(-1.45705e-07, -3.33333, 0, 3.33333, -1.45705e-07, 0, -4.23516e-22, 0, 3.33333, 1.65601, -3.33333, 7.23865e-08)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+shape = SubResource("CapsuleShape3D_tsiqt")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+debug_enabled = true
+
+[node name="Talkable" parent="." instance=ExtResource("3_rch4b")]
+unique_name_in_owner = true
+
+[node name="CollisionShape3D" parent="Talkable" index="0"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+shape = SubResource("CapsuleShape3D_tsiqt")
+
+[node name="NPCstates" type="Node" parent="."]
+script = ExtResource("5_ucv1k")
+metadata/_custom_type_script = "uid://dwqv65m8ieqgg"
+
+[node name="Idle" type="Node" parent="NPCstates"]
+script = ExtResource("6_n0eo6")
+metadata/_custom_type_script = "uid://cy5cvsq5uplwa"
+
+[node name="Dialogue" type="Node" parent="NPCstates"]
+unique_name_in_owner = true
+script = ExtResource("7_ucv1k")
+metadata/_custom_type_script = "uid://cy5cvsq5uplwa"
+
+[editable path="Talkable"]

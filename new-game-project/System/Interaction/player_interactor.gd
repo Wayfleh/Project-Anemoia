@@ -20,6 +20,8 @@ func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("interact"):
 		if cached_closest:
 			interact(cached_closest)
+			if cached_closest is Talkable:
+				SignalBus.start_dialogue(cached_closest.dialogue, cached_closest.talk_back)
 
 func _on_area_exited(area: Interactable) -> void:
 	if cached_closest == area:

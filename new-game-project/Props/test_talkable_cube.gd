@@ -4,11 +4,14 @@ var interacted_with: bool = false
 
 var material = StandardMaterial3D.new()
 @onready var box = %CSGBox3D
+@export var dialogue: JSON
+@export var talk_back = false
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	%Interactable.focused.connect(_on_interactable_focused)
-	%Interactable.interacted.connect(_on_interactable_interacted)
-	%Interactable.unfocused.connect(_on_interactable_unfocused)
+	%Talkable.focused.connect(_on_interactable_focused)
+	%Talkable.interacted.connect(_on_interactable_interacted)
+	%Talkable.unfocused.connect(_on_interactable_unfocused)
 
 func _on_interactable_focused(interactor: Interactor) -> void:
 	if not interacted_with:

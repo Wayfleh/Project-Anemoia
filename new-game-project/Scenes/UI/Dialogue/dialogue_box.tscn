@@ -1,47 +1,90 @@
-[gd_scene load_steps=5 format=3 uid="uid://bvpm0yb8t23n4"]
+[gd_scene load_steps=4 format=3 uid="uid://bvpm0yb8t23n4"]
 
 [ext_resource type="Script" uid="uid://d3r2t47h8lwap" path="res://Scripts/Dialogue/dialogue_box.gd" id="1_l8qb8"]
 [ext_resource type="Script" uid="uid://b0lj4uxm87yvn" path="res://addons/ez_dialogue/ez_dialogue_node.gd" id="2_nypex"]
-[ext_resource type="JSON" path="res://Custom_Resources/Dialogue/TestDialogue.json" id="2_tq37n"]
 [ext_resource type="Script" uid="uid://v5tqnewpu2wy" path="res://Scripts/Dialogue/scroll.gd" id="3_ercv4"]
 
 [node name="DialogueBox" type="Control"]
-custom_minimum_size = Vector2(520, 0)
+custom_minimum_size = Vector2(1052, 0)
 layout_mode = 3
-anchors_preset = 15
+anchors_preset = 11
+anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 1400.0
-grow_horizontal = 2
+offset_left = -1052.0
+grow_horizontal = 0
 grow_vertical = 2
+size_flags_horizontal = 10
+mouse_filter = 2
 script = ExtResource("1_l8qb8")
-debug_json = ExtResource("2_tq37n")
 
 [node name="Scroll" type="ScrollContainer" parent="."]
 custom_minimum_size = Vector2(520, 0)
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 11
+anchor_left = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-grow_horizontal = 2
+offset_left = -528.0
+grow_horizontal = 0
 grow_vertical = 2
+pivot_offset = Vector2(1040, 0)
 horizontal_scroll_mode = 0
 vertical_scroll_mode = 2
 script = ExtResource("3_ercv4")
 
-[node name="Margin" type="MarginContainer" parent="Scroll"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Scroll"]
+custom_minimum_size = Vector2(0, 1080)
 layout_mode = 2
+size_flags_horizontal = 10
+mouse_filter = 2
+
+[node name="DialogueBoxTwo" type="ColorRect" parent="Scroll/HBoxContainer"]
+unique_name_in_owner = true
+visible = false
+custom_minimum_size = Vector2(520, 600)
+layout_mode = 2
+size_flags_horizontal = 10
+mouse_filter = 2
+color = Color(0.345764, 0.0921905, 0.111833, 1)
+
+[node name="External" type="MarginContainer" parent="Scroll/HBoxContainer/DialogueBoxTwo"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 520.0
+grow_vertical = 2
 size_flags_horizontal = 6
+mouse_filter = 2
 theme_override_constants/margin_left = 20
 theme_override_constants/margin_top = 500
 theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 500
 
-[node name="History" type="VBoxContainer" parent="Scroll/Margin"]
+[node name="History" type="VBoxContainer" parent="Scroll/HBoxContainer/DialogueBoxTwo/External"]
 custom_minimum_size = Vector2(480, 0)
 layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
+mouse_filter = 2
+
+[node name="Internal" type="MarginContainer" parent="Scroll/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+mouse_filter = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 500
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 500
+
+[node name="History" type="VBoxContainer" parent="Scroll/HBoxContainer/Internal"]
+custom_minimum_size = Vector2(480, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+mouse_filter = 2
 
 [node name="EzDialogue" type="Node" parent="."]
 script = ExtResource("2_nypex")

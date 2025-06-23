@@ -1,16 +1,8 @@
 extends CharacterBody3D
+class_name Player
 
-var speed
 const WALK_SPEED = 5.0
-const SPRINT_SPEED = 10.0
-const JUMP_VELOCITY = 4.5
-const SENSITIVITY = 0.003
 
-#head movement variables
-const BOB_FREQ = 2
-const BOB_AMP = 0.08
-var t_bob = 0.0
-var head_tilt = deg_to_rad(3)
 
 #fov variables
 const BASE_FOV = 75.0
@@ -27,21 +19,21 @@ var gravity = 9.8
 @onready var camera = $Head/CameraSmooth/Camera3D
 
 
-func _ready():
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-#------------------------------------------------------------------------------------------
-# Handling non-physics related inputs
-
-func _input(event: InputEvent) -> void:
-	if event is InputEventMouseMotion:
-		if Input.is_action_pressed("Free Camera"):
-			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
-		else:
-			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-			head.rotate_y(-event.relative.x * SENSITIVITY)
-			camera.rotate_x(-event.relative.y * SENSITIVITY)
-			camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
-#------------------------------------------------------------------------------------------
+#func _ready():
+	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+##------------------------------------------------------------------------------------------
+## Handling non-physics related inputs
+#
+#func _unhandled_input(event: InputEvent) -> void:
+	#if event is InputEventMouseMotion:
+		#if Input.is_action_pressed("Free Camera"):
+			#Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+		#else:
+			#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+			#head.rotate_y(-event.relative.x * SENSITIVITY)
+			#camera.rotate_x(-event.relative.y * SENSITIVITY)
+			#camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
+##------------------------------------------------------------------------------------------
 
 func _physics_process(delta: float) -> void:
 	if is_on_floor() or _snapped_to_stairs_last_frame: _last_frame_was_on_floor = Engine.get_physics_frames()
@@ -49,59 +41,58 @@ func _physics_process(delta: float) -> void:
 	# Add the gravity.
 	if not is_on_floor() or _snapped_to_stairs_last_frame:
 		velocity.y -= gravity * delta
-
-	# Handle jump.
-	if Input.is_action_just_pressed("jump") and is_on_floor():
-		velocity.y = JUMP_VELOCITY
-	
-	# Handle sprint.
-	if Input.is_action_pressed("sprint") and Input.is_action_pressed("up"):
-		speed = SPRINT_SPEED
-	else:
-		speed = WALK_SPEED
-
-	# Get the input direction and handle the movement/deceleration.
-	# As good practice, you should replace UI actions with custom gameplay actions.
-	var input_dir = Input.get_vector("left","right","up","down")
-	var direction = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	if is_on_floor() or _snapped_to_stairs_last_frame:
-		if direction:
-			velocity.x = direction.x * speed
-			velocity.z = direction.z * speed
-		else:
-			velocity.x = lerp(velocity.x, direction.x * speed, delta * 7)
-			velocity.z = lerp(velocity.z, direction.z * speed, delta * 7)
-	else:
-		velocity.x = lerp(velocity.x, direction.x * speed, delta * 3.0)
-		velocity.z = lerp(velocity.z, direction.z * speed, delta * 3.0)
-	
-	# Head Bob
-	t_bob += delta * velocity.length() * float(is_on_floor())
-	camera.transform.origin = _headbob(t_bob)
-	# Head Tilt
-	if Input.is_action_pressed("left"):
-		camera.rotation.z = lerp(camera.rotation.z, head_tilt, delta * 4)
-	elif Input.is_action_pressed("right"):
-		camera.rotation.z = lerp(camera.rotation.z, -head_tilt, delta * 4)
-	else:
-		camera.rotation.z = lerp(camera.rotation.z, 0.0, delta * 7)
-	if Input.is_action_pressed("up"):
-		head_tilt = deg_to_rad(1)
-	else:
-		head_tilt = deg_to_rad(2)
-	
-	# FOV
-	var velocity_clamped = clamp(velocity.length(), 0.5, SPRINT_SPEED * 2)
-	var target_fov = BASE_FOV;
-	if Input.is_action_pressed("sprint") and Input.is_action_pressed("up"):
-		target_fov = BASE_FOV + FOV_CHANGE * velocity_clamped
-	else:
-		target_fov = BASE_FOV
-		
-	camera.fov = lerp(camera.fov, target_fov, delta * 8)
+#
+	## Handle jump.
+	#if Input.is_action_just_pressed("jump") and is_on_floor():
+		#velocity.y = JUMP_VELOCITY
+	#
+	## Handle sprint.
+	#if Input.is_action_pressed("sprint") and Input.is_action_pressed("up"):
+		#speed = SPRINT_SPEED
+	#else:
+		#speed = WALK_SPEED
+#
+	## Get the input direction and handle the movement/deceleration.
+	## As good practice, you should replace UI actions with custom gameplay actions.
+	#var input_dir = Input.get_vector("left","right","up","down")
+	#var direction = (head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	#if is_on_floor() or _snapped_to_stairs_last_frame:
+		#if direction:
+			#velocity.x = direction.x * speed
+			#velocity.z = direction.z * speed
+		#else:
+			#velocity.x = lerp(velocity.x, direction.x * speed, delta * 7)
+			#velocity.z = lerp(velocity.z, direction.z * speed, delta * 7)
+	#else:
+		#velocity.x = lerp(velocity.x, direction.x * speed, delta * 3.0)
+		#velocity.z = lerp(velocity.z, direction.z * speed, delta * 3.0)
+	#
+	## Head Bob
+	#t_bob += delta * velocity.length() * float(is_on_floor())
+	#camera.transform.origin = _headbob(t_bob)
+	## Head Tilt
+	#if Input.is_action_pressed("left"):
+		#camera.rotation.z = lerp(camera.rotation.z, head_tilt, delta * 4)
+	#elif Input.is_action_pressed("right"):
+		#camera.rotation.z = lerp(camera.rotation.z, -head_tilt, delta * 4)
+	#else:
+		#camera.rotation.z = lerp(camera.rotation.z, 0.0, delta * 7)
+	#if Input.is_action_pressed("up"):
+		#head_tilt = deg_to_rad(1)
+	#else:
+		#head_tilt = deg_to_rad(2)
+	##
+	## FOV
+	#var velocity_clamped = clamp(velocity.length(), 0.5, SPRINT_SPEED * 2)
+	#var target_fov = BASE_FOV;
+	#if Input.is_action_pressed("sprint") and Input.is_action_pressed("up"):
+		#target_fov = BASE_FOV + FOV_CHANGE * velocity_clamped
+	#else:
+		#target_fov = BASE_FOV
+		#
+	#camera.fov = lerp(camera.fov, target_fov, delta * 8)
 	
 	if not _snap_up_stairs_check(delta):
-		move_and_slide()
 		_snap_down_to_stairs_check()
 #------------------------------------------------------------------------------------------
 # Helper Functions
@@ -158,12 +149,6 @@ func _snap_down_to_stairs_check() -> void:
 			did_snap = true
 	_snapped_to_stairs_last_frame = did_snap
 
-# Camera Movement
-func _headbob(time) -> Vector3:
-	var pos = Vector3.ZERO
-	pos.y = sin(time * BOB_FREQ) * BOB_AMP
-	pos.x = cos(time * BOB_FREQ * .5) * BOB_AMP * 2
-	return pos
 
 var _saved_camera_global_pos = null
 func _save_camera_pos_for_smoothing():
