@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://bensitn0e7y0o"]
+
+[ext_resource type="Script" uid="uid://c74n5cii5xb7t" path="res://System/Combat/hitbox.gd" id="1_yxkxd"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_8o7mt"]
+
+[node name="Hitbox" type="Area3D"]
+script = ExtResource("1_yxkxd")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_8o7mt")

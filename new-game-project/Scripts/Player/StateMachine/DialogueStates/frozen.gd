@@ -1,4 +1,5 @@
 extends DialogueState
+class_name Frozen
 
 func _enter_state():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)

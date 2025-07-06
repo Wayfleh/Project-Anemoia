@@ -1,4 +1,4 @@
-extends Control
+extends MenuScreen
 
 @onready var resume_button: Button = find_child("Resume")
 @onready var restart_button: Button = find_child("Restart")
@@ -6,6 +6,7 @@ extends Control
 @onready var save_button: Button = find_child("Save")
 @onready var load_button: Button = find_child("Load")
 @onready var debug_button: Button = find_child("Debug")
+@export var player: Player
 
 func _ready():
 	$AnimationPlayer.play("RESET")
@@ -13,12 +14,15 @@ func _ready():
 	restart_button.pressed.connect(restart)
 	quit_button.pressed.connect(get_tree().quit)
 	debug_button.pressed.connect(debug)
+	player = get_tree().get_nodes_in_group("Player")[0]
 
 func resume():
 	get_tree().paused = false
 	$AnimationPlayer.play("Unpause")
-	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	if (player.current_state as StateMachineState) is not Frozen:
+		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	%"Debug Menu".visible = false
+	_resetUIState()
 
 func pause():
 	get_tree().paused = true

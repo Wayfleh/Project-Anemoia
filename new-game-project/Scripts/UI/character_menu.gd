@@ -1,4 +1,4 @@
-extends Control
+extends MenuScreen
 
 @export var char_stats : AttributesAndAbilities
 
@@ -115,6 +115,7 @@ func resume():
 	get_tree().paused = false
 	$AnimationPlayer.play("Unpause")
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+	_resetUIState()
 	revert()
 
 func pause():

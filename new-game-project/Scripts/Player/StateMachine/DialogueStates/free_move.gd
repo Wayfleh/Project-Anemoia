@@ -30,7 +30,7 @@ func _unhandled_input(event: InputEvent) -> void:
 				Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 				controller.head.rotate_y(-event.relative.x * SENSITIVITY)
 				camera.rotate_x(-event.relative.y * SENSITIVITY)
-				camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
+				camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-70), deg_to_rad(60))
 #------------------------------------------------------------------------------------------
 
 func _physics_process(delta: float) -> void:
@@ -46,6 +46,10 @@ func _physics_process(delta: float) -> void:
 			speed = SPRINT_SPEED
 		else:
 			speed = WALK_SPEED
+		
+		# Handle Attack
+		if Input.is_action_just_pressed("Attack"):
+			controller.arm_animator.play("Punch")
 
 		# Get the input direction and handle the movement/deceleration.
 		# As good practice, you should replace UI actions with custom gameplay actions.
@@ -88,6 +92,7 @@ func _physics_process(delta: float) -> void:
 		
 		if not controller._snap_up_stairs_check(delta):
 			controller.move_and_slide()
+
 
 # Camera Movement
 func _headbob(time) -> Vector3:

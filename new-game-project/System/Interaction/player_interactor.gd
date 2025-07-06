@@ -1,6 +1,6 @@
 extends Interactor
 
-@export var player: CharacterBody3D
+@export var player: Player
 
 var cached_closest: Interactable
 
@@ -22,6 +22,7 @@ func _input(event: InputEvent) -> void:
 			interact(cached_closest)
 			if cached_closest is Talkable:
 				SignalBus.start_dialogue(cached_closest.dialogue, cached_closest.talk_back)
+				player.dia_state_machine.start_dialogue(cached_closest.freeze_player)
 
 func _on_area_exited(area: Interactable) -> void:
 	if cached_closest == area:

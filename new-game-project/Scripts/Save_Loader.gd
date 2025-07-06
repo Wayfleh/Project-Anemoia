@@ -3,7 +3,7 @@ extends Node
 #This grabs the ToBeSaved group
 @onready var ToBeSaved = get_tree().get_nodes_in_group("ToBeSaved")
 #This one will grab the current map and grab the player from the map
-@onready var player = %SubViewport.get_child(0).get_node("%Player")
+@onready var player = get_tree().get_nodes_in_group("Player")[0]
 
 func save_game():
 	var saved_data: SavedData = SavedData.new()

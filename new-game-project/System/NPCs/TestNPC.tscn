@@ -53,4 +53,6 @@ unique_name_in_owner = true
 script = ExtResource("7_ucv1k")
 metadata/_custom_type_script = "uid://cy5cvsq5uplwa"
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
 [editable path="Talkable"]

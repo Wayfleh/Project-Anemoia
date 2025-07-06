@@ -1,0 +1,7 @@
+[gd_scene load_steps=3 format=3 uid="uid://ciho58o8vv44q"]
+
+[ext_resource type="PackedScene" uid="uid://byqlw6425oem4" path="res://System/Combat/punchable.tscn" id="1_nwton"]
+[ext_resource type="Script" uid="uid://b6oufoj15is2w" path="res://System/Combat/hurt_box.gd" id="2_loueg"]
+
+[node name="HurtBox" instance=ExtResource("1_nwton")]
+script = ExtResource("2_loueg")

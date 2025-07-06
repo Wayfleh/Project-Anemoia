@@ -1,0 +1,51 @@
+[gd_scene load_steps=9 format=3 uid="uid://n21gemuo8b6v"]
+
+[ext_resource type="PackedScene" uid="uid://ba5uyaf3u1gqj" path="res://Scenes/player.tscn" id="1_8o8w8"]
+[ext_resource type="PackedScene" uid="uid://b4ybejnwlkurs" path="res://System/Combat_test_dummy.tscn" id="2_cyhdb"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8o8w8"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_lvjdj"]
+sky_material = SubResource("ProceduralSkyMaterial_8o8w8")
+
+[sub_resource type="Environment" id="Environment_cyhdb"]
+background_mode = 2
+sky = SubResource("Sky_lvjdj")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8o8w8"]
+albedo_color = Color(0.34442, 0.208649, 0.532833, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7ulp1"]
+material = SubResource("StandardMaterial3D_8o8w8")
+size = Vector2(50, 50)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_8o8w8"]
+data = PackedVector3Array(25, 0, 25, -25, 0, 25, 25, 0, -25, -25, 0, 25, -25, 0, -25, 25, 0, -25)
+
+[node name="CombatTesting" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cyhdb")
+
+[node name="Floor" type="StaticBody3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Floor"]
+mesh = SubResource("PlaneMesh_7ulp1")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Floor"]
+shape = SubResource("ConcavePolygonShape3D_8o8w8")
+
+[node name="Player" parent="." instance=ExtResource("1_8o8w8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="CombatTestDummy" parent="." instance=ExtResource("2_cyhdb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.22639, 1.61233, -9.42502)

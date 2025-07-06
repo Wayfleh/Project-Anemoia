@@ -17,10 +17,15 @@ var gravity = 9.8
 
 @onready var head = $Head
 @onready var camera = $Head/CameraSmooth/Camera3D
+@onready var dia_state_machine = $DialogueStates
+@onready var current_state: StateMachineState = dia_state_machine.current_state
+@onready var collider = $PlayerCollider
+@onready var trigger = $Trigger
+@onready var arm_animator = $ArmAnimations
+@onready var arm = %Arm
 
-
-#func _ready():
-	#Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+func _ready():
+	arm_animator.animation_finished.connect(_on_animation_finished)
 ##------------------------------------------------------------------------------------------
 ## Handling non-physics related inputs
 #
@@ -35,13 +40,22 @@ var gravity = 9.8
 			#camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-40), deg_to_rad(60))
 ##------------------------------------------------------------------------------------------
 
+# Animation Handling
+func _on_animation_finished(name: String):
+	if name == "Punch":
+		arm_animator.play("Idle")
+
 func _physics_process(delta: float) -> void:
+	current_state = dia_state_machine.current_state
 	if is_on_floor() or _snapped_to_stairs_last_frame: _last_frame_was_on_floor = Engine.get_physics_frames()
 	
 	# Add the gravity.
 	if not is_on_floor() or _snapped_to_stairs_last_frame:
 		velocity.y -= gravity * delta
 #
+	if not _snap_up_stairs_check(delta):
+		_snap_down_to_stairs_check()
+	
 	## Handle jump.
 	#if Input.is_action_just_pressed("jump") and is_on_floor():
 		#velocity.y = JUMP_VELOCITY
@@ -92,8 +106,6 @@ func _physics_process(delta: float) -> void:
 		#
 	#camera.fov = lerp(camera.fov, target_fov, delta * 8)
 	
-	if not _snap_up_stairs_check(delta):
-		_snap_down_to_stairs_check()
 #------------------------------------------------------------------------------------------
 # Helper Functions
 

@@ -6,6 +6,7 @@ var material = StandardMaterial3D.new()
 @onready var box = %CSGBox3D
 @export var dialogue: JSON
 @export var talk_back = false
+@export var freeze_player = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

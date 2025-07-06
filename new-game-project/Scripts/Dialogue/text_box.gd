@@ -1,6 +1,4 @@
-class_name TextBox extends Label
-
-@onready var l = %Label
+class_name TextBox extends RichTextLabel
 
 func _ready():
 	autowrap_mode = 2

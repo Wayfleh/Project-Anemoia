@@ -19,7 +19,9 @@ func _ready():
 	#$EzDialogue.end_of_dialogue_reached.connect(clear_dialogue_box)
 	SignalBus.dialogue_initiate.connect(initiate_dialogue)
 
-func initiate_dialogue(filename: JSON, talk_back):
+func initiate_dialogue(filename: JSON, talk_back: bool):
+	for personality in PlayerStats.personality_list:
+		state["%s" % personality.name] = personality.active
 	if talk_back:
 		%DialogueBoxTwo.visible = true
 	($EzDialogue as EzDialogue).start_dialogue(filename, state)
@@ -64,9 +66,9 @@ func add_text(text: String):
 	else:
 		%External/History.add_child(label)
 		text_history_E.append(label)
-	label["theme_override_font_sizes/font_size"] = 20
+	#label["theme_override_font_sizes/font_size"] = 20
 	#TODO Create a theme file so you can replace this shit. Optomization-style
-	label.text = text + "\n"
+	label.text = text + "\n\n"
 	if end_of_dialogue_reached == true:
 		clear_dialogue_box()
 	#TODO when end of dialogue is a page break or it ends right after making an empty choice,
@@ -94,7 +96,7 @@ func _on_choice_selected(choice_index: int):
 		var old_choice : TextBox = text_box_scn.instantiate()
 		%Internal/History.add_child(old_choice)
 		text_history_I.append(old_choice)
-		old_choice.text = "You: " + choice_buttons[choice_index].text + "\n"
+		old_choice.text = "You: " + choice_buttons[choice_index].text + "\n\n"
 		old_choice["theme_override_font_sizes/font_size"] = 20
 		old_choice["theme_override_colors/font_color"] = Color("orange")
 	clear_choices()
@@ -102,10 +104,11 @@ func _on_choice_selected(choice_index: int):
 
 
 func _on_ez_dialogue_dialogue_generated(response: DialogueResponse) -> void:
-	#print(response.text)
+	print(response.text)
 	if response.choices.is_empty() && response.eod_reached:
 		end_of_dialogue_reached = true
 	response.text = response.text.replace("\n", " ")
+	response.text = response.text.replace("\\n", "\n")
 	add_text(response.text)
 	if response.choices.is_empty() && !response.eod_reached:
 		add_choice("Continue ->", true)
