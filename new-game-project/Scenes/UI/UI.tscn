@@ -81,6 +81,9 @@ render_target_update_mode = 4
 
 [node name="CombatTesting" parent="The World/SubViewport" instance=ExtResource("5_nqsl3")]
 
+[node name="ArmMesh" parent="The World/SubViewport/CombatTesting/Player/Head/CameraSmooth/Camera3D/Arm" index="0"]
+transform = Transform3D(0.933111, -0.265715, -0.242282, 0.0867312, 0.820187, -0.565482, 0.348974, 0.506644, 0.788371, -0.537625, -0.353367, -0.421862)
+
 [node name="DialogueBox" parent="." instance=ExtResource("7_xjg7p")]
 process_mode = 1
 layout_mode = 1
@@ -101,4 +104,10 @@ script = ExtResource("9_8wlyu")
 [node name="PersonalityMenu" parent="." instance=ExtResource("8_w8wei")]
 layout_mode = 1
 
+[editable path="The World/SubViewport/CombatTesting"]
+[editable path="The World/SubViewport/CombatTesting/Player"]
+[editable path="The World/SubViewport/CombatTesting/Player/Head/CameraSmooth/Camera3D/Arm/ArmMesh/Player_Hitbox"]
+[editable path="The World/SubViewport/CombatTesting/Player/Head/PlayerInteractor"]
+[editable path="The World/SubViewport/CombatTesting/CombatTestDummy"]
+[editable path="The World/SubViewport/CombatTesting/CombatTestDummy/HurtBox"]
 [editable path="PersonalityMenu"]

@@ -4,5 +4,6 @@
 [ext_resource type="Script" uid="uid://dcjusaygs5wlo" path="res://System/Combat/player_hitbox.gd" id="2_625ou"]
 
 [node name="Player_Hitbox" instance=ExtResource("1_5e5w4")]
+collision_layer = 0
 monitoring = false
 script = ExtResource("2_625ou")

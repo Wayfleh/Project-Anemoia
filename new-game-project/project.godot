@@ -133,3 +133,8 @@ Attack={
 [input_devices]
 
 pointing/android/enable_pan_and_scale_gestures=true
+
+[layer_names]
+
+3d_physics/layer_3="Interaction"
+3d_physics/layer_4="Combat"

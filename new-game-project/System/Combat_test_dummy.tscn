@@ -15,7 +15,8 @@ material = SubResource("StandardMaterial3D_uqnyg")
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_a7f5l"]
 
-[node name="CombatTestDummy" type="CharacterBody3D"]
+[node name="CombatTestDummy" type="CharacterBody3D" groups=["Enemies"]]
+collision_layer = 9
 script = ExtResource("1_a7f5l")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -24,7 +25,7 @@ shape = SubResource("CapsuleShape3D_5a8ty")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 mesh = SubResource("CapsuleMesh_4la34")
 
-[node name="HurtBox" parent="." groups=["Enemies"] instance=ExtResource("2_sjfx4")]
+[node name="HurtBox" parent="." instance=ExtResource("2_sjfx4")]
 
 [node name="CollisionShape3D" parent="HurtBox" index="0"]
 shape = SubResource("CapsuleShape3D_a7f5l")

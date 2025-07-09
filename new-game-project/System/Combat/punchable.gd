@@ -1,6 +1,6 @@
 extends Area3D
 class_name Punchable
 
-var controller = get_parent()
+var controller 
 
 signal hurt(hitbox : HitBox)
