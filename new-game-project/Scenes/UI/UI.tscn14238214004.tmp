@@ -119,4 +119,6 @@ layout_mode = 1
 [editable path="The World/SubViewport/CombatTesting/Player"]
 [editable path="The World/SubViewport/CombatTesting/Player/Head/CameraSmooth/Camera3D/Arm/ArmMesh/Player_Hitbox"]
 [editable path="The World/SubViewport/CombatTesting/Player/Head/PlayerInteractor"]
+[editable path="The World/SubViewport/CombatTesting/CombatTestDummy"]
+[editable path="The World/SubViewport/CombatTesting/CombatTestDummy/HurtBox"]
 [editable path="PersonalityMenu"]

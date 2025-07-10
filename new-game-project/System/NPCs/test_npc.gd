@@ -24,9 +24,6 @@ func _ready() -> void:
 	SignalBus.dialogue_ended.connect(dialogue_ended)
 	player = get_tree().get_nodes_in_group("Player")[0]
 
-func _stop_and_talk(interactor: Interactor):
-	var player_tran = interactor.controller.global_transform.origin
-	meshinstance.look_at(player_tran, Vector3.UP)
 
 func dialogue_ended():
 	if $NPCstates.current_state is Dialogue:

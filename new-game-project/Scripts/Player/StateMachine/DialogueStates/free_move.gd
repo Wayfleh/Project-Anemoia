@@ -8,12 +8,12 @@ var speed
 
 #head movement variables
 const BOB_FREQ = 2
-const BOB_AMP = 0.08
+const BOB_AMP = 0.01
 var t_bob = 0.0
 var head_tilt = deg_to_rad(3)
 
 var camera: Camera3D
-
+var head: Node3D
 
 func _enter_state():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
@@ -35,6 +35,7 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func _physics_process(delta: float) -> void:
 	camera = controller.camera
+	head = controller.head
 	if is_current_state():
 
 		# Handle jump.
@@ -72,6 +73,7 @@ func _physics_process(delta: float) -> void:
 		# FOV
 		var velocity_clamped = clamp(controller.velocity.length(), 0.5, SPRINT_SPEED * 2)
 		var target_fov = controller.BASE_FOV;
+		
 		if Input.is_action_pressed("sprint") and Input.is_action_pressed("up"):
 			target_fov = controller.BASE_FOV + controller.FOV_CHANGE * velocity_clamped
 		else:
@@ -80,15 +82,16 @@ func _physics_process(delta: float) -> void:
 		camera.fov = lerp(camera.fov, target_fov, delta * 8)
 			
 		if Input.is_action_pressed("left"):
-			camera.rotation.z = lerp(camera.rotation.z, head_tilt, delta * 4)
+			head.rotation.z = lerp(head.rotation.z, head_tilt, delta * 4)
 		elif Input.is_action_pressed("right"):
-			camera.rotation.z = lerp(camera.rotation.z, -head_tilt, delta * 4)
+			head.rotation.z = lerp(head.rotation.z, -head_tilt, delta * 4)
 		else:
-			camera.rotation.z = lerp(camera.rotation.z, 0.0, delta * 7)
+			head.rotation.z = lerp(head.rotation.z, 0.0, delta * 7)
 		if Input.is_action_pressed("up"):
 			head_tilt = deg_to_rad(1)
 		else:
 			head_tilt = deg_to_rad(2)
+		
 		
 		if not controller._snap_up_stairs_check(delta):
 			controller.move_and_slide()

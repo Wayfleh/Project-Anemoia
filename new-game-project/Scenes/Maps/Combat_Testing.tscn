@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://n21gemuo8b6v"]
 
-[ext_resource type="PackedScene" uid="uid://ba5uyaf3u1gqj" path="res://Scenes/player.tscn" id="1_8o8w8"]
+[ext_resource type="PackedScene" path="res://Scenes/player.tscn" id="1_8o8w8"]
 [ext_resource type="PackedScene" uid="uid://b4ybejnwlkurs" path="res://System/Combat_test_dummy.tscn" id="2_cyhdb"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8o8w8"]
@@ -47,5 +47,8 @@ shape = SubResource("ConcavePolygonShape3D_8o8w8")
 [node name="Player" parent="." instance=ExtResource("1_8o8w8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
-[node name="CombatTestDummy" parent="." instance=ExtResource("2_cyhdb")]
+[node name="Enemies" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.22639, 1.61233, -9.42502)
+
+[node name="CombatTestDummy" parent="Enemies" instance=ExtResource("2_cyhdb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.43604, 0, 0)

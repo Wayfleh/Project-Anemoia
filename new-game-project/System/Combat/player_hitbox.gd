@@ -17,5 +17,5 @@ func _physics_process(delta: float) -> void:
 func attack(cache):
 	if cache == null || cache is not Punchable:
 		return
-	if cache.controller.is_in_group("Enemies"):
+	if cache.controller.is_in_group("Enemies") && !cache.cooldown:
 		hurt(cache)
