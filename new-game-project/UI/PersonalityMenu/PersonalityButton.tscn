@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://catrq8qx2m6sq"]
 
-[ext_resource type="Script" uid="uid://cbmjncwtx7tc5" path="res://Scripts/UI/personality_button.gd" id="1_oopgv"]
+[ext_resource type="Script" uid="uid://cbmjncwtx7tc5" path="res://UI/personality_button.gd" id="1_oopgv"]
 
 [node name="PersonalityButton" type="TextureButton"]
 custom_minimum_size = Vector2(120, 160)

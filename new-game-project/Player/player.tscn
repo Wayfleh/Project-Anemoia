@@ -1,13 +1,13 @@
 [gd_scene load_steps=18 format=3 uid="uid://ba5uyaf3u1gqj"]
 
-[ext_resource type="Script" uid="uid://d1bh02aggnndt" path="res://Scripts/Player/character_body_3d.gd" id="1_fkybt"]
-[ext_resource type="Script" uid="uid://b5ixj8kn08d55" path="res://Scripts/Player/trigger.gd" id="2_8erm5"]
+[ext_resource type="Script" uid="uid://d1bh02aggnndt" path="res://Player/character_body_3d.gd" id="1_fkybt"]
+[ext_resource type="Script" uid="uid://b5ixj8kn08d55" path="res://Player/trigger.gd" id="2_8erm5"]
 [ext_resource type="PackedScene" uid="uid://b5jkk3vmaq2vk" path="res://System/Interaction/player_interactor.tscn" id="2_cvnsp"]
 [ext_resource type="PackedScene" uid="uid://cqulpdxkco6pc" path="res://System/Combat/player_hitbox.tscn" id="3_8erm5"]
-[ext_resource type="Script" uid="uid://c2cvu3cfbasxl" path="res://Scripts/Player/dialogue_state_machine.gd" id="3_x3wgy"]
-[ext_resource type="Script" uid="uid://caxkgqpala854" path="res://Scripts/Player/StateMachine/DialogueStates/free_move.gd" id="4_3smsa"]
+[ext_resource type="Script" uid="uid://c2cvu3cfbasxl" path="res://Player/dialogue_state_machine.gd" id="3_x3wgy"]
+[ext_resource type="Script" uid="uid://caxkgqpala854" path="res://Player/StateMachine/DialogueStates/free_move.gd" id="4_3smsa"]
 [ext_resource type="Script" uid="uid://cy5cvsq5uplwa" path="res://addons/finite_state_machine/scripts/state_machine_state.gd" id="4_fkybt"]
-[ext_resource type="Script" uid="uid://cecaplrwvwvq" path="res://Scripts/Player/StateMachine/DialogueStates/frozen.gd" id="5_3smsa"]
+[ext_resource type="Script" uid="uid://cecaplrwvwvq" path="res://Player/StateMachine/DialogueStates/frozen.gd" id="5_3smsa"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_lvjdj"]
 
@@ -187,6 +187,7 @@ _data = {
 }
 
 [node name="Player" type="CharacterBody3D" groups=["Player", "ToBeSaved"]]
+process_mode = 1
 script = ExtResource("1_fkybt")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -217,7 +218,6 @@ transform = Transform3D(0.933111, -0.265715, -0.242282, 0.0867312, 0.820187, -0.
 mesh = SubResource("BoxMesh_f1ek2")
 
 [node name="Player_Hitbox" parent="Head/CameraSmooth/Camera3D/Arm/ArmMesh" instance=ExtResource("3_8erm5")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
 monitoring = true
 
 [node name="CollisionShape3D" parent="Head/CameraSmooth/Camera3D/Arm/ArmMesh/Player_Hitbox" index="0"]

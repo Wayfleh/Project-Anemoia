@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://bjsnq0ppd5lvt"]
 
-[ext_resource type="PackedScene" uid="uid://ba5uyaf3u1gqj" path="res://Scenes/player.tscn" id="1_raf04"]
+[ext_resource type="PackedScene" uid="uid://ba5uyaf3u1gqj" path="res://Player/player.tscn" id="1_raf04"]
 [ext_resource type="PackedScene" uid="uid://bekbt7mjgksqf" path="res://System/NPCs/TestNPC.tscn" id="2_5k3ys"]
 [ext_resource type="PackedScene" uid="uid://bcitmtf2vsbah" path="res://Props/TestInteractCube.tscn" id="2_axs6p"]
 [ext_resource type="PackedScene" uid="uid://c40ab4kyi8axt" path="res://Props/TestTalkableCube.tscn" id="4_6fqrn"]

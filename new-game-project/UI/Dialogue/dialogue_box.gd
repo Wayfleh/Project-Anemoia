@@ -2,8 +2,8 @@ extends Control
 
 @onready var state = {}
 
-@onready var choice_button_scn = preload("res://Scenes/UI/Dialogue/choice_button.tscn")
-@onready var text_box_scn = preload("res://Scenes/UI/Dialogue/text_box.tscn")
+@onready var choice_button_scn = preload("res://UI/Dialogue/choice_button.tscn")
+@onready var text_box_scn = preload("res://UI/Dialogue/text_box.tscn")
 
 @onready var scroll = $Scroll
 @onready var scrollbar = scroll.get_v_scroll_bar()

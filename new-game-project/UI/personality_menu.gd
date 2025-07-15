@@ -1,6 +1,6 @@
 extends MenuScreen
 
-var button = preload("res://Scenes/UI/PersonalityMenu/PersonalityButton.tscn")
+var button = preload("res://UI/PersonalityMenu/PersonalityButton.tscn")
 @onready var resume_button: Button = find_child("Resume")
 @export var player: Player
 @onready var InfoVBox = %Info/InfoHolder
@@ -30,6 +30,7 @@ func pause():
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 func load_personalities():
+	print(PlayerStats.personality_list.size())
 	for index in PlayerStats.personality_list.size():
 		var personality = PlayerStats.personality_list[index]
 		if personality.active:
@@ -37,7 +38,8 @@ func load_personalities():
 			var image_path: String = "res://Assets/Portraits/Personalities/%s.png"
 			var texture : Texture2D
 			if !load(image_path % personality.name):
-				print("Error loading image", image_path % personality.name)
+				print("Error loading image: ", image_path % personality.name)
+				texture = load("res://Assets/Portraits/Personalities/Jack.jpg")
 			else:
 				texture = load(image_path % personality.name)
 			pers_button.texture_normal = texture

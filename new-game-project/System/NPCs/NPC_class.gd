@@ -12,8 +12,6 @@ var dead: bool = false
 @onready var hurt_box: HurtBox
 @onready var player: Player = get_tree().get_nodes_in_group("Player")[0]
 
-func _ready() -> void:
-	hurt_box.hurt.connect(take_damage)
 
 func die() -> void:
 	dead = true
@@ -21,5 +19,3 @@ func die() -> void:
 
 func hurtbox_timeout() -> void:
 	hurt_box.cooldown_end()
-
-@abstract func take_damage():

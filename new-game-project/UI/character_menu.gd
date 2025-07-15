@@ -2,6 +2,7 @@ extends MenuScreen
 
 @export var char_stats : AttributesAndAbilities
 
+#TODO Fix this shit
 @onready var resume_button: Button = find_child("Resume")
 @onready var revert_button: Button = find_child("Revert")
 @onready var accept_changes_button: Button = find_child("Accept Changes")
