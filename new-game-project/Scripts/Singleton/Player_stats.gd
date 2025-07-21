@@ -43,6 +43,8 @@ signal stat_changed
 #array of resource instances of type Personalities
 @export var personality_list = []
 
+@onready var quest_log : Array[Quest] = []
+
 func _ready():
 	var base = base_personality.new()
 	load_personalities(base)

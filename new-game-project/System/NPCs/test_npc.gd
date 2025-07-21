@@ -14,6 +14,8 @@ var gravity = 9.8
 
 @onready var health : int = 10
 
+@export var quest : Quest
+
 func _ready() -> void:
 	$NPCstates.set_current_state($NPCstates/Idle)
 	_move_npc()
