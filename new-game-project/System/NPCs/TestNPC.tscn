@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://bekbt7mjgksqf"]
+[gd_scene load_steps=12 format=3 uid="uid://bekbt7mjgksqf"]
 
 [ext_resource type="Script" uid="uid://co7jbi1hp853j" path="res://System/NPCs/test_npc.gd" id="1_aqosn"]
 [ext_resource type="ArrayMesh" uid="uid://d1il6x66b0ry2" path="res://Assets/Models/BASICHUMANBUS/BasicHuman.tres" id="2_rch4b"]
@@ -6,7 +6,9 @@
 [ext_resource type="PackedScene" uid="uid://bxq3vqnlp86yr" path="res://System/Interaction/Talkable_Interactable.tscn" id="3_rch4b"]
 [ext_resource type="Script" uid="uid://dwqv65m8ieqgg" path="res://addons/finite_state_machine/scripts/state_machine.gd" id="5_ucv1k"]
 [ext_resource type="Script" uid="uid://dtkpjifl3srcq" path="res://System/NPCs/StateMachines/TestNPC/idle.gd" id="6_n0eo6"]
+[ext_resource type="Resource" uid="uid://cod628ja40kob" path="res://System/Quests/Quests/Test_Quest.tres" id="6_pp05p"]
 [ext_resource type="Script" uid="uid://dtsm2ljfjpdyx" path="res://System/NPCs/StateMachines/TestNPC/dialogue.gd" id="7_ucv1k"]
+[ext_resource type="PackedScene" uid="uid://ca7j6h8ahpru4" path="res://System/Quests/quest_giver.tscn" id="8_n0eo6"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rch4b"]
 
@@ -39,6 +41,11 @@ unique_name_in_owner = true
 [node name="CollisionShape3D" parent="Talkable" index="0"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
 shape = SubResource("CapsuleShape3D_tsiqt")
+
+[node name="QuestGiver" parent="Talkable" instance=ExtResource("8_n0eo6")]
+unique_name_in_owner = true
+quest = ExtResource("6_pp05p")
+quest_type = 1
 
 [node name="NPCstates" type="Node" parent="."]
 script = ExtResource("5_ucv1k")

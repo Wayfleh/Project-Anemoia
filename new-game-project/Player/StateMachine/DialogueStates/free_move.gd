@@ -8,7 +8,7 @@ var speed
 
 #head movement variables
 const BOB_FREQ = 2
-const BOB_AMP = 0.01
+const BOB_AMP = 0.08
 var t_bob = 0.0
 var head_tilt = deg_to_rad(3)
 

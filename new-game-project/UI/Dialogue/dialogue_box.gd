@@ -10,6 +10,8 @@ extends Control
 @onready var insideMind = true
 @onready var end_of_dialogue_reached = false
 
+var trigger = null
+
 var text_history_I : Array[TextBox] = []
 var text_history_E : Array[TextBox] = []
 var choice_buttons : Array[ChoiceButton] = []
@@ -19,12 +21,14 @@ func _ready():
 	#$EzDialogue.end_of_dialogue_reached.connect(clear_dialogue_box)
 	SignalBus.dialogue_initiate.connect(initiate_dialogue)
 
-func initiate_dialogue(filename: JSON, talk_back: bool):
+func initiate_dialogue(filename: JSON, talk_back: bool, trig: Area3D):
 	for personality in PlayerStats.personality_list:
 		state["%s" % personality.name] = personality.active
 	if talk_back:
 		%DialogueBoxTwo.visible = true
 	($EzDialogue as EzDialogue).start_dialogue(filename, state)
+	#The thing that starts the dialogue
+	trigger = trig
 
 func _on_custom_signal_received(value: String):
 	var param = value.split(",")
@@ -33,6 +37,10 @@ func _on_custom_signal_received(value: String):
 			insideMind = false
 		else:
 			insideMind = true
+	#if the trigger is talkable, then it accepts the quest.
+	elif param[0] == "quest":
+		if trigger is Talkable:
+			trigger.quest_accept.emit()
 
 func clear_dialogue_box():
 	print("debug")
@@ -49,6 +57,7 @@ func clear_dialogue_box():
 	text_history_E = []
 	insideMind = true
 	SignalBus.end_dialogue()
+	trigger = null
 	%DialogueBoxTwo.visible = false
 	end_of_dialogue_reached = false
 	

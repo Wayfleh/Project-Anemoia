@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://dit516muf666d"]
+
+[ext_resource type="Script" uid="uid://cjcfioe0ybam0" path="res://UI/HUD/quest_label.gd" id="1_tb3kv"]
+
+[node name="QuestLabel" type="RichTextLabel"]
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_colors/default_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/bold_italics_font_size = 20
+theme_override_font_sizes/normal_font_size = 20
+theme_override_font_sizes/bold_font_size = 20
+bbcode_enabled = true
+fit_content = true
+script = ExtResource("1_tb3kv")

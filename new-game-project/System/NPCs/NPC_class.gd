@@ -1,5 +1,5 @@
 extends Node
-class_name NPC
+#class_name NPC
 
 var gravity: float
 var drag: float
@@ -11,6 +11,8 @@ var dead: bool = false
 
 @onready var hurt_box: HurtBox
 @onready var player: Player = get_tree().get_nodes_in_group("Player")[0]
+
+signal dying
 
 
 func die() -> void:

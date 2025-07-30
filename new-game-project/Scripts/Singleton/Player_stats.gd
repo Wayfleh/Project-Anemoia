@@ -45,8 +45,11 @@ signal stat_changed
 
 @onready var quest_log : Array[Quest] = []
 
+var hud : HUD
+
 func _ready():
 	var base = base_personality.new()
+	hud = get_tree().get_first_node_in_group("HUD")
 	load_personalities(base)
 
 func load_personalities(value : Personalities):

@@ -21,7 +21,7 @@ func _input(event: InputEvent) -> void:
 		if cached_closest:
 			interact(cached_closest)
 			if cached_closest is Talkable:
-				SignalBus.start_dialogue(cached_closest.dialogue, cached_closest.talk_back)
+				SignalBus.start_dialogue(cached_closest.dialogue, cached_closest.talk_back, cached_closest)
 				player.dia_state_machine.start_dialogue(cached_closest.freeze_player)
 
 func _on_area_exited(area: Interactable) -> void:

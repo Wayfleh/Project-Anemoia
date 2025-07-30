@@ -1,4 +1,5 @@
 extends CharacterBody3D
+class_name NPC
 
 @onready var navigation_agent_3d: NavigationAgent3D = $NavigationAgent3D
 var gravity = 9.8
@@ -14,7 +15,8 @@ var gravity = 9.8
 
 @onready var health : int = 10
 
-@export var quest : Quest
+
+signal NPC_dialogue_end
 
 func _ready() -> void:
 	$NPCstates.set_current_state($NPCstates/Idle)
@@ -23,13 +25,15 @@ func _ready() -> void:
 	%Talkable.focused.connect(_focused)
 	%Talkable.unfocused.connect(_unfocused)
 	%Talkable.interacted.connect(_interacted)
-	SignalBus.dialogue_ended.connect(dialogue_ended)
 	player = get_tree().get_nodes_in_group("Player")[0]
 
 
 func dialogue_ended():
 	if $NPCstates.current_state is Dialogue:
 		$NPCstates.set_current_state($NPCstates/Idle)
+		SignalBus.dialogue_ended.disconnect(dialogue_ended)
+		NPC_dialogue_end.emit()
+		
 
 func _focused(interactor: Interactor) -> void:
 	if not interacted_with:
@@ -47,6 +51,7 @@ func _interacted(interactor: Interactor) -> void:
 		meshinstance.set_surface_override_material(0, material)
 		interacted_with = true
 		$NPCstates.set_current_state($NPCstates/Dialogue)
+		SignalBus.dialogue_ended.connect(dialogue_ended)
 		
 
 func _move_npc() -> void:
