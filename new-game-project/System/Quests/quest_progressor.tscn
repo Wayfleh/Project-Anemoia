@@ -1,6 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://c01bnjwp2uk3j"]
+[gd_scene load_steps=3 format=3 uid="uid://c01bnjwp2uk3j"]
 
 [ext_resource type="Script" uid="uid://c8tyir0f75k71" path="res://System/Quests/quest_progressor.gd" id="1_swmwx"]
+[ext_resource type="Resource" uid="uid://cod628ja40kob" path="res://System/Quests/Quests/Test_Quest.tres" id="3_3knp3"]
 
 [node name="QuestProgressor" type="Node"]
 script = ExtResource("1_swmwx")
+quest = ExtResource("3_3knp3")
+_step_name = null

@@ -1,7 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://n21gemuo8b6v"]
+[gd_scene load_steps=12 format=3 uid="uid://n21gemuo8b6v"]
 
 [ext_resource type="PackedScene" uid="uid://ba5uyaf3u1gqj" path="res://Player/player.tscn" id="1_8o8w8"]
 [ext_resource type="PackedScene" uid="uid://bekbt7mjgksqf" path="res://System/NPCs/TestNPC.tscn" id="2_p27pk"]
+[ext_resource type="PackedScene" uid="uid://bcitmtf2vsbah" path="res://Props/TestInteractCube.tscn" id="3_jtbmr"]
+[ext_resource type="PackedScene" uid="uid://c01bnjwp2uk3j" path="res://System/Quests/quest_progressor.tscn" id="4_1rw71"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8o8w8"]
 sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
@@ -60,3 +62,14 @@ shape = SubResource("ConcavePolygonShape3D_8o8w8")
 
 [node name="Enemies" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.22639, 1.61233, -9.42502)
+
+[node name="Interactables" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.13433, 2.3545, 0)
+
+[node name="TestInteractCube" parent="Interactables" instance=ExtResource("3_jtbmr")]
+
+[node name="QuestProgressor" parent="Interactables/TestInteractCube/Interactable" index="1" instance=ExtResource("4_1rw71")]
+_step_name = "collect by boxes"
+
+[editable path="Interactables/TestInteractCube"]
+[editable path="Interactables/TestInteractCube/Interactable"]

@@ -3,6 +3,8 @@ class_name QuestSteps
 
 #@export var name : String
 @export var description: String
+enum types {KILL, FETCH, TRIGGER, TALK}
+@export var step_type : types
 var completed : bool = false
 #condition will either be a quota or a bool, it is a bool if condition = 0
 @export var condition : int

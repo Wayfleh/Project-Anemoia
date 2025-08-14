@@ -5,11 +5,24 @@ class_name Quest
 @export var name : String
 @export_multiline var description : String
 var completed : bool = false
-@export var steps : Array[QuestSteps] = []
+var step_names : Array[String] = ["Default"]
+@export var steps : Array[QuestSteps] = []:
+	set(value):
+		steps = value
+		for step in value:
+			step_names.append(step.description + "")
+		notify_property_list_changed()
 var current_step : int = 0
+
 
 signal step_completed
 signal quest_completed(n : String)
+
+
+var _list: String:
+	set(value):
+		_list = value
+		notify_property_list_changed()
 
 
 

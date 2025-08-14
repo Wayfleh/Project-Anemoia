@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://yi6bynbi8jwi" path="res://Custom_Resources/Attributes_and_Abilities.gd" id="6_vqx31"]
 [ext_resource type="PackedScene" uid="uid://bvpm0yb8t23n4" path="res://UI/Dialogue/dialogue_box.tscn" id="7_xjg7p"]
 [ext_resource type="PackedScene" uid="uid://l5dfdvwa2hty" path="res://UI/personality_menu.tscn" id="8_w8wei"]
-[ext_resource type="Script" uid="uid://dsu6ad1pmr5do" path="res://Scripts/Save_Loader.gd" id="9_8wlyu"]
+[ext_resource type="Script" path="res://Scripts/Save_Loader.gd" id="9_8wlyu"]
 [ext_resource type="PackedScene" uid="uid://bhupywx3j3xjg" path="res://UI/HUD/hud.tscn" id="9_qgmx8"]
 
 [sub_resource type="Resource" id="Resource_2n5f6"]
@@ -86,6 +86,9 @@ render_target_update_mode = 4
 [node name="TestNpc" parent="The World/SubViewport/CombatTesting/NavigationRegion3D" index="0"]
 dialogue = ExtResource("3_vx7wu")
 
+[node name="QuestProgressor" parent="The World/SubViewport/CombatTesting/Interactables/TestInteractCube/Interactable" index="1"]
+steps = Array[String](["friendship"])
+
 [node name="HUD" parent="." groups=["HUD"] instance=ExtResource("9_qgmx8")]
 layout_mode = 1
 
@@ -110,6 +113,8 @@ script = ExtResource("9_8wlyu")
 layout_mode = 1
 
 [editable path="The World/SubViewport/CombatTesting"]
+[editable path="The World/SubViewport/CombatTesting/Interactables/TestInteractCube"]
+[editable path="The World/SubViewport/CombatTesting/Interactables/TestInteractCube/Interactable"]
 [editable path="HUD"]
 [editable path="DialogueBox"]
 [editable path="PersonalityMenu"]

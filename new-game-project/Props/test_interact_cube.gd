@@ -4,6 +4,7 @@ var interacted_with: bool = false
 
 var material = StandardMaterial3D.new()
 @onready var box = %CSGBox3D
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	%Interactable.focused.connect(_on_interactable_focused)
@@ -14,14 +15,12 @@ func _on_interactable_focused(interactor: Interactor) -> void:
 	if not interacted_with:
 		material.albedo_color = Color(0,1,1,1)
 		box.set_material(material)
-		print("hello I'm focused")
 
 func _on_interactable_interacted(interactor: Interactor) -> void:
 	if not interacted_with:
 		material.albedo_color = Color(0,0,0,1)
 		box.set_material(material)
 		interacted_with = true
-		PlayerStats.stats_inde_world(1, "strength")
 
 func _on_interactable_unfocused(interactor: Interactor) -> void:
 	if not interacted_with:

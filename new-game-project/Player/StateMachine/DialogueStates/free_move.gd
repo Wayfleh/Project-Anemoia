@@ -53,7 +53,6 @@ func _physics_process(delta: float) -> void:
 			controller.arm_animator.play("Punch")
 
 		# Get the input direction and handle the movement/deceleration.
-		# As good practice, you should replace UI actions with custom gameplay actions.
 		var input_dir = Input.get_vector("left","right","up","down")
 		var direction = (controller.head.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 		if controller.is_on_floor() or controller._snapped_to_stairs_last_frame:

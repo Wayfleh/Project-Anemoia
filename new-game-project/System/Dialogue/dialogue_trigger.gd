@@ -13,7 +13,7 @@ func _ready():
 	SignalBus.dialogue_ended.connect(end_dialogue)
 
 func start_dialogue():
-	SignalBus.start_dialogue(dialogue, talkable)
+	SignalBus.start_dialogue(dialogue, talkable, self)
 	triggered = true
 
 func end_dialogue():
