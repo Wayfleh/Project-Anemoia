@@ -10,7 +10,7 @@ func _ready() -> void:
 	parent = get_parent()
 	match quest_type:
 		types.TRIGGER:
-			(get_tree().get_first_node_in_group("Player") as Player).trigger.triggered.connect(accept_quest)
+			(parent as DialogueTrigger).player_entered.connect(accept_quest)
 		types.TALK:
 			(parent as Talkable).quest_accept.connect(accept_quest)
 			print("got it")
@@ -20,6 +20,6 @@ func _ready() -> void:
 func accept_quest() -> void:
 	if quest.completed:
 		return
-	PlayerStats.quest_log.append(quest)
-	PlayerStats.hud.quest_box.display_quest(quest)
+	QuestHandler.add_quest(quest)
+	QuestHandler.hud.quest_box.display_quest(quest)
 	self.queue_free()

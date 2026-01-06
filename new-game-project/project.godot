@@ -16,7 +16,7 @@ warnings/check_invalid_track_paths=false
 
 config/name="Anemoia"
 run/main_scene="uid://bxfh01tfrsiym"
-config/features=PackedStringArray("4.4", "Forward Plus")
+config/features=PackedStringArray("4.5", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
@@ -25,6 +25,8 @@ BgMsic="*res://Scenes/BG_MSIC.tscn"
 PlayerStats="*res://Scripts/Singleton/Player_stats.gd"
 SignalBus="*res://Scripts/Singleton/Signal_bus.gd"
 ConfigFileHandler="*res://Scripts/Singleton/ConfigFileHandler.gd"
+QuestHandler="*res://Scripts/Singleton/quest_handler.gd"
+UI="*res://UI/UI.gd"
 
 [dialogic]
 
@@ -57,6 +59,7 @@ TalkingTriggers=""
 Player=""
 Enemies=""
 HUD=""
+World="This is the physical place where everything exists"
 
 [input]
 

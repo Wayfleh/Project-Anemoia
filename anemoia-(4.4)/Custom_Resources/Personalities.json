@@ -1,0 +1,26 @@
+{
+	"Samuel": {
+		"name" : "Samuel",
+		"resonance" : "Sanguinious",
+		"stats" : {"strength" : 1, "subterfuge" : 1, "stealth" : 2},
+		"active" : true,
+	},
+	"Mary": {
+		"name" : "Mary",
+		"resonance" : "Melancholy",
+		"stats" : {"occult" : 1, "etiquette" : 1, "academics" : 1},
+		"active" : false
+	},
+	"Colin": {
+		"name" : "Colin",
+		"resonance" : "Choleric",
+		"stats" : {"charisma" : 1, "firearms" : 1, "larceny" : 1},
+		"active" : false
+	},
+	"Phlegm": {
+		"name" : "Phlegm",
+		"resonance" : "Phlegmatic",
+		"stats" : {"intelligence": 1, "wits" : 1, "technology" : 1},
+		"active" : false
+	}
+}

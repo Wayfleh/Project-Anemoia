@@ -5,7 +5,7 @@ class_name Quest
 @export var name : String
 @export_multiline var description : String
 var completed : bool = false
-var step_names : Array[String] = ["Default"]
+var step_names : Array[String]
 @export var steps : Array[QuestSteps] = []:
 	set(value):
 		steps = value
@@ -15,8 +15,8 @@ var step_names : Array[String] = ["Default"]
 var current_step : int = 0
 
 
-signal step_completed
-signal quest_completed(n : String)
+signal step_completed(q : Quest)
+signal quest_completed(q : Quest)
 
 
 var _list: String:
@@ -27,16 +27,19 @@ var _list: String:
 
 
 func check_complete():
-	if current_step < steps.size():
+	#quest is only complete if final step is completed
+	if !steps[steps.size() - 1].completed:
 		return
 	completed = true
-	quest_completed.emit(name)
+	quest_completed.emit(self)
 
 func progress_quest():
 	if completed:
 		return
 	steps[current_step].inc_progress()
+	check_complete()
+	if completed:
+		return
 	if steps[current_step].completed:
 		current_step += 1
-		step_completed.emit()
-	check_complete()
+		step_completed.emit(self)

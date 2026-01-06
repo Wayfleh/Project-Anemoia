@@ -4,7 +4,7 @@ extends Node
 class_name QuestProgressor
 
 @export var quest: Quest
-var _step_name
+var step_name: String
 var steps : Array[String]:
 	get:
 		return steps
@@ -16,24 +16,25 @@ var parent
 
 func _ready() -> void:
 	parent = get_parent()
+	await parent.ready
 	if quest:
 		if steps.size() < quest.steps.size():
 			for step in quest.steps:
 				steps.append(step.description)
-	await parent.ready
-	match quest.steps[_step_name].step_type:
+		
+	match quest.steps[steps.find(step_name)].step_type:
 		QuestSteps.types.KILL:
-				(parent as NPC).dying.connect(progress)
+				(parent as Enemy).dying.connect(progress)
 		QuestSteps.types.FETCH:
-				(parent as Interactable).interacted.connect(progress)
+				(parent as Interactable).interacted.connect(progress.unbind(1))
 		QuestSteps.types.TRIGGER:
-				(get_tree().get_first_node_in_group("Player") as Player).trigger.triggered.connect(progress)
+				(parent as DialogueTrigger).player_entered.connect(progress)
 			
 
 func _get_property_list():
 	var properties = []
 	properties.append({
-		"name": "_step_name",
+		"name": "step_name",
 		"type": TYPE_STRING,
 		"hint": PROPERTY_HINT_ENUM,
 		"hint_string": _array_to_string(steps),
@@ -49,8 +50,10 @@ func _array_to_string(arr: Array[String], separator = ",") -> String:
 	return string
 
 func progress() -> void:
-	if quest.current_step != _step_name:
+	if quest.step_names[quest.current_step] != step_name:
+		print("didn't work")
 		return
 	quest.progress_quest()
-	PlayerStats.hud.quest_box.display_quest(quest)
+	print("I progressed")
+	QuestHandler.hud.quest_box.display_quest(quest)
 	self.queue_free()

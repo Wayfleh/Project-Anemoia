@@ -74,8 +74,9 @@ func _ready():
 	accept_changes_button.pressed.connect(accept_changes)
 	PlayerStats.stat_changed.connect(update_all)
 	for stat_name in PlayerStats.stat_list:
-		var button = self.get("%s_button" % stat_name)
+		var button: Button = self.get("%s_button" % stat_name)
 		button.pressed.connect(_on_pressed.bind(stat_name))
+		button.focus_mode = Control.FOCUS_NONE
 		update_stats(PlayerStats.stat_list[stat_name], stat_name, false)
 
 func update_stats(value : int, stat : String, temp : bool) -> void:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://svknhjbc2uv5"]
+[gd_scene load_steps=13 format=3 uid="uid://svknhjbc2uv5"]
 
 [ext_resource type="Script" uid="uid://dnaeyc4ba8j75" path="res://UI/character_menu.gd" id="1_k8yv0"]
 [ext_resource type="Shader" uid="uid://q6p4ei6p4gd2" path="res://Scripts/shaders/pause_menu.gdshader" id="2_wolrq"]
@@ -12,8 +12,11 @@ shader_parameter/lod = 0.0
 [sub_resource type="InputEventAction" id="InputEventAction_8phyh"]
 action = &"char_menu_button"
 
+[sub_resource type="InputEventAction" id="InputEventAction_asm2b"]
+action = &"ui_cancel"
+
 [sub_resource type="Shortcut" id="Shortcut_kjf6d"]
-events = [SubResource("InputEventAction_8phyh")]
+events = [SubResource("InputEventAction_8phyh"), SubResource("InputEventAction_asm2b")]
 
 [sub_resource type="Animation" id="Animation_vmyb1"]
 resource_name = "Pause"
@@ -184,6 +187,7 @@ theme_override_constants/separation = 75
 
 [node name="Resume" type="Button" parent="PanelContainer/VBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 shortcut = SubResource("Shortcut_kjf6d")
 text = "Resume"
 
@@ -1281,6 +1285,7 @@ theme_override_constants/margin_bottom = 50
 
 [node name="Revert" type="Button" parent="PanelContainer/PanelContainer/Humanity Willpower/VBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "Revert"
 
 [node name="Spacer3" type="MarginContainer" parent="PanelContainer/PanelContainer/Humanity Willpower/VBoxContainer"]
@@ -1289,6 +1294,7 @@ theme_override_constants/margin_bottom = 50
 
 [node name="Accept Changes" type="Button" parent="PanelContainer/PanelContainer/Humanity Willpower/VBoxContainer"]
 layout_mode = 2
+focus_mode = 0
 text = "Accept"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]

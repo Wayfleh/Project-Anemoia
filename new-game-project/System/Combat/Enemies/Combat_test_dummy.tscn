@@ -1,0 +1,45 @@
+[gd_scene load_steps=9 format=3 uid="uid://b4ybejnwlkurs"]
+
+[ext_resource type="Script" uid="uid://c4xjw5j3et8tg" path="res://System/Combat/Enemies/combat_test_dummy.gd" id="1_a7f5l"]
+[ext_resource type="PackedScene" uid="uid://ciho58o8vv44q" path="res://System/Combat/hurt_box.tscn" id="2_sjfx4"]
+[ext_resource type="Script" uid="uid://dwqv65m8ieqgg" path="res://addons/finite_state_machine/scripts/state_machine.gd" id="3_5a8ty"]
+[ext_resource type="Script" uid="uid://cy5cvsq5uplwa" path="res://addons/finite_state_machine/scripts/state_machine_state.gd" id="4_uqnyg"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_5a8ty"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_uqnyg"]
+albedo_color = Color(0.98, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_4la34"]
+material = SubResource("StandardMaterial3D_uqnyg")
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_a7f5l"]
+
+[node name="CombatTestDummy" type="CharacterBody3D" groups=["Enemies"]]
+collision_layer = 9
+script = ExtResource("1_a7f5l")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_5a8ty")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_4la34")
+
+[node name="HurtBox" parent="." instance=ExtResource("2_sjfx4")]
+
+[node name="CollisionShape3D" parent="HurtBox" index="0"]
+shape = SubResource("CapsuleShape3D_a7f5l")
+
+[node name="StateMachine" type="Node" parent="."]
+script = ExtResource("3_5a8ty")
+metadata/_custom_type_script = "uid://dwqv65m8ieqgg"
+
+[node name="Damage" type="Node" parent="StateMachine"]
+script = ExtResource("4_uqnyg")
+metadata/_custom_type_script = "uid://cy5cvsq5uplwa"
+
+[node name="Wander" type="Node" parent="StateMachine"]
+script = ExtResource("4_uqnyg")
+metadata/_custom_type_script = "uid://cy5cvsq5uplwa"
+
+[editable path="HurtBox"]

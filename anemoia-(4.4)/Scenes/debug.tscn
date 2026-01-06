@@ -1,0 +1,133 @@
+[gd_scene load_steps=11 format=3 uid="uid://baud5i2co876f"]
+
+[ext_resource type="Script" uid="uid://d1bh02aggnndt" path="res://Player/character_body_3d.gd" id="1_raf04"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1uwqr"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_lvjdj"]
+sky_material = SubResource("ProceduralSkyMaterial_1uwqr")
+
+[sub_resource type="Environment" id="Environment_rdi1l"]
+background_mode = 2
+sky = SubResource("Sky_lvjdj")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_txpwr"]
+albedo_color = Color(0.0766666, 0.92, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_lvjdj"]
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_rdi1l"]
+points = PackedVector3Array(-0.125207, -0.532801, -0.480507, 0.0227831, 0.47607, 0.498884, 0.169713, 0.559144, 0.464172, 0.231051, -0.803591, 0.320455, 0.40741, 0.651043, -0.243523, -0.482789, 0.594843, 0.0822132, -0.362868, -0.682312, 0.289697, 0.469044, -0.654529, -0.0662713, -0.127444, 0.842701, -0.338103, -0.393435, -0.683942, -0.244717, 0.438255, 0.623309, 0.200849, 0.0841477, 0.977454, 0.114795, -0.0682023, -0.976458, -0.12927, 0.20055, -0.563129, -0.451454, -0.185527, 0.595453, -0.453475, -0.273363, 0.592268, 0.407754, -0.00693649, -0.476823, 0.49966, 0.375821, -0.588614, 0.316955, 0.111579, 0.563059, -0.481177, -0.41725, 0.527866, -0.270497, -0.484546, -0.596972, -0.0665097, -0.279747, 0.908561, 0.0533361, -0.250197, -0.880712, 0.205319, 0.263647, -0.902771, -0.127394, 0.293368, 0.871526, -0.157196, 0.373412, -0.526319, -0.328246, 0.499663, 0.476641, -0.00688856, 0.0531056, 0.875001, 0.324703, -0.154543, -0.590854, 0.465879, -0.0972799, -0.782358, -0.398188, -0.387649, -0.498171, 0.31565, -0.30068, -0.587995, -0.388901)
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_1uwqr"]
+albedo_color = Color(0.794229, 0, 0.0195545, 1)
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_lvjdj"]
+albedo_color = Color(0.882353, 0.419608, 1, 1)
+
+[sub_resource type="ORMMaterial3D" id="ORMMaterial3D_rdi1l"]
+albedo_color = Color(0.0862745, 0.0666667, 0.701961, 1)
+
+[node name="Node3D" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_rdi1l")
+
+[node name="Floor" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.454638, -0.4995, -0.826146)
+material_override = SubResource("ORMMaterial3D_txpwr")
+use_collision = true
+size = Vector3(33, 0.001, 34)
+
+[node name="Player" type="CharacterBody3D" parent="."]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.49234, 0)
+script = ExtResource("1_raf04")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Player"]
+mesh = SubResource("CapsuleMesh_lvjdj")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Player"]
+shape = SubResource("ConvexPolygonShape3D_rdi1l")
+
+[node name="Head" type="Node3D" parent="Player"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.525, 0)
+
+[node name="CameraSmooth" type="Node3D" parent="Player/Head"]
+unique_name_in_owner = true
+
+[node name="Camera3D" type="Camera3D" parent="Player/Head/CameraSmooth"]
+
+[node name="StairsAheadRay" type="RayCast3D" parent="Player"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00163913, -0.462844, -0.679049)
+target_position = Vector3(0, -0.55, 0)
+
+[node name="StairsBelowRay" type="RayCast3D" parent="Player"]
+unique_name_in_owner = true
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.00912, 0)
+target_position = Vector3(0, -0.75, 0)
+
+[node name="Walls" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 16.6337, 0, -0.544176)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.16089, -0.328156)
+material_override = SubResource("ORMMaterial3D_1uwqr")
+use_collision = true
+size = Vector3(1, 5.32179, 33.9172)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Walls"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -33.9164, 2.16089, -0.328156)
+material_override = SubResource("ORMMaterial3D_1uwqr")
+use_collision = true
+size = Vector3(1, 5.32179, 33.9172)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Walls"]
+transform = Transform3D(-0.00143115, 0, -0.999999, 0, 1, 0, 0.999999, 0, -0.00143115, -17.2328, 2.16089, 16.3649)
+material_override = SubResource("ORMMaterial3D_1uwqr")
+use_collision = true
+size = Vector3(1, 5.32179, 33.9172)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Walls"]
+transform = Transform3D(-0.00143115, 0, -0.999999, 0, 1, 0, 0.999999, 0, -0.00143115, -17.2328, 2.16089, -17.489)
+material_override = SubResource("ORMMaterial3D_1uwqr")
+use_collision = true
+size = Vector3(1, 5.32179, 33.9172)
+
+[node name="Obstacles" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.10438, 0, -17.2807)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Obstacles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.82886, 0, 9.25772)
+material_override = SubResource("ORMMaterial3D_lvjdj")
+use_collision = true
+size = Vector3(4.65771, 1, 4.47681)
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="Obstacles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.12541, 0.766895, 9.25772)
+material_override = SubResource("ORMMaterial3D_lvjdj")
+use_collision = true
+size = Vector3(4.65771, 1, 4.47681)
+
+[node name="CSGBox3D3" type="CSGBox3D" parent="Obstacles"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.80012, 1.59604, 9.25772)
+material_override = SubResource("ORMMaterial3D_lvjdj")
+use_collision = true
+size = Vector3(4.65771, 1, 4.47681)
+
+[node name="CSGBox3D4" type="CSGBox3D" parent="Obstacles"]
+transform = Transform3D(0.868467, 0.495747, 0, -0.495747, 0.868467, 0, 0, 0, 1, 13.2944, -0.365495, 9.25772)
+material_override = SubResource("ORMMaterial3D_rdi1l")
+use_collision = true
+size = Vector3(8.03931, 1, 4.47681)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]

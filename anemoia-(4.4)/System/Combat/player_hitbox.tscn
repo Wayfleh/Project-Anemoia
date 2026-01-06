@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=3 uid="uid://cqulpdxkco6pc"]
+
+[ext_resource type="PackedScene" uid="uid://bensitn0e7y0o" path="res://System/Combat/hitbox.tscn" id="1_5e5w4"]
+[ext_resource type="Script" uid="uid://dcjusaygs5wlo" path="res://System/Combat/player_hitbox.gd" id="2_625ou"]
+
+[node name="Player_Hitbox" instance=ExtResource("1_5e5w4")]
+collision_layer = 0
+monitoring = false
+script = ExtResource("2_625ou")

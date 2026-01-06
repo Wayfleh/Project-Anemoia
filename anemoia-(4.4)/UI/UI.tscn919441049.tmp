@@ -1,0 +1,97 @@
+[gd_scene load_steps=10 format=3 uid="uid://bxfh01tfrsiym"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_48q88"]
+[ext_resource type="Script" path="res://sub_viewport_container.gd" id="2_xjg7p"]
+[ext_resource type="PackedScene" uid="uid://bjsnq0ppd5lvt" path="res://Scenes/debug.tscn" id="3_mg6lk"]
+[ext_resource type="PackedScene" uid="uid://cd0miqvn2wed" path="res://Scenes/UI/pause_menu.tscn" id="4_wunin"]
+[ext_resource type="PackedScene" uid="uid://dbeuohj1sqjj6" path="res://Scenes/UI/character_menu.tscn" id="5_j04uc"]
+[ext_resource type="JSON" path="res://Custom_Resources/Dialogue/FirstRealAttempt.json" id="5_w8wei"]
+[ext_resource type="Script" uid="uid://yi6bynbi8jwi" path="res://Custom_Resources/Attributes_and_Abilities.gd" id="6_vqx31"]
+[ext_resource type="PackedScene" uid="uid://bvpm0yb8t23n4" path="res://Scenes/UI/Dialogue/dialogue_box.tscn" id="7_xjg7p"]
+
+[sub_resource type="Resource" id="Resource_2n5f6"]
+script = ExtResource("6_vqx31")
+charisma = 1
+manipulation = 1
+appearance = 0
+perception = 1
+intelligence = 1
+wits = 1
+awareness = 0
+brawl = 0
+empathy = 0
+intimidation = 0
+subterfuge = 0
+firearms = 0
+larceny = 0
+etiquette = 0
+crafts = 0
+stealth = 0
+technology = 0
+investigation = 0
+academics = 0
+occult = 0
+politics = 0
+max_attribute = 5
+stat_list = null
+health = 7
+blood_pool = 10
+humanity = 7
+willpower = 5
+strength = 1
+dexterity = 1
+stamina = 1
+metadata/_custom_type_script = "uid://yi6bynbi8jwi"
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_48q88")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.291406, 0.154221, 0.255583, 1)
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+process_mode = 1
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 1400.0
+grow_vertical = 2
+stretch = true
+script = ExtResource("2_xjg7p")
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+process_mode = 3
+handle_input_locally = false
+physics_object_picking = true
+size = Vector2i(1400, 1080)
+render_target_update_mode = 4
+
+[node name="Node3D" parent="SubViewportContainer/SubViewport" instance=ExtResource("3_mg6lk")]
+process_mode = 1
+
+[node name="DialogueBox" parent="." instance=ExtResource("7_xjg7p")]
+process_mode = 1
+layout_mode = 1
+debug_json = ExtResource("5_w8wei")
+
+[node name="PauseMenu" parent="." instance=ExtResource("4_wunin")]
+layout_mode = 2
+anchors_preset = 0
+
+[node name="CharacterMenu" parent="." instance=ExtResource("5_j04uc")]
+layout_mode = 2
+anchors_preset = 0
+char_stats = SubResource("Resource_2n5f6")

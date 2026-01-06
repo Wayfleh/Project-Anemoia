@@ -1,0 +1,1 @@
+[{"commands_raw":"hello do you want to accept the quest now\n\n?> yes {signal(quest)}","gnode_name":"start","id":0,"name":"Start","position":[0.0,0.0]}]

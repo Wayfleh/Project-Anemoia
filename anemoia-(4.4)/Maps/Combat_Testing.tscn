@@ -1,0 +1,75 @@
+[gd_scene load_steps=12 format=3 uid="uid://n21gemuo8b6v"]
+
+[ext_resource type="PackedScene" uid="uid://ba5uyaf3u1gqj" path="res://Player/player.tscn" id="1_8o8w8"]
+[ext_resource type="PackedScene" uid="uid://bekbt7mjgksqf" path="res://System/NPCs/TestNPC.tscn" id="2_p27pk"]
+[ext_resource type="PackedScene" uid="uid://bcitmtf2vsbah" path="res://Props/TestInteractCube.tscn" id="3_jtbmr"]
+[ext_resource type="PackedScene" uid="uid://c01bnjwp2uk3j" path="res://System/Quests/quest_progressor.tscn" id="4_1rw71"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_8o8w8"]
+sky_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+ground_horizon_color = Color(0.662243, 0.671743, 0.686743, 1)
+
+[sub_resource type="Sky" id="Sky_lvjdj"]
+sky_material = SubResource("ProceduralSkyMaterial_8o8w8")
+
+[sub_resource type="Environment" id="Environment_cyhdb"]
+background_mode = 2
+sky = SubResource("Sky_lvjdj")
+tonemap_mode = 2
+glow_enabled = true
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_xq3y8"]
+vertices = PackedVector3Array(-0.976391, -1.11233, -0.57498, -0.226391, -1.11233, -0.82498, -0.226391, -1.11233, -15.075, -33.7264, -1.11233, -15.075, 15.2736, -1.11233, 0.17502, 0.773609, -1.11233, 0.17502, 0.523609, -1.11233, 0.92502, 15.2736, -1.11233, 33.925, -0.976391, -1.11233, 0.67502, -33.7264, -1.11233, 33.925, 0.523609, -1.11233, -0.82498, 15.2736, -1.11233, -15.075)
+polygons = [PackedInt32Array(1, 0, 2), PackedInt32Array(2, 0, 3), PackedInt32Array(5, 4, 6), PackedInt32Array(6, 4, 7), PackedInt32Array(8, 6, 7), PackedInt32Array(3, 8, 9), PackedInt32Array(9, 8, 7), PackedInt32Array(3, 0, 8), PackedInt32Array(10, 1, 2), PackedInt32Array(5, 10, 4), PackedInt32Array(4, 10, 11), PackedInt32Array(11, 10, 2)]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_8o8w8"]
+albedo_color = Color(0.34442, 0.208649, 0.532833, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_7ulp1"]
+material = SubResource("StandardMaterial3D_8o8w8")
+size = Vector2(50, 50)
+
+[sub_resource type="ConcavePolygonShape3D" id="ConcavePolygonShape3D_8o8w8"]
+data = PackedVector3Array(25, 0, 25, -25, 0, 25, 25, 0, -25, -25, 0, 25, -25, 0, -25, 25, 0, -25)
+
+[node name="CombatTesting" type="Node3D"]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
+shadow_enabled = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_cyhdb")
+
+[node name="Player" parent="." instance=ExtResource("1_8o8w8")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.22639, 1.61233, -9.42502)
+navigation_mesh = SubResource("NavigationMesh_xq3y8")
+
+[node name="TestNpc" parent="NavigationRegion3D" instance=ExtResource("2_p27pk")]
+
+[node name="Floor" type="StaticBody3D" parent="NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.22639, -1.61233, 9.42502)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Floor"]
+mesh = SubResource("PlaneMesh_7ulp1")
+skeleton = NodePath("../../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Floor"]
+shape = SubResource("ConcavePolygonShape3D_8o8w8")
+
+[node name="Enemies" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.22639, 1.61233, -9.42502)
+
+[node name="Interactables" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.13433, 2.3545, 0)
+
+[node name="TestInteractCube" parent="Interactables" instance=ExtResource("3_jtbmr")]
+
+[node name="QuestProgressor" parent="Interactables/TestInteractCube/Interactable" index="1" instance=ExtResource("4_1rw71")]
+_step_name = "collect by boxes"
+
+[editable path="Interactables/TestInteractCube"]
+[editable path="Interactables/TestInteractCube/Interactable"]
