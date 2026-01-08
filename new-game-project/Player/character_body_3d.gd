@@ -1,6 +1,8 @@
 extends CharacterBody3D
 class_name Player
 
+#Hey big guy, input handling is in the FreeMove state
+
 const WALK_SPEED = 5.0
 
 
@@ -21,8 +23,8 @@ var gravity = 9.8
 @onready var current_state: StateMachineState = dia_state_machine.current_state
 @onready var collider = $PlayerCollider
 @onready var trigger = $Trigger
-@onready var arm_animator = $ArmAnimations
-@onready var arm = %Arm
+@onready var arm_animator : AnimationPlayer = $ArmAnimations
+@onready var arm := %Arm
 
 func _ready():
 	arm_animator.animation_finished.connect(_on_animation_finished)

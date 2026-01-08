@@ -53,7 +53,6 @@ func progress() -> void:
 	if quest.step_names[quest.current_step] != step_name:
 		print("didn't work")
 		return
-	quest.progress_quest()
+	QuestHandler.progress_quest(quest)
 	print("I progressed")
-	QuestHandler.hud.quest_box.display_quest(quest)
 	self.queue_free()

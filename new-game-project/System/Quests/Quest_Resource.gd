@@ -15,8 +15,6 @@ var step_names : Array[String]
 var current_step : int = 0
 
 
-signal step_completed(q : Quest)
-signal quest_completed(q : Quest)
 
 
 var _list: String:
@@ -31,7 +29,6 @@ func check_complete():
 	if !steps[steps.size() - 1].completed:
 		return
 	completed = true
-	quest_completed.emit(self)
 
 func progress_quest():
 	if completed:
@@ -42,4 +39,3 @@ func progress_quest():
 		return
 	if steps[current_step].completed:
 		current_step += 1
-		step_completed.emit(self)

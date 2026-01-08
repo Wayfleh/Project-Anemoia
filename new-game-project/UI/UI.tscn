@@ -1,15 +1,16 @@
-[gd_scene load_steps=12 format=3 uid="uid://bxfh01tfrsiym"]
+[gd_scene load_steps=13 format=3 uid="uid://bxfh01tfrsiym"]
 
 [ext_resource type="Script" uid="uid://ra3rwjghg17m" path="res://UI/UI.gd" id="1_48q88"]
 [ext_resource type="PackedScene" uid="uid://n21gemuo8b6v" path="res://Maps/Combat_Testing.tscn" id="2_d050y"]
 [ext_resource type="Script" uid="uid://mx3hxoyl8bfh" path="res://UI/world.gd" id="2_vx7wu"]
 [ext_resource type="PackedScene" uid="uid://dihnfq6kttt7" path="res://UI/pause_menu.tscn" id="4_wunin"]
-[ext_resource type="PackedScene" uid="uid://svknhjbc2uv5" path="res://UI/character_menu.tscn" id="5_j04uc"]
+[ext_resource type="PackedScene" uid="uid://svknhjbc2uv5" path="res://UI/CharacterMenu/character_menu.tscn" id="5_j04uc"]
 [ext_resource type="Script" uid="uid://yi6bynbi8jwi" path="res://Custom_Resources/Attributes_and_Abilities.gd" id="6_vqx31"]
 [ext_resource type="PackedScene" uid="uid://bvpm0yb8t23n4" path="res://UI/Dialogue/dialogue_box.tscn" id="7_xjg7p"]
-[ext_resource type="PackedScene" uid="uid://l5dfdvwa2hty" path="res://UI/personality_menu.tscn" id="8_w8wei"]
-[ext_resource type="Script" path="res://Scripts/Save_Loader.gd" id="9_8wlyu"]
+[ext_resource type="PackedScene" uid="uid://l5dfdvwa2hty" path="res://UI/PersonalityMenu/personality_menu.tscn" id="8_w8wei"]
+[ext_resource type="Script" uid="uid://dsu6ad1pmr5do" path="res://Scripts/Save_Loader.gd" id="9_8wlyu"]
 [ext_resource type="PackedScene" uid="uid://bhupywx3j3xjg" path="res://UI/HUD/hud.tscn" id="9_qgmx8"]
+[ext_resource type="PackedScene" uid="uid://dfggukjwwkj1f" path="res://UI/QuestMenu/quest_menu.tscn" id="11_r2vy3"]
 
 [sub_resource type="Resource" id="Resource_2n5f6"]
 script = ExtResource("6_vqx31")
@@ -55,7 +56,7 @@ script = ExtResource("2_vx7wu")
 
 [node name="CombatTesting" parent="The World/World" groups=["World"] instance=ExtResource("2_d050y")]
 
-[node name="HUD" parent="." groups=["HUD"] instance=ExtResource("9_qgmx8")]
+[node name="HUD" parent="." groups=["HUD", "ToBeSaved"] instance=ExtResource("9_qgmx8")]
 layout_mode = 1
 
 [node name="DialogueBox" parent="." instance=ExtResource("7_xjg7p")]
@@ -74,12 +75,16 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 char_stats = SubResource("Resource_2n5f6")
 
+[node name="PersonalityMenu" parent="." instance=ExtResource("8_w8wei")]
+layout_mode = 1
+
+[node name="QuestMenu" parent="." instance=ExtResource("11_r2vy3")]
+layout_mode = 1
+mouse_filter = 2
+
 [node name="SaveLoader" type="Node" parent="."]
 unique_name_in_owner = true
 script = ExtResource("9_8wlyu")
-
-[node name="PersonalityMenu" parent="." instance=ExtResource("8_w8wei")]
-layout_mode = 1
 
 [editable path="The World/World/CombatTesting"]
 [editable path="The World/World/CombatTesting/Interactables/TestInteractCube"]
@@ -96,3 +101,4 @@ layout_mode = 1
 [editable path="HUD"]
 [editable path="DialogueBox"]
 [editable path="PersonalityMenu"]
+[editable path="QuestMenu"]

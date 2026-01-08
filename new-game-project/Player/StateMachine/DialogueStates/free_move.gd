@@ -1,7 +1,6 @@
 extends DialogueState
 
 const WALK_SPEED = 5.0
-const SPRINT_SPEED = 10.0
 const JUMP_VELOCITY = 4.5
 const SENSITIVITY = 0.003
 var speed
@@ -15,6 +14,7 @@ var head_tilt = deg_to_rad(3)
 var camera: Camera3D
 var head: Node3D
 
+	
 func _enter_state():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 #------------------------------------------------------------------------------------------
@@ -23,15 +23,29 @@ func _enter_state():
 func _unhandled_input(event: InputEvent) -> void:
 	camera = controller.camera
 	if is_current_state():
+		if Input.is_action_just_pressed("Free Camera"):
+			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			Input.warp_mouse(UI.window_size/2.0)
+		if Input.is_action_just_released("Free Camera"):
+			controller.arm.position = Vector3.ZERO
+			controller.arm_animator.play("Idle")
 		if event is InputEventMouseMotion:
 			if Input.is_action_pressed("Free Camera"):
 				Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+				_move_arm(event)
 			else:
 				Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 				controller.head.rotate_y(-event.relative.x * SENSITIVITY)
 				camera.rotate_x(-event.relative.y * SENSITIVITY)
 				camera.rotation.x = clamp(camera.rotation.x, deg_to_rad(-70), deg_to_rad(60))
 #------------------------------------------------------------------------------------------
+
+func _move_arm(event: InputEvent):
+	if controller.arm_animator.current_animation == "Punch":
+		return
+	controller.arm_animator.stop()
+	controller.arm.position.x = -(UI.window_size.x / 2.0 - event.position.x) / 1000 + 0.4
+	controller.arm.position.y = (UI.window_size.y / 2.0 - event.position.y) / 1000 + 0.1
 
 func _physics_process(delta: float) -> void:
 	camera = controller.camera
@@ -42,11 +56,9 @@ func _physics_process(delta: float) -> void:
 		if Input.is_action_just_pressed("jump") and controller.is_on_floor():
 			controller.velocity.y = JUMP_VELOCITY
 		
-		# Handle sprint.
-		if Input.is_action_pressed("sprint") and Input.is_action_pressed("up"):
-			speed = SPRINT_SPEED
-		else:
-			speed = WALK_SPEED
+		# Handle speed. Celerity will probably affect walk speed
+		# TODO make Celerity affect walk speed
+		speed = WALK_SPEED
 		
 		# Handle Attack
 		if Input.is_action_just_pressed("Attack"):
@@ -69,14 +81,12 @@ func _physics_process(delta: float) -> void:
 		# Head Bob
 		t_bob += delta * controller.velocity.length() * float(controller.is_on_floor())
 		camera.transform.origin = _headbob(t_bob)
+		
 		# FOV
-		var velocity_clamped = clamp(controller.velocity.length(), 0.5, SPRINT_SPEED * 2)
+		var velocity_clamped = clamp(controller.velocity.length(), 0.5, 20)
 		var target_fov = controller.BASE_FOV;
 		
-		if Input.is_action_pressed("sprint") and Input.is_action_pressed("up"):
-			target_fov = controller.BASE_FOV + controller.FOV_CHANGE * velocity_clamped
-		else:
-			target_fov = controller.BASE_FOV
+		target_fov = controller.BASE_FOV
 			
 		camera.fov = lerp(camera.fov, target_fov, delta * 8)
 			

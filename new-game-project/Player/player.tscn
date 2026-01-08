@@ -214,7 +214,7 @@ unique_name_in_owner = true
 unique_name_in_owner = true
 
 [node name="ArmMesh" type="MeshInstance3D" parent="Head/CameraSmooth/Camera3D/Arm"]
-transform = Transform3D(0.933111, -0.265715, -0.242282, 0.0867312, 0.820187, -0.565482, 0.348974, 0.506644, 0.788371, -0.537625, -0.353367, -0.421862)
+transform = Transform3D(0.9331108, -0.26571497, -0.24228229, 0.0867312, 0.8201871, -0.5654822, 0.34897435, 0.50664383, 0.7883707, -0.537625, -0.353367, -0.421862)
 mesh = SubResource("BoxMesh_f1ek2")
 
 [node name="Player_Hitbox" parent="Head/CameraSmooth/Camera3D/Arm/ArmMesh" instance=ExtResource("3_8erm5")]

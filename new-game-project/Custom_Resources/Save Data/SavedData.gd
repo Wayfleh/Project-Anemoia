@@ -11,3 +11,5 @@ const SAVE_GAME_PATH := "user://save.tres"
 @export var personality_list = []
 @export var player_position: Vector3
 @export var interactable_flags: Array[bool] = []
+@export var quest_log: Array[Quest] = []
+@export var current_quest: Quest = null
