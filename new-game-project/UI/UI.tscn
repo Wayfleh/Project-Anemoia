@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bxfh01tfrsiym"]
+[gd_scene format=3 uid="uid://bxfh01tfrsiym"]
 
 [ext_resource type="Script" uid="uid://ra3rwjghg17m" path="res://UI/UI.gd" id="1_48q88"]
 [ext_resource type="PackedScene" uid="uid://n21gemuo8b6v" path="res://Maps/Combat_Testing.tscn" id="2_d050y"]
@@ -17,7 +17,7 @@ script = ExtResource("6_vqx31")
 stat_list = null
 metadata/_custom_type_script = "uid://yi6bynbi8jwi"
 
-[node name="UI" type="Control"]
+[node name="UI" type="Control" unique_id=103801146]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,7 +27,7 @@ grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_48q88")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1730923109]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -36,7 +36,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.291406, 0.154221, 0.255583, 1)
 
-[node name="The World" type="SubViewportContainer" parent="."]
+[node name="The World" type="SubViewportContainer" parent="." unique_id=904339671]
 process_mode = 1
 layout_mode = 1
 anchors_preset = 9
@@ -45,7 +45,7 @@ offset_right = 1388.0
 grow_vertical = 2
 stretch = true
 
-[node name="World" type="SubViewport" parent="The World"]
+[node name="World" type="SubViewport" parent="The World" unique_id=44713524 groups=["World"]]
 unique_name_in_owner = true
 process_mode = 3
 handle_input_locally = false
@@ -54,19 +54,19 @@ size = Vector2i(1388, 1080)
 render_target_update_mode = 4
 script = ExtResource("2_vx7wu")
 
-[node name="CombatTesting" parent="The World/World" groups=["World"] instance=ExtResource("2_d050y")]
+[node name="CombatTesting" parent="The World/World" unique_id=1457828833 instance=ExtResource("2_d050y")]
 
-[node name="HUD" parent="." groups=["HUD", "ToBeSaved"] instance=ExtResource("9_qgmx8")]
+[node name="HUD" parent="." unique_id=1738705093 groups=["HUD", "ToBeSaved"] instance=ExtResource("9_qgmx8")]
 layout_mode = 1
 
-[node name="DialogueBox" parent="." instance=ExtResource("7_xjg7p")]
+[node name="DialogueBox" parent="." unique_id=685576994 instance=ExtResource("7_xjg7p")]
 process_mode = 1
 layout_mode = 1
 
-[node name="PauseMenu" parent="." instance=ExtResource("4_wunin")]
+[node name="PauseMenu" parent="." unique_id=1172682465 instance=ExtResource("4_wunin")]
 layout_mode = 1
 
-[node name="CharacterMenu" parent="." groups=["ToBeSaved"] instance=ExtResource("5_j04uc")]
+[node name="CharacterMenu" parent="." unique_id=587014604 groups=["ToBeSaved"] instance=ExtResource("5_j04uc")]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -75,14 +75,14 @@ anchor_right = 0.5
 anchor_bottom = 0.5
 char_stats = SubResource("Resource_2n5f6")
 
-[node name="PersonalityMenu" parent="." instance=ExtResource("8_w8wei")]
+[node name="PersonalityMenu" parent="." unique_id=1172608190 instance=ExtResource("8_w8wei")]
 layout_mode = 1
 
-[node name="QuestMenu" parent="." instance=ExtResource("11_r2vy3")]
+[node name="QuestMenu" parent="." unique_id=1955057142 instance=ExtResource("11_r2vy3")]
 layout_mode = 1
 mouse_filter = 2
 
-[node name="SaveLoader" type="Node" parent="."]
+[node name="SaveLoader" type="Node" parent="." unique_id=1536761328]
 unique_name_in_owner = true
 script = ExtResource("9_8wlyu")
 

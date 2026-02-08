@@ -31,13 +31,14 @@ func initiate_dialogue(filename: JSON, talk_back: bool, trig: Area3D):
 	trigger = trig
 
 func _on_custom_signal_received(value: String):
+	#puts the dialogue in either the outer side or the inner side of the dialogue box
 	var param = value.split(",")
 	if param[0] == "internal":
 		if param[1] == "false":
 			insideMind = false
 		else:
 			insideMind = true
-	#if the trigger is talkable, then it accepts the quest.
+	#if accepts a quest if dialogue has 'quest' signal
 	elif param[0] == "quest":
 		if trigger is Talkable:
 			trigger.quest_accept.emit()

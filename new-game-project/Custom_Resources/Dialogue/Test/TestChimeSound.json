@@ -1,0 +1,12 @@
+[
+	{
+		"commands_raw": "hello",
+		"gnode_name": "start",
+		"id": 0.0,
+		"name": "Start",
+		"position": [
+			520.0,
+			340.0
+		]
+	}
+]

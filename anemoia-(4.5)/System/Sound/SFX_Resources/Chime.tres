@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="SoundEffect" load_steps=3 format=3 uid="uid://fc3abf5s7ekb"]
+
+[ext_resource type="Script" uid="uid://ce10o0voaiub" path="res://System/Sound/SoundEffectSetting.gd" id="1_vu73q"]
+[ext_resource type="AudioStream" uid="uid://db6pck2geep5v" path="res://System/Sound/SFX/Chime1.mp3" id="2_dmqx4"]
+
+[resource]
+script = ExtResource("1_vu73q")
+limit = 1
+sound_effect = ExtResource("2_dmqx4")
+volume = 1.0
+metadata/_custom_type_script = "uid://ce10o0voaiub"

@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://byqlw6425oem4"]
+
+[ext_resource type="Script" uid="uid://b7lfbofd2ytth" path="res://System/Combat/punchable.gd" id="1_2c2ti"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2d2h3"]
+
+[node name="Punchable" type="Area3D"]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("1_2c2ti")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_2d2h3")

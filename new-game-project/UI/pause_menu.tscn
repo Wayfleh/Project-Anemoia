@@ -1,8 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://dihnfq6kttt7"]
+[gd_scene format=3 uid="uid://dihnfq6kttt7"]
 
 [ext_resource type="Script" uid="uid://c7lw6b7t3pt6f" path="res://UI/pause_menu.gd" id="1_k0w1u"]
 [ext_resource type="Shader" uid="uid://q6p4ei6p4gd2" path="res://Scripts/shaders/pause_menu.gdshader" id="2_1och7"]
-[ext_resource type="Script" uid="uid://bmuruwctr0l4" path="res://UI/debug_menu.gd" id="3_r2i2h"]
+[ext_resource type="Script" uid="uid://bmuruwctr0l4" path="res://UI/Debug/debug_menu.gd" id="3_r2i2h"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bpi0q"]
 shader = ExtResource("2_1och7")
@@ -141,7 +141,7 @@ _data = {
 &"Unpause": SubResource("Animation_k0w1u")
 }
 
-[node name="PauseMenu" type="Control"]
+[node name="PauseMenu" type="Control" unique_id=985955382]
 process_mode = 3
 visible = false
 layout_mode = 3
@@ -152,7 +152,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_k0w1u")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1994278263]
 material = SubResource("ShaderMaterial_bpi0q")
 layout_mode = 1
 anchors_preset = 15
@@ -161,7 +161,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=217387413]
 modulate = Color(1, 1, 1, 0)
 layout_mode = 1
 anchors_preset = 8
@@ -176,67 +176,88 @@ offset_bottom = 275.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer" unique_id=1418611851]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 50
 
-[node name="Resume" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="Resume" type="Button" parent="PanelContainer/VBoxContainer" unique_id=647741865]
 layout_mode = 2
 shortcut = SubResource("Shortcut_1och7")
 text = "Resume"
 
-[node name="Restart" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="Restart" type="Button" parent="PanelContainer/VBoxContainer" unique_id=855694844]
 layout_mode = 2
 text = "Restart"
 
-[node name="Save" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="Save" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1890995361]
 layout_mode = 2
 text = "Save"
 
-[node name="Load" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="Load" type="Button" parent="PanelContainer/VBoxContainer" unique_id=25020606]
 layout_mode = 2
 text = "Load"
 
-[node name="Quit" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="Quit" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1751780711]
 layout_mode = 2
 text = "Quit"
 
-[node name="Debug" type="Button" parent="PanelContainer/VBoxContainer"]
+[node name="Debug" type="Button" parent="PanelContainer/VBoxContainer" unique_id=1598531841]
 layout_mode = 2
 text = "Debug"
 
-[node name="Debug Menu" type="PanelContainer" parent="."]
-unique_name_in_owner = true
+[node name="Debug Menu" type="PanelContainer" parent="." unique_id=1693173019]
 layout_mode = 0
 offset_right = 410.0
 offset_bottom = 1080.0
 script = ExtResource("3_r2i2h")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Debug Menu"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Debug Menu" unique_id=2119280464]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 50
 
-[node name="Close Debug" type="Button" parent="Debug Menu/VBoxContainer"]
+[node name="Close Debug" type="Button" parent="Debug Menu/VBoxContainer" unique_id=1197201698]
 layout_mode = 2
 text = "Close Debug"
 
-[node name="Add Personality" type="Button" parent="Debug Menu/VBoxContainer"]
+[node name="Add Personality" type="Button" parent="Debug Menu/VBoxContainer" unique_id=107446793]
 layout_mode = 2
 text = "Add Personality"
 
-[node name="Print Current Personalities" type="Button" parent="Debug Menu/VBoxContainer"]
+[node name="Print Current Personalities" type="Button" parent="Debug Menu/VBoxContainer" unique_id=736062404]
 layout_mode = 2
 text = "Print Personalities
 "
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-libraries = {
-&"": SubResource("AnimationLibrary_sjs17")
-}
+[node name="Change Map" type="Button" parent="Debug Menu/VBoxContainer" unique_id=1198301899]
+layout_mode = 2
+text = "Change Map"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2147366176]
+libraries/ = SubResource("AnimationLibrary_sjs17")
+
+[node name="Maps Menu" type="PanelContainer" parent="." unique_id=1160763118]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -527.0
+offset_top = -223.0
+offset_right = -183.32007
+offset_bottom = 247.16003
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ButtonContainer" type="VBoxContainer" parent="Maps Menu" unique_id=1444614406]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Save" to="." method="_on_save_pressed"]
 [connection signal="pressed" from="PanelContainer/VBoxContainer/Load" to="." method="_on_load_pressed"]

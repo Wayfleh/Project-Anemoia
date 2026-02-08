@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://bcitmtf2vsbah"]
+
+[ext_resource type="Script" uid="uid://gncvmbynm8gp" path="res://Props/test_interact_cube.gd" id="1_fkocl"]
+[ext_resource type="PackedScene" uid="uid://bs33aowcdt676" path="res://System/Interaction/Interactable.tscn" id="1_m31qa"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fkocl"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fkocl"]
+
+[node name="TestInteractCube" type="Node3D" groups=["Interactables"]]
+script = ExtResource("1_fkocl")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+unique_name_in_owner = true
+material = SubResource("StandardMaterial3D_fkocl")
+
+[node name="Interactable" parent="." instance=ExtResource("1_m31qa")]
+unique_name_in_owner = true
+
+[node name="CollisionShape3D" parent="Interactable" index="0"]
+shape = SubResource("BoxShape3D_fkocl")
+
+[editable path="Interactable"]

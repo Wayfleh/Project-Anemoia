@@ -5,8 +5,11 @@ extends MenuScreen
 @onready var quit_button: Button = find_child("Quit")
 @onready var save_button: Button = find_child("Save")
 @onready var load_button: Button = find_child("Load")
+
 @onready var debug_button: Button = find_child("Debug")
-@export var player: Player
+
+@onready var debug_menu = $"Debug Menu"
+
 
 func _ready():
 	$AnimationPlayer.play("RESET")
@@ -14,14 +17,15 @@ func _ready():
 	restart_button.pressed.connect(restart)
 	quit_button.pressed.connect(get_tree().quit)
 	debug_button.pressed.connect(debug)
-	player = get_tree().get_nodes_in_group("Player")[0]
+	
 
 func resume():
 	get_tree().paused = false
 	$AnimationPlayer.play("Unpause")
-	if (player.current_state as StateMachineState) is not Frozen:
+	#checks if player state is not null or in Frozen dialogue
+	if UI.player_state and UI.player_state is not Frozen:
 		Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
-	%"Debug Menu".visible = false
+	debug_menu.visible = false
 	_resetUIState()
 
 func pause():
@@ -34,7 +38,7 @@ func restart():
 	get_tree().reload_current_scene()
 
 func debug():
-	%"Debug Menu".visible = true
+	debug_menu.visible = true
 
 func _on_save_pressed():
 	if !get_tree().paused:

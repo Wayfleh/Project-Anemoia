@@ -1,0 +1,12 @@
+[
+	{
+		"commands_raw": "Wait stop for a moment\n\n---",
+		"gnode_name": "start",
+		"id": 0.0,
+		"name": "Start",
+		"position": [
+			460.0,
+			440.0
+		]
+	}
+]

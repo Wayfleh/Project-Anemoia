@@ -18,7 +18,8 @@ func _ready() -> void:
 			(parent as Interactable).interacted.connect(accept_quest)
 
 func accept_quest() -> void:
-	if quest.completed:
+	if QuestHandler.quest_log.has(quest) or QuestHandler.completed_log.has(quest):
+		self.queue_free()
 		return
 	QuestHandler.add_quest(quest)
 	QuestHandler.hud.quest_box.display_quest(quest)

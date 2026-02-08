@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://sx10qfoc0ike"]
+
+[ext_resource type="Script" uid="uid://b6f1mnkyqf8ei" path="res://System/Sound/audio_manager.gd" id="1_ren7p"]
+[ext_resource type="Script" uid="uid://ce10o0voaiub" path="res://System/Sound/SoundEffectSetting.gd" id="2_e0jgw"]
+[ext_resource type="Resource" uid="uid://fc3abf5s7ekb" path="res://System/Sound/SFX_Resources/Chime.tres" id="3_33nvc"]
+
+[node name="AudioManager" type="Node3D" unique_id=14858445]
+script = ExtResource("1_ren7p")
+sound_effects = Array[ExtResource("2_e0jgw")]([ExtResource("3_33nvc")])

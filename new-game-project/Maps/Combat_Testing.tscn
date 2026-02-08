@@ -1,8 +1,8 @@
-[gd_scene load_steps=16 format=3 uid="uid://n21gemuo8b6v"]
+[gd_scene format=3 uid="uid://n21gemuo8b6v"]
 
 [ext_resource type="PackedScene" uid="uid://ba5uyaf3u1gqj" path="res://Player/player.tscn" id="1_8o8w8"]
 [ext_resource type="PackedScene" uid="uid://bekbt7mjgksqf" path="res://System/NPCs/TestNPC.tscn" id="2_p27pk"]
-[ext_resource type="JSON" path="res://Custom_Resources/Dialogue/TestQuestDialogue.json" id="3_1rw71"]
+[ext_resource type="JSON" path="res://Custom_Resources/Dialogue/Test/TestQuestDialogue.json" id="3_1rw71"]
 [ext_resource type="PackedScene" uid="uid://bcitmtf2vsbah" path="res://Props/TestInteractCube.tscn" id="3_jtbmr"]
 [ext_resource type="PackedScene" uid="uid://c01bnjwp2uk3j" path="res://System/Quests/quest_progressor.tscn" id="4_1rw71"]
 [ext_resource type="PackedScene" uid="uid://butlhc0j0ydn3" path="res://System/Dialogue/dialogue_trigger.tscn" id="6_1rw71"]
@@ -42,83 +42,77 @@ albedo_color = Color(0, 0, 0, 0.9372549)
 material = SubResource("StandardMaterial3D_88n5n")
 size = Vector3(5.57782, 2.06555, 3.3291)
 
-[node name="CombatTesting" type="Node3D"]
+[node name="CombatTesting" type="Node3D" unique_id=1639099291]
 
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=2050399627]
 transform = Transform3D(-0.866025, -0.433013, 0.25, 0, 0.5, 0.866025, -0.5, 0.75, -0.433013, 0, 0, 0)
 shadow_enabled = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1777813804]
 environment = SubResource("Environment_cyhdb")
 
-[node name="Player" parent="." instance=ExtResource("1_8o8w8")]
+[node name="Player" parent="." unique_id=673467294 instance=ExtResource("1_8o8w8")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="." unique_id=455629619]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.22639, 1.61233, -9.42502)
 navigation_mesh = SubResource("NavigationMesh_xq3y8")
 
-[node name="TestNpc" parent="NavigationRegion3D" instance=ExtResource("2_p27pk")]
+[node name="TestNpc" parent="NavigationRegion3D" unique_id=922433007 instance=ExtResource("2_p27pk")]
 dialogue = ExtResource("3_1rw71")
 
-[node name="Floor" type="StaticBody3D" parent="NavigationRegion3D"]
+[node name="Floor" type="StaticBody3D" parent="NavigationRegion3D" unique_id=821474133]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.22639, -1.61233, 9.42502)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Floor"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/Floor" unique_id=1255381170]
 mesh = SubResource("PlaneMesh_7ulp1")
 skeleton = NodePath("../../..")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Floor"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="NavigationRegion3D/Floor" unique_id=1787691913]
 shape = SubResource("ConcavePolygonShape3D_8o8w8")
 
-[node name="Enemies" type="Node3D" parent="."]
+[node name="Enemies" type="Node3D" parent="." unique_id=659650153]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.22639, 1.61233, -9.42502)
 
-[node name="Interactables" type="Node3D" parent="."]
+[node name="Interactables" type="Node3D" parent="." unique_id=1859680749]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.13433, 2.3545, 0)
 
-[node name="TestInteractCube" parent="Interactables" instance=ExtResource("3_jtbmr")]
+[node name="TestInteractCube" parent="Interactables" unique_id=1394282546 instance=ExtResource("3_jtbmr")]
 
-[node name="QuestProgressor" parent="Interactables/TestInteractCube/Interactable" index="1" instance=ExtResource("4_1rw71")]
-step_name = "collect 5 boxes"
+[node name="QuestProgressor" parent="Interactables/TestInteractCube/Interactable" index="1" unique_id=51964552 instance=ExtResource("4_1rw71")]
 step_name = "collect 5 boxes"
 
-[node name="TestInteractCube3" parent="Interactables" instance=ExtResource("3_jtbmr")]
+[node name="TestInteractCube3" parent="Interactables" unique_id=436071018 instance=ExtResource("3_jtbmr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7.216568)
 
-[node name="QuestProgressor" parent="Interactables/TestInteractCube3/Interactable" index="1" instance=ExtResource("4_1rw71")]
-step_name = "collect 5 boxes"
+[node name="QuestProgressor" parent="Interactables/TestInteractCube3/Interactable" index="1" unique_id=1819001477 instance=ExtResource("4_1rw71")]
 step_name = "collect 5 boxes"
 
-[node name="TestInteractCube4" parent="Interactables" instance=ExtResource("3_jtbmr")]
+[node name="TestInteractCube4" parent="Interactables" unique_id=1030851015 instance=ExtResource("3_jtbmr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -6.161608)
 
-[node name="QuestProgressor" parent="Interactables/TestInteractCube4/Interactable" index="1" instance=ExtResource("4_1rw71")]
-step_name = "collect 5 boxes"
+[node name="QuestProgressor" parent="Interactables/TestInteractCube4/Interactable" index="1" unique_id=268999709 instance=ExtResource("4_1rw71")]
 step_name = "collect 5 boxes"
 
-[node name="TestInteractCube2" parent="Interactables" instance=ExtResource("3_jtbmr")]
+[node name="TestInteractCube2" parent="Interactables" unique_id=243277848 instance=ExtResource("3_jtbmr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.60771)
 
-[node name="QuestProgressor" parent="Interactables/TestInteractCube2/Interactable" index="1" instance=ExtResource("4_1rw71")]
-step_name = "collect 5 boxes"
+[node name="QuestProgressor" parent="Interactables/TestInteractCube2/Interactable" index="1" unique_id=272748524 instance=ExtResource("4_1rw71")]
 step_name = "collect 5 boxes"
 
-[node name="TestInteractCube5" parent="Interactables" instance=ExtResource("3_jtbmr")]
+[node name="TestInteractCube5" parent="Interactables" unique_id=41823311 instance=ExtResource("3_jtbmr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -3.0504246)
 
-[node name="QuestProgressor" parent="Interactables/TestInteractCube5/Interactable" index="1" instance=ExtResource("4_1rw71")]
-step_name = "collect 5 boxes"
+[node name="QuestProgressor" parent="Interactables/TestInteractCube5/Interactable" index="1" unique_id=1148254116 instance=ExtResource("4_1rw71")]
 step_name = "collect 5 boxes"
 
-[node name="DialogueTrigger" parent="Interactables" groups=["TalkingTriggers"] instance=ExtResource("6_1rw71")]
+[node name="DialogueTrigger" parent="Interactables" unique_id=1228030667 groups=["TalkingTriggers"] instance=ExtResource("6_1rw71")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10.680904, -1.0801802, 7.463751)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Interactables/DialogueTrigger"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Interactables/DialogueTrigger" unique_id=410297294]
 mesh = SubResource("BoxMesh_42ega")
 
-[node name="QuestProgressor" parent="Interactables/DialogueTrigger" instance=ExtResource("4_1rw71")]
-step_name = "go to the black box"
+[node name="QuestProgressor" parent="Interactables/DialogueTrigger" unique_id=721482246 instance=ExtResource("4_1rw71")]
 step_name = "go to the black box"
 
 [editable path="Interactables/TestInteractCube"]

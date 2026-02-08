@@ -50,8 +50,8 @@ func _array_to_string(arr: Array[String], separator = ",") -> String:
 	return string
 
 func progress() -> void:
-	if quest.step_names[quest.current_step] != step_name:
-		print("didn't work")
+	if quest.step_names[quest.current_step] > step_name: #removes the progressor if the player is on a later step
+		self.queue_free()
 		return
 	QuestHandler.progress_quest(quest)
 	print("I progressed")

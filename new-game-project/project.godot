@@ -11,22 +11,23 @@ config_version=5
 [animation]
 
 warnings/check_invalid_track_paths=false
+compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 
 [application]
 
 config/name="Anemoia"
 run/main_scene="uid://bxfh01tfrsiym"
-config/features=PackedStringArray("4.5", "Forward Plus")
+config/features=PackedStringArray("4.6", "Forward Plus")
 config/icon="res://icon.svg"
 
 [autoload]
 
-BgMsic="*res://Scenes/BG_MSIC.tscn"
 PlayerStats="*res://Scripts/Singleton/Player_stats.gd"
 SignalBus="*res://Scripts/Singleton/Signal_bus.gd"
 ConfigFileHandler="*res://Scripts/Singleton/ConfigFileHandler.gd"
 QuestHandler="*res://Scripts/Singleton/quest_handler.gd"
 UI="*res://UI/UI.gd"
+AudioManager="*res://System/Sound/audio_manager.tscn"
 
 [dialogic]
 

@@ -7,6 +7,9 @@ func _ready():
 	current_state = $FreeMove
 	SignalBus.dialogue_ended.connect(end_dialogue)
 
+func _process(delta: float) -> void:
+	UI.player_state = current_state
+
 func start_dialogue(freeze : bool):
 	if freeze:
 		current_state = $Frozen
