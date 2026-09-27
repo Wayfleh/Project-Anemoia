@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://xlm4n6e201vn"]
-
-[sub_resource type="NavigationMesh" id="NavigationMesh_q1smi"]
-geometry_parsed_geometry_type = 0
-
-[node name="DebugNavRegion" type="NavigationRegion3D"]
-navigation_mesh = SubResource("NavigationMesh_q1smi")

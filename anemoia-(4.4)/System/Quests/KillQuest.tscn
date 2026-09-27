@@ -1,7 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://fciqvjthjk3m"]
-
-[ext_resource type="Script" uid="uid://cp7d2ff2o211j" path="res://System/Quests/kill_quest.gd" id="1_5bj1x"]
-
-[node name="KillQuest" type="Node"]
-script = ExtResource("1_5bj1x")
-metadata/_custom_type_script = "uid://c8tyir0f75k71"

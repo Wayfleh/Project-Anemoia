@@ -1,2 +1,0 @@
-extends TextureButton
-class_name PersonalityButton
