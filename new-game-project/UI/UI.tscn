@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://bxfh01tfrsiym"]
 
 [ext_resource type="Script" uid="uid://ra3rwjghg17m" path="res://UI/UI.gd" id="1_48q88"]
-[ext_resource type="PackedScene" uid="uid://n21gemuo8b6v" path="res://Maps/Combat_Testing.tscn" id="2_d050y"]
 [ext_resource type="Script" uid="uid://mx3hxoyl8bfh" path="res://UI/world.gd" id="2_vx7wu"]
+[ext_resource type="PackedScene" uid="uid://bjsnq0ppd5lvt" path="res://Maps/debug.tscn" id="3_r2vy3"]
 [ext_resource type="PackedScene" uid="uid://dihnfq6kttt7" path="res://UI/pause_menu.tscn" id="4_wunin"]
 [ext_resource type="PackedScene" uid="uid://svknhjbc2uv5" path="res://UI/CharacterMenu/character_menu.tscn" id="5_j04uc"]
 [ext_resource type="Script" uid="uid://yi6bynbi8jwi" path="res://Custom_Resources/Attributes_and_Abilities.gd" id="6_vqx31"]
@@ -54,7 +54,7 @@ size = Vector2i(1388, 1080)
 render_target_update_mode = 4
 script = ExtResource("2_vx7wu")
 
-[node name="CombatTesting" parent="The World/World" unique_id=1457828833 instance=ExtResource("2_d050y")]
+[node name="Node3D2" parent="The World/World" unique_id=777859654 instance=ExtResource("3_r2vy3")]
 
 [node name="HUD" parent="." unique_id=1738705093 groups=["HUD", "ToBeSaved"] instance=ExtResource("9_qgmx8")]
 layout_mode = 1
@@ -86,18 +86,6 @@ mouse_filter = 2
 unique_name_in_owner = true
 script = ExtResource("9_8wlyu")
 
-[editable path="The World/World/CombatTesting"]
-[editable path="The World/World/CombatTesting/Interactables/TestInteractCube"]
-[editable path="The World/World/CombatTesting/Interactables/TestInteractCube/Interactable"]
-[editable path="The World/World/CombatTesting/Interactables/TestInteractCube3"]
-[editable path="The World/World/CombatTesting/Interactables/TestInteractCube3/Interactable"]
-[editable path="The World/World/CombatTesting/Interactables/TestInteractCube4"]
-[editable path="The World/World/CombatTesting/Interactables/TestInteractCube4/Interactable"]
-[editable path="The World/World/CombatTesting/Interactables/TestInteractCube2"]
-[editable path="The World/World/CombatTesting/Interactables/TestInteractCube2/Interactable"]
-[editable path="The World/World/CombatTesting/Interactables/TestInteractCube5"]
-[editable path="The World/World/CombatTesting/Interactables/TestInteractCube5/Interactable"]
-[editable path="The World/World/CombatTesting/Interactables/DialogueTrigger"]
 [editable path="HUD"]
 [editable path="DialogueBox"]
 [editable path="PersonalityMenu"]
