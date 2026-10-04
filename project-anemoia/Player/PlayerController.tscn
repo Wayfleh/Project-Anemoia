@@ -1,8 +1,11 @@
 [gd_scene format=3 uid="uid://duj7wlfj022je"]
 
+[ext_resource type="Script" uid="uid://cemewidpg2ps5" path="res://Player/PlayerController.cs" id="1_uhx54"]
+
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mn2qf"]
 
 [node name="PlayerController" type="CharacterBody3D" unique_id=801469930]
+script = ExtResource("1_uhx54")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=283616830]
 shape = SubResource("CapsuleShape3D_mn2qf")
