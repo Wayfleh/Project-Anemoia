@@ -5,8 +5,8 @@ using System.Collections.Generic;
 public partial class PlayerStats : Resource
 {
     public Dictionary<string, int> attributes_list { get; private set; }
-    public Dictionary<string, int> skills_list { get; private set; } // max value 10 for skills and attributes
-    const int maxValue = 10;
+    public Dictionary<string, int> skills_list { get; private set; }
+    const int maxValue = 10;//for skills and attributes
     public enum Attribute
     {
         strength,
@@ -37,9 +37,9 @@ public partial class PlayerStats : Resource
         occult,
         technology,
     }
-    public int health { get; set; } = 100;
-    public int blood { get; set; } = 100;
-    public int willpower { get; set; } = 100;
+    public int Health { get; set; } = 100;
+    public int Blood { get; set; } = 100;
+    public int Willpower { get; set; } = 100;
 
     public int ReadAttribute(Attribute attribute)
     {
@@ -95,7 +95,7 @@ public partial class PlayerStats : Resource
             skills_list.Add(skill_name.ToString(), 0);
         }
 
-        // PrintDebug();
+        PrintDebug();
     }
 
     public void PrintDebug()
@@ -111,9 +111,11 @@ public partial class PlayerStats : Resource
             GD.Print($"{_skill.Key}: {_skill.Value}");
         }
 
-        GD.Print("health: " + health);
-        GD.Print("blood: " + blood);
-        GD.Print("willpower: " + willpower);
+        GD.Print("-------");
+        // GD.Print("Health: " + Health);
+        GD.PrintRich("[shake rate=20 level=10][color=aqua]Health [/color][/shake]: " + Health);
+        GD.PrintRich("[wave][color=DarkRed]Blood[/color][/wave]: " + Blood);
+        GD.PrintRich("[pulse freq=1.0 color=LightBlue ease=-2.0]Willpower[/pulse]: " + Willpower);
     }
 
 }

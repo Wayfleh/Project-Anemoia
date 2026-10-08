@@ -36,8 +36,8 @@ public partial class player_stats_tester : Node
 		// 	GD.Print(skills_names[b].ToString() + ": " + playerStats.ReadSkill(skills_names[b]));
 		// }
 
-		playerStats.IncrementSkill(skills_names[0]);
-		GD.Print(skills_names[0].ToString() + ": " + playerStats.ReadSkill(skills_names[0]));
+		// playerStats.IncrementSkill(skills_names[0]);
+		// GD.Print(skills_names[0].ToString() + ": " + playerStats.ReadSkill(skills_names[0]));
 
 
 	}
