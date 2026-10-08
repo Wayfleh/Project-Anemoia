@@ -14,10 +14,6 @@ config/name="Project Anemoia"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 config/icon="res://icon.svg"
 
-[autoload]
-
-PlayerStats="*uid://cufbbxwvd3agy"
-
 [display]
 
 window/stretch/mode="canvas_items"
