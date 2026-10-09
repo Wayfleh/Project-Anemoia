@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://b4qpbqypktb30"]
+
+[ext_resource type="Script" uid="uid://wyidkc7ntht5" path="res://player_stats_tester.cs" id="1_delak"]
+
+[node name="PlayerStatsTester" type="Node" unique_id=1083059807]
+script = ExtResource("1_delak")
