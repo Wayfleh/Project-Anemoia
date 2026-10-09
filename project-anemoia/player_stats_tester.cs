@@ -4,6 +4,7 @@ using System;
 public partial class player_stats_tester : Node
 {
 	public static player_stats_tester instance;
+	[Export]
 	public PlayerStats playerStats;
 
 	// Called when the node enters the scene tree for the first time.
