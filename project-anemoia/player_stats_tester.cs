@@ -17,7 +17,7 @@ public partial class player_stats_tester : Node
 			GD.Print("two player stats auto loader instances");
 			return;
 		}
-		playerStats = new PlayerStats();
+		// playerStats = new PlayerStats();
 	}
 
 	int b = 0;

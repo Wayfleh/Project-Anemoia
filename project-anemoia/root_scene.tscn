@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://bq6nkxd2vnnj3"]
+
+[ext_resource type="PackedScene" uid="uid://dig4kvuap37eb" path="res://example_game_level.tscn" id="1_itajj"]
+
+[node name="RootScene" type="Node" unique_id=1546425798]
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=411674394]
+offset_right = 858.0
+offset_bottom = 648.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=736033476]
+handle_input_locally = false
+size = Vector2i(858, 648)
+render_target_update_mode = 4
+
+[node name="Example Game Level" parent="SubViewportContainer/SubViewport" unique_id=408259209 instance=ExtResource("1_itajj")]
+
+[node name="Control" type="Control" parent="." unique_id=2020734516]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+
+[node name="DialogueBoxScreen" type="Control" parent="Control" unique_id=1241335183]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="Control/DialogueBoxScreen" unique_id=15106208]
+layout_mode = 0
+offset_left = 858.0
+offset_right = 1152.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 0.7294118)
