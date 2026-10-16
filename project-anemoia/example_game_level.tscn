@@ -91,3 +91,10 @@ shape = SubResource("CylinderShape3D_k4ib1")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D" unique_id=1615061577]
 mesh = SubResource("CylinderMesh_k4ib1")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D" unique_id=1317487663]
+current = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D/Camera3D" unique_id=208954985]
+transform = Transform3D(0.095, 0, 0, 0, 0.2478352, 0.06447296, 0, -0.19280487, 0.08287482, -0.4670414, -0.14872098, -0.49003983)
+mesh = SubResource("CylinderMesh_k4ib1")

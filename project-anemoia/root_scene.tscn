@@ -5,13 +5,13 @@
 [node name="RootScene" type="Node" unique_id=1546425798]
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=411674394]
-offset_right = 858.0
+offset_right = 902.0
 offset_bottom = 648.0
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=736033476]
 handle_input_locally = false
-size = Vector2i(858, 648)
+size = Vector2i(902, 648)
 render_target_update_mode = 4
 
 [node name="Example Game Level" parent="SubViewportContainer/SubViewport" unique_id=408259209 instance=ExtResource("1_itajj")]
@@ -22,14 +22,195 @@ anchors_preset = 0
 offset_right = 1152.0
 offset_bottom = 648.0
 
-[node name="DialogueBoxScreen" type="Control" parent="Control" unique_id=1241335183]
-anchors_preset = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="ColorRect" type="ColorRect" parent="Control/DialogueBoxScreen" unique_id=15106208]
+[node name="DialogueBoxExample" type="ColorRect" parent="Control" unique_id=15106208]
 layout_mode = 0
-offset_left = 858.0
+offset_left = 902.0
 offset_right = 1152.0
 offset_bottom = 648.0
-color = Color(0, 0, 0, 0.7294118)
+color = Color(0, 0, 0, 1)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/DialogueBoxExample" unique_id=1620297845]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 41.0
+offset_right = 234.0
+offset_bottom = 362.0
+bbcode_enabled = true
+text = "[color=darkgreen] Glug[/color] - Glug glug
+I want [wave amp=90.0 freq=5.0]glug[/wave]"
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="Control/DialogueBoxExample" unique_id=861282477]
+layout_mode = 0
+offset_left = 24.0
+offset_top = 375.0
+offset_right = 234.0
+offset_bottom = 718.0
+bbcode_enabled = true
+text = "[color=green] Shnub
+
+[bgcolor=yellow][color=black]Shnub Snub[/color][/bgcolor]
+
+I don't know what that is
+
+my head hurts 
+the world is twisting 
+
+Leave the Library
+(Willpower + Academics)"
+
+[node name="PersonalityFaceExample" type="ColorRect" parent="Control" unique_id=1172753078]
+layout_mode = 0
+offset_left = 802.0
+offset_top = 55.0
+offset_right = 902.0
+offset_bottom = 190.0
+color = Color(0, 0, 0, 1)
+
+[node name="PersonalityFaceExample2" type="ColorRect" parent="Control" unique_id=683427940]
+layout_mode = 0
+offset_left = 35.0
+offset_top = 20.0
+offset_right = 272.0
+offset_bottom = 51.0
+color = Color(0, 0, 0, 1)
+
+[node name="PersonalityFaceExample4" type="ColorRect" parent="Control" unique_id=1017260415]
+layout_mode = 0
+offset_left = 272.0
+offset_top = 20.0
+offset_right = 336.0
+offset_bottom = 51.0
+color = Color(0, 0, 0, 0.5803922)
+
+[node name="PersonalityFaceExample3" type="ColorRect" parent="Control" unique_id=1357855380]
+layout_mode = 0
+offset_left = 229.0
+offset_top = 10.0
+offset_right = 272.0
+offset_bottom = 59.0
+color = Color(0, 0, 0, 1)
+
+[node name="PersonalityPatienceBarExample" type="ColorRect" parent="Control" unique_id=782726566]
+layout_mode = 0
+offset_left = 777.0
+offset_top = 71.0
+offset_right = 802.0
+offset_bottom = 186.0
+color = Color(0, 0, 0, 1)
+
+[node name="SelfFaceBoxExample" type="ColorRect" parent="Control" unique_id=1863743056]
+layout_mode = 0
+offset_left = 84.99999
+offset_top = 501.0
+offset_right = 183.09338
+offset_bottom = 626.0
+scale = Vector2(1.009242, 1)
+color = Color(0, 0, 0, 0.64705884)
+
+[node name="SelfFaceBoxExample4" type="ColorRect" parent="Control" unique_id=887620439]
+layout_mode = 0
+offset_left = 780.0
+offset_top = 478.0
+offset_right = 867.1941
+offset_bottom = 562.0
+scale = Vector2(1.009242, 1)
+color = Color(0, 0, 0, 1)
+
+[node name="SelfPatienceBarExample" type="ColorRect" parent="Control" unique_id=744985511]
+layout_mode = 0
+offset_left = 62.0
+offset_top = 512.0
+offset_right = 85.01831
+offset_bottom = 622.0
+scale = Vector2(1.009242, 1)
+color = Color(0, 0, 0, 1)
+
+[node name="SelfFaceBoxExample2" type="ColorRect" parent="Control" unique_id=440348448]
+layout_mode = 0
+offset_left = 319.0
+offset_top = 582.0
+offset_right = 812.0934
+offset_bottom = 619.0
+scale = Vector2(1.009242, 1)
+color = Color(0, 0, 0, 0.5176471)
+
+[node name="SelfFaceBoxExample3" type="ColorRect" parent="Control" unique_id=549363153]
+layout_mode = 0
+offset_left = 319.0
+offset_top = 511.0
+offset_right = 775.77844
+offset_bottom = 530.0
+scale = Vector2(1.009242, 1)
+color = Color(0, 0, 0, 0.5254902)
+
+[node name="YellowBox" type="ColorRect" parent="Control" unique_id=228598415]
+layout_mode = 0
+offset_left = 398.0
+offset_top = 506.0
+offset_right = 435.652
+offset_bottom = 537.0
+scale = Vector2(1.009242, 1)
+color = Color(0.9997607, 0.9997613, 0, 1)
+
+[node name="YellowBox2" type="ColorRect" parent="Control" unique_id=136714505]
+layout_mode = 0
+offset_left = 462.0
+offset_top = 506.0
+offset_right = 499.652
+offset_bottom = 537.0
+scale = Vector2(1.009242, 1)
+color = Color(0.9997607, 0.9997613, 0, 1)
+
+[node name="YellowBox3" type="ColorRect" parent="Control" unique_id=1376702469]
+layout_mode = 0
+offset_left = 534.0
+offset_top = 506.0
+offset_right = 571.652
+offset_bottom = 537.0
+scale = Vector2(1.009242, 1)
+color = Color(0.9997607, 0.9997613, 0, 1)
+
+[node name="YellowBox4" type="ColorRect" parent="Control" unique_id=961939504]
+layout_mode = 0
+offset_left = 605.0
+offset_top = 506.0
+offset_right = 642.652
+offset_bottom = 537.0
+scale = Vector2(1.009242, 1)
+color = Color(0, 0, 0.43137255, 1)
+
+[node name="SelfFaceBoxExample6" type="ColorRect" parent="Control" unique_id=283145478]
+layout_mode = 0
+offset_left = 195.0
+offset_top = 486.0
+offset_right = 211.84433
+offset_bottom = 640.0
+scale = Vector2(1.009242, 1)
+color = Color(0, 0, 0, 0.5254902)
+
+[node name="SelfFaceBoxExample7" type="ColorRect" parent="Control" unique_id=827921920]
+layout_mode = 0
+offset_left = 211.99998
+offset_top = 486.0
+offset_right = 323.9652
+offset_bottom = 496.0
+scale = Vector2(1.009242, 1)
+color = Color(0, 0, 0, 0.5254902)
+
+[node name="SelfFaceBoxExample8" type="ColorRect" parent="Control" unique_id=418250131]
+layout_mode = 0
+offset_left = 212.0
+offset_top = 630.0
+offset_right = 323.9652
+offset_bottom = 640.0
+scale = Vector2(1.009242, 1)
+color = Color(0, 0, 0, 0.5254902)
+
+[node name="SelfFaceBoxExample5" type="ColorRect" parent="Control" unique_id=1809235153]
+layout_mode = 0
+offset_left = 221.0
+offset_top = 505.0
+offset_right = 318.10257
+offset_bottom = 627.0
+scale = Vector2(1.009242, 1)
+color = Color(0.2627451, 0.2627451, 0.2627451, 1)
