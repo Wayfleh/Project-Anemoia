@@ -83,7 +83,7 @@ transform = Transform3D(0.6541083, -0.20155972, 0.7290515, 0, 0.96384263, 0.2664
 transform = Transform3D(0.3817658, 0.3031907, 0.8731153, -0.6376103, -0.59748894, 0.48627132, 0.6691097, -0.7423491, -0.034783266, 0, 5.4023376, 0)
 
 [node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=1720813961]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3206964, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3206964, 1.4885798)
 script = ExtResource("1_w4cy0")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=1511782929]

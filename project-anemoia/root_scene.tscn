@@ -36,15 +36,14 @@ offset_top = 41.0
 offset_right = 234.0
 offset_bottom = 362.0
 bbcode_enabled = true
-text = "[color=darkgreen] Glug[/color] - Glug glug
-I want [wave amp=90.0 freq=5.0]glug[/wave]"
+text = "[color=darkgreen] Glug[/color] - I want [wave amp=90.0 freq=5.0]glug glug[/wave]"
 
 [node name="RichTextLabel2" type="RichTextLabel" parent="Control/DialogueBoxExample" unique_id=861282477]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 375.0
 offset_right = 234.0
-offset_bottom = 718.0
+offset_bottom = 636.0
 bbcode_enabled = true
 text = "[color=green] Shnub
 
