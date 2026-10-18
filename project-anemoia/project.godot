@@ -17,6 +17,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 DialogueManager="*uid://c3rodes2l3gxb"
+Flags="*uid://crbtqtfpcn43"
 
 [display]
 
@@ -30,6 +31,10 @@ project/assembly_name="Project Anemoia"
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/dialogue_manager/plugin.cfg")
+
+[internationalization]
+
+locale/translations_pot_files=PackedStringArray("res://assets/Dialogue/test.dialogue")
 
 [physics]
 
