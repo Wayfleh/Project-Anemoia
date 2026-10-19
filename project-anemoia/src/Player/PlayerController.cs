@@ -17,8 +17,8 @@ public partial class PlayerController : CharacterBody3D
 	//Head movement variables
 	private const float BOB_FREQUENCY = 2.0f;
 	private const float BOB_AMPLITUDE = 0.08f;
-	private float tBob = 1.0f; // growing time variable; tells player where during the headbob they're in
-	private float head_tilt = Mathf.DegToRad(3);
+	private float tBob = 0.0f; // growing time variable; tells player where during the headbob they're in
+	private float head_tilt = Mathf.DegToRad(1.5f);
 
     public override void _Ready()
     {
@@ -59,7 +59,6 @@ public partial class PlayerController : CharacterBody3D
 		}
 
 		// Head Bob
-
 		Transform3D bobTransform = camera.Transform;
 		if(inputDir != Vector2.Zero)
 		{
@@ -67,13 +66,28 @@ public partial class PlayerController : CharacterBody3D
 			tBob += (float)delta * velocity.Length() * onFloor;
 			bobTransform.Origin = headbob(tBob);
 		}
-		else
+		else //resets transform origin and time so it looks more natural
 		{
 			bobTransform.Origin.X = Mathf.Lerp(bobTransform.Origin.X, 0, (float)delta * 4);
 			bobTransform.Origin.Y = Mathf.Lerp(bobTransform.Origin.Y, 0, (float)delta * 4);
-			tBob = 1.0f;
+			tBob = 0.0f;
 		}
 		camera.Transform = bobTransform;
+
+		//head tilt
+		Vector3 headRot = head.Rotation;
+		if (inputDir.X < 0) // Left tilt
+			headRot.Z = Mathf.Lerp(headRot.Z, head_tilt, (float) delta * 4);
+		else if (inputDir.X > 0) // Right tilt
+			headRot.Z = Mathf.Lerp(headRot.Z, -head_tilt, (float) delta * 4);
+		else
+			headRot.Z = Mathf.Lerp(headRot.Z, 0.0f, (float) delta * 7);
+		
+		if (Input.IsActionPressed("move_forward"))
+			head_tilt = Mathf.DegToRad(1);
+		else
+			head_tilt = Mathf.DegToRad(1.5f);
+		head.Rotation = headRot;
 
 		Velocity = velocity;
 		MoveAndSlide();
@@ -97,10 +111,8 @@ public partial class PlayerController : CharacterBody3D
 	private Vector3 headbob(float time)
 	{
 		Vector3 pos = Vector3.Zero;
-		pos.Y = Mathf.Sin(1 + time * BOB_FREQUENCY) * BOB_AMPLITUDE;
-		pos.X = Mathf.Cos(time * BOB_FREQUENCY * 0.5f) * BOB_AMPLITUDE * 2;
+		pos.Y = Mathf.Sin(time * BOB_FREQUENCY) * BOB_AMPLITUDE;
+		pos.X = Mathf.Cos(1 + time * BOB_FREQUENCY * 0.5f) * BOB_AMPLITUDE * 2;
 		return pos;
-
-
 	}
 }
