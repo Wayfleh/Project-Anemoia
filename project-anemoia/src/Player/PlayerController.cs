@@ -19,6 +19,7 @@ public partial class PlayerController : CharacterBody3D
 	private const float BOB_AMPLITUDE = 0.08f;
 	private float tBob = 0.0f; // growing time variable; tells player where during the headbob they're in
 	private float head_tilt = Mathf.DegToRad(1.5f);
+	private Boolean is_rested = true;
 
     public override void _Ready()
     {
@@ -60,7 +61,7 @@ public partial class PlayerController : CharacterBody3D
 
 		// Head Bob
 		Transform3D bobTransform = camera.Transform;
-		if(inputDir != Vector2.Zero)
+		if(inputDir != Vector2.Zero && is_rested)
 		{
 			float onFloor = IsOnFloor() ? 1f : 0f;
 			tBob += (float)delta * velocity.Length() * onFloor;
@@ -70,6 +71,11 @@ public partial class PlayerController : CharacterBody3D
 		{
 			bobTransform.Origin.X = Mathf.Lerp(bobTransform.Origin.X, 0, (float)delta * 4);
 			bobTransform.Origin.Y = Mathf.Lerp(bobTransform.Origin.Y, 0, (float)delta * 4);
+		}
+
+		if (inputDir == Vector2.Zero && Mathf.IsEqualApprox(bobTransform.Origin.X, 0))
+		{
+			is_rested = true;
 			tBob = 0.0f;
 		}
 		camera.Transform = bobTransform;
