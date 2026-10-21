@@ -5,10 +5,14 @@
     "tasks": [
         {
             "label": "build",
-            "command": "dotnet",
+            "command": "C:\\Users\\rafae\\Desktop\\Godot v4.7 .NET\\Godot_v4.7.2-stable_mono_win64.exe",
             "type": "process",
             "args": [
-                "build",
+                "--build-solutions",
+                "--path",
+                "${workspaceRoot}",
+                "--no-window",
+                "-q"
             ],
             "problemMatcher": "$msCompile"
         }

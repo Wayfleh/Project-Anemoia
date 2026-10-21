@@ -65,7 +65,9 @@ public partial class PlayerController : CharacterBody3D
 		{
 			float onFloor = IsOnFloor() ? 1f : 0f;
 			tBob += (float)delta * velocity.Length() * onFloor;
-			bobTransform.Origin = headbob(tBob);
+
+			bobTransform.Origin.X = Mathf.Lerp(bobTransform.Origin.X, headbob(tBob).X, (float)delta * 10);
+			bobTransform.Origin.Y = Mathf.Lerp(bobTransform.Origin.Y, headbob(tBob).Y, (float)delta * 10);
 		}
 		else //resets transform origin and time so it looks more natural
 		{
