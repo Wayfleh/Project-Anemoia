@@ -1,0 +1,18 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Project Anemoia Play",
+            "type": "coreclr",
+            "request": "launch",
+            "preLaunchTask": "build",
+            "program": "C:\\Users\\rafae\\Desktop\\Godot v4.7 .NET\\Godot_v4.7.2-stable_mono_win64.exe",
+            "args": [
+                "--path",
+                "E:\\Documents\\GitHub\\Project-Anemoia\\project-anemoia"
+            ],
+            "cwd": "E:\\Documents\\GitHub\\Project-Anemoia\\project-anemoia",
+            "stopAtEntry": false,
+        }
+    ]
+}

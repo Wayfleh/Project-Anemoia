@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://dmgrpln5yesby"]
+
+[ext_resource type="Script" uid="uid://bh7ko401vh5hq" path="res://src/Interaction/Interactable.cs" id="1_1uo67"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ahknw"]
+
+[node name="Interactable" type="Area3D" unique_id=1913567736]
+script = ExtResource("1_1uo67")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=329628570]
+shape = SubResource("BoxShape3D_ahknw")
