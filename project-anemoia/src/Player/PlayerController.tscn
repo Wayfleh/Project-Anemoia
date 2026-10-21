@@ -1,10 +1,14 @@
 [gd_scene format=3 uid="uid://duj7wlfj022je"]
 
 [ext_resource type="Script" uid="uid://cemewidpg2ps5" path="res://src/Player/PlayerController.cs" id="1_uhx54"]
+[ext_resource type="Script" uid="uid://cnhjr38qn0mje" path="res://src/Interaction/Interactor.cs" id="2_eryrk"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ahknw"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_mn2qf"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ahknw"]
+size = Vector3(1.2167969, 2.223938, 3.2750854)
 
 [node name="PlayerController" type="CharacterBody3D" unique_id=801469930]
 script = ExtResource("1_uhx54")
@@ -19,3 +23,10 @@ shape = SubResource("CapsuleShape3D_mn2qf")
 
 [node name="Camera3D" type="Camera3D" parent="Head" unique_id=144551285]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.6, 0)
+
+[node name="Interactor" type="Area3D" parent="Head" unique_id=805396929]
+script = ExtResource("2_eryrk")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Head/Interactor" unique_id=1999706747]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.349823, -2.1124573)
+shape = SubResource("BoxShape3D_ahknw")

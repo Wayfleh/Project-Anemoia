@@ -2,9 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://duj7wlfj022je" path="res://src/Player/PlayerController.tscn" id="1_5ukdc"]
 [ext_resource type="Texture2D" uid="uid://cs80bdvube2r5" path="res://assets/Textures/Placeholders/Jack.jpg" id="1_6qhrq"]
+[ext_resource type="PackedScene" uid="uid://472sav1i7jka" path="res://src/Interaction/door.tscn" id="2_8fib7"]
 [ext_resource type="Texture2D" uid="uid://dncgbpeuqlyos" path="res://assets/Textures/Placeholders/nefarious dock.png" id="3_083vo"]
 [ext_resource type="Texture2D" uid="uid://hmwwjatwhnkd" path="res://assets/Textures/Placeholders/violet beauregarde.PNG" id="3_snsv6"]
 [ext_resource type="Texture2D" uid="uid://b4fbaayk7r7we" path="res://assets/Textures/Placeholders/spongebob.png" id="4_ghqn6"]
+[ext_resource type="Script" uid="uid://ce4mg2cyusopi" path="res://src/Test/TestInteractableBox.cs" id="6_xbpj4"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_6qhrq"]
 sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
@@ -53,6 +55,10 @@ uv1_scale = Vector3(75, 75, 75)
 material = SubResource("StandardMaterial3D_44aup")
 size = Vector2(150, 150)
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_ahknw"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ahknw"]
+
 [node name="TestWorld" type="Node3D" unique_id=1925020916]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=2003316290]
@@ -64,6 +70,9 @@ shadow_enabled = true
 
 [node name="PlayerController" parent="." unique_id=801469930 instance=ExtResource("1_5ukdc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.77938, 1.2259438, 17.468725)
+
+[node name="Door" parent="." unique_id=300336927 instance=ExtResource("2_8fib7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.74253, 0, 11.200393)
 
 [node name="Maze" type="Node3D" parent="." unique_id=2115198363]
 transform = Transform3D(0.25, 0, 0, 0, 0.25, 0, 0, 0, 0.25, 0, 0, 0)
@@ -210,3 +219,13 @@ texture = ExtResource("3_snsv6")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -20.108116, 4.510971, -59.218136)
 billboard = 1
 texture = ExtResource("4_ghqn6")
+
+[node name="TestBox" type="Area3D" parent="." unique_id=670405248]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.700882, 1.0275204, 8.064331)
+script = ExtResource("6_xbpj4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="TestBox" unique_id=1687750121]
+shape = SubResource("BoxShape3D_ahknw")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="TestBox" unique_id=1568808533]
+mesh = SubResource("BoxMesh_ahknw")
