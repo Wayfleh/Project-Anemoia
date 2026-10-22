@@ -1,0 +1,100 @@
+[gd_scene format=3 uid="uid://dig4kvuap37eb"]
+
+[ext_resource type="Script" uid="uid://cjsfbho2u3tn5" path="res://CharacterBody3dExample.cs" id="1_w4cy0"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k4ib1"]
+size = Vector3(20, 1, 20)
+
+[sub_resource type="BoxMesh" id="BoxMesh_k4ib1"]
+size = Vector3(20, 1, 20)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ng01o"]
+size = Vector3(20, 1, 20)
+
+[sub_resource type="BoxMesh" id="BoxMesh_w4cy0"]
+size = Vector3(20, 1, 20)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_h4d8y"]
+bounce = 1.0
+
+[sub_resource type="SphereMesh" id="SphereMesh_k4ib1"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_k4ib1"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bx870"]
+bounce = 1.0
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_k4ib1"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_k4ib1"]
+
+[node name="Example Game Level" type="Node" unique_id=408259209]
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=207079091]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=524797618]
+shape = SubResource("BoxShape3D_k4ib1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D" unique_id=1889448623]
+mesh = SubResource("BoxMesh_k4ib1")
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="." unique_id=1051258451]
+transform = Transform3D(1, 0, 0, 0, 0.70710677, -0.70710677, 0, 0.70710677, 0.70710677, -14.331104, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2" unique_id=59744318]
+shape = SubResource("BoxShape3D_ng01o")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2" unique_id=1791136695]
+mesh = SubResource("BoxMesh_w4cy0")
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="." unique_id=238304908]
+transform = Transform3D(1, 0, 0, 0, 0.7071067, 0.7071067, 0, -0.7071067, 0.7071067, -14.331104, -2.0923138, -2.6935618)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D3" unique_id=2081425175]
+shape = SubResource("BoxShape3D_ng01o")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D3" unique_id=1253392694]
+mesh = SubResource("BoxMesh_w4cy0")
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=2145007501]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.4386907, 0)
+physics_material_override = SubResource("PhysicsMaterial_h4d8y")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D" unique_id=728330487]
+mesh = SubResource("SphereMesh_k4ib1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=1339036192]
+shape = SubResource("SphereShape3D_k4ib1")
+
+[node name="RigidBody3D2" type="RigidBody3D" parent="." unique_id=1832803939]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.8549576, 7.2272468, -5.7957683)
+physics_material_override = SubResource("PhysicsMaterial_bx870")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D2" unique_id=1127225914]
+mesh = SubResource("SphereMesh_k4ib1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D2" unique_id=394697950]
+shape = SubResource("SphereShape3D_k4ib1")
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=398414809]
+transform = Transform3D(0.6541083, -0.20155972, 0.7290515, 0, 0.96384263, 0.2664721, -0.75640094, -0.1743016, 0.63045746, 2.6440465, 5.1362753, 3.4482377)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=283336553]
+transform = Transform3D(0.3817658, 0.3031907, 0.8731153, -0.6376103, -0.59748894, 0.48627132, 0.6691097, -0.7423491, -0.034783266, 0, 5.4023376, 0)
+
+[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=1720813961]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3206964, 1.4885798)
+script = ExtResource("1_w4cy0")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=1511782929]
+shape = SubResource("CylinderShape3D_k4ib1")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D" unique_id=1615061577]
+mesh = SubResource("CylinderMesh_k4ib1")
+
+[node name="Camera3D" type="Camera3D" parent="CharacterBody3D" unique_id=1317487663]
+current = true
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D/Camera3D" unique_id=208954985]
+transform = Transform3D(0.095, 0, 0, 0, 0.2478352, 0.06447296, 0, -0.19280487, 0.08287482, -0.4670414, -0.14872098, -0.49003983)
+mesh = SubResource("CylinderMesh_k4ib1")
