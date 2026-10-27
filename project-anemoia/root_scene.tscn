@@ -1,6 +1,13 @@
 [gd_scene format=3 uid="uid://bq6nkxd2vnnj3"]
 
 [ext_resource type="PackedScene" uid="uid://dig4kvuap37eb" path="res://example_game_level.tscn" id="1_itajj"]
+[ext_resource type="Texture2D" uid="uid://b4fbaayk7r7we" path="res://assets/Textures/Placeholders/spongebob.png" id="2_c77vg"]
+[ext_resource type="Texture2D" uid="uid://dncgbpeuqlyos" path="res://assets/Textures/Placeholders/nefarious dock.png" id="3_iqet6"]
+[ext_resource type="Texture2D" uid="uid://d03v67u1egwry" path="res://assets/Textures/Placeholders/heart.png" id="4_t2jh2"]
+[ext_resource type="Texture2D" uid="uid://cik6d8pylgnbx" path="res://assets/Textures/Placeholders/blooodBarBackground.png" id="5_4ty2a"]
+[ext_resource type="Texture2D" uid="uid://dl0m56lsp1jw6" path="res://assets/Textures/Placeholders/healthBarBackground.png" id="6_gvaf7"]
+[ext_resource type="Texture2D" uid="uid://uhb5ebyh3kwu" path="res://assets/Textures/Placeholders/blooodBar.png" id="6_rckqj"]
+[ext_resource type="Texture2D" uid="uid://dkfs2caf3uc86" path="res://assets/Textures/Placeholders/healthBar.png" id="7_mfg43"]
 
 [node name="RootScene" type="Node" unique_id=1546425798]
 
@@ -18,18 +25,34 @@ render_target_update_mode = 4
 
 [node name="Control" type="Control" parent="." unique_id=2020734516]
 layout_mode = 3
-anchors_preset = 0
-offset_right = 1152.0
-offset_bottom = 648.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="DialogueBoxExample" type="ColorRect" parent="Control" unique_id=15106208]
-layout_mode = 0
+[node name="InternalDialogueBox" type="Control" parent="Control" unique_id=219436326]
+anchors_preset = 0
 offset_left = 902.0
 offset_right = 1152.0
 offset_bottom = 648.0
-color = Color(0, 0, 0, 1)
 
-[node name="RichTextLabel" type="RichTextLabel" parent="Control/DialogueBoxExample" unique_id=1620297845]
+[node name="TextureRect" type="TextureRect" parent="Control/InternalDialogueBox" unique_id=526815807]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_c77vg")
+expand_mode = 1
+
+[node name="ColorRect" type="ColorRect" parent="Control/InternalDialogueBox" unique_id=151835388]
+layout_mode = 0
+offset_right = 250.0
+offset_bottom = 648.0
+color = Color(0, 0, 0, 0.75686276)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/InternalDialogueBox" unique_id=1620297845]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 41.0
@@ -38,7 +61,7 @@ offset_bottom = 362.0
 bbcode_enabled = true
 text = "[color=darkgreen] Glug[/color] - I want [wave amp=90.0 freq=5.0]glug glug[/wave]"
 
-[node name="RichTextLabel2" type="RichTextLabel" parent="Control/DialogueBoxExample" unique_id=861282477]
+[node name="RichTextLabel2" type="RichTextLabel" parent="Control/InternalDialogueBox" unique_id=861282477]
 layout_mode = 0
 offset_left = 24.0
 offset_top = 375.0
@@ -57,159 +80,117 @@ the world is twisting
 Leave the Library
 (Willpower + Academics)"
 
-[node name="PersonalityFaceExample" type="ColorRect" parent="Control" unique_id=1172753078]
-layout_mode = 0
-offset_left = 802.0
-offset_top = 55.0
+[node name="ExternalDialogueBox" type="Control" parent="Control" unique_id=651585856]
+anchors_preset = 0
+offset_left = 550.0
 offset_right = 902.0
-offset_bottom = 190.0
+offset_bottom = 648.0
+
+[node name="BackgroundTint" type="ColorRect" parent="Control/ExternalDialogueBox" unique_id=1233413394]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.21568628)
+
+[node name="Portrait" type="Control" parent="Control/ExternalDialogueBox" unique_id=1935525143]
+anchors_preset = 0
+offset_left = -100.0
+offset_bottom = 125.0
+
+[node name="Background" type="ColorRect" parent="Control/ExternalDialogueBox/Portrait" unique_id=1822413903]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="PersonalityFaceExample2" type="ColorRect" parent="Control" unique_id=683427940]
+[node name="TextureRect" type="TextureRect" parent="Control/ExternalDialogueBox/Portrait" unique_id=713801111]
 layout_mode = 0
-offset_left = 35.0
-offset_top = 20.0
-offset_right = 272.0
-offset_bottom = 51.0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 97.0
+offset_bottom = 122.0
+texture = ExtResource("3_iqet6")
+expand_mode = 1
+
+[node name="PlayerStatsArea" type="Control" parent="Control" unique_id=948839065]
+anchors_preset = 0
+offset_right = 550.0
+offset_bottom = 648.0
+
+[node name="HealthAndBloodBar" type="Control" parent="Control/PlayerStatsArea" unique_id=1382878646]
+anchors_preset = 0
+offset_top = 37.0
+offset_right = 126.0
+offset_bottom = 648.0
+
+[node name="BloodBar" type="TextureProgressBar" parent="Control/PlayerStatsArea/HealthAndBloodBar" unique_id=87494267]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 63.0
+offset_right = 63.5
+value = 100.0
+fill_mode = 3
+texture_under = ExtResource("5_4ty2a")
+texture_progress = ExtResource("6_rckqj")
+
+[node name="HealthBar" type="TextureProgressBar" parent="Control/PlayerStatsArea/HealthAndBloodBar" unique_id=440809815]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_right = 0.5
+value = 100.0
+fill_mode = 3
+texture_under = ExtResource("6_gvaf7")
+texture_progress = ExtResource("7_mfg43")
+
+[node name="HeartTexture" type="TextureRect" parent="Control/PlayerStatsArea/HealthAndBloodBar" unique_id=1492865801]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -169.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_t2jh2")
+expand_mode = 1
+
+[node name="Control" type="Control" parent="Control/PlayerStatsArea" unique_id=532856679]
+anchors_preset = 0
+offset_left = 127.0
+offset_top = 425.0
+offset_right = 550.0
+offset_bottom = 648.0
+
+[node name="Portrait" type="Control" parent="Control/PlayerStatsArea/Control" unique_id=505911089]
+anchors_preset = 0
+offset_top = 94.0
+offset_right = 100.0
+offset_bottom = 219.0
+
+[node name="Background" type="ColorRect" parent="Control/PlayerStatsArea/Control/Portrait" unique_id=519382373]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="PersonalityFaceExample4" type="ColorRect" parent="Control" unique_id=1017260415]
+[node name="TextureRect" type="TextureRect" parent="Control/PlayerStatsArea/Control/Portrait" unique_id=2111416358]
 layout_mode = 0
-offset_left = 272.0
-offset_top = 20.0
-offset_right = 336.0
-offset_bottom = 51.0
-color = Color(0, 0, 0, 0.5803922)
-
-[node name="PersonalityFaceExample3" type="ColorRect" parent="Control" unique_id=1357855380]
-layout_mode = 0
-offset_left = 229.0
-offset_top = 10.0
-offset_right = 272.0
-offset_bottom = 59.0
-color = Color(0, 0, 0, 1)
-
-[node name="PersonalityPatienceBarExample" type="ColorRect" parent="Control" unique_id=782726566]
-layout_mode = 0
-offset_left = 777.0
-offset_top = 71.0
-offset_right = 802.0
-offset_bottom = 186.0
-color = Color(0, 0, 0, 1)
-
-[node name="SelfFaceBoxExample" type="ColorRect" parent="Control" unique_id=1863743056]
-layout_mode = 0
-offset_left = 84.99999
-offset_top = 501.0
-offset_right = 183.09338
-offset_bottom = 626.0
-scale = Vector2(1.009242, 1)
-color = Color(0, 0, 0, 0.64705884)
-
-[node name="SelfFaceBoxExample4" type="ColorRect" parent="Control" unique_id=887620439]
-layout_mode = 0
-offset_left = 780.0
-offset_top = 478.0
-offset_right = 867.1941
-offset_bottom = 562.0
-scale = Vector2(1.009242, 1)
-color = Color(0, 0, 0, 1)
-
-[node name="SelfPatienceBarExample" type="ColorRect" parent="Control" unique_id=744985511]
-layout_mode = 0
-offset_left = 62.0
-offset_top = 512.0
-offset_right = 85.01831
-offset_bottom = 622.0
-scale = Vector2(1.009242, 1)
-color = Color(0, 0, 0, 1)
-
-[node name="SelfFaceBoxExample2" type="ColorRect" parent="Control" unique_id=440348448]
-layout_mode = 0
-offset_left = 319.0
-offset_top = 582.0
-offset_right = 812.0934
-offset_bottom = 619.0
-scale = Vector2(1.009242, 1)
-color = Color(0, 0, 0, 0.5176471)
-
-[node name="SelfFaceBoxExample3" type="ColorRect" parent="Control" unique_id=549363153]
-layout_mode = 0
-offset_left = 319.0
-offset_top = 511.0
-offset_right = 775.77844
-offset_bottom = 530.0
-scale = Vector2(1.009242, 1)
-color = Color(0, 0, 0, 0.5254902)
-
-[node name="YellowBox" type="ColorRect" parent="Control" unique_id=228598415]
-layout_mode = 0
-offset_left = 398.0
-offset_top = 506.0
-offset_right = 435.652
-offset_bottom = 537.0
-scale = Vector2(1.009242, 1)
-color = Color(0.9997607, 0.9997613, 0, 1)
-
-[node name="YellowBox2" type="ColorRect" parent="Control" unique_id=136714505]
-layout_mode = 0
-offset_left = 462.0
-offset_top = 506.0
-offset_right = 499.652
-offset_bottom = 537.0
-scale = Vector2(1.009242, 1)
-color = Color(0.9997607, 0.9997613, 0, 1)
-
-[node name="YellowBox3" type="ColorRect" parent="Control" unique_id=1376702469]
-layout_mode = 0
-offset_left = 534.0
-offset_top = 506.0
-offset_right = 571.652
-offset_bottom = 537.0
-scale = Vector2(1.009242, 1)
-color = Color(0.9997607, 0.9997613, 0, 1)
-
-[node name="YellowBox4" type="ColorRect" parent="Control" unique_id=961939504]
-layout_mode = 0
-offset_left = 605.0
-offset_top = 506.0
-offset_right = 642.652
-offset_bottom = 537.0
-scale = Vector2(1.009242, 1)
-color = Color(0, 0, 0.43137255, 1)
-
-[node name="SelfFaceBoxExample6" type="ColorRect" parent="Control" unique_id=283145478]
-layout_mode = 0
-offset_left = 195.0
-offset_top = 486.0
-offset_right = 211.84433
-offset_bottom = 640.0
-scale = Vector2(1.009242, 1)
-color = Color(0, 0, 0, 0.5254902)
-
-[node name="SelfFaceBoxExample7" type="ColorRect" parent="Control" unique_id=827921920]
-layout_mode = 0
-offset_left = 211.99998
-offset_top = 486.0
-offset_right = 323.9652
-offset_bottom = 496.0
-scale = Vector2(1.009242, 1)
-color = Color(0, 0, 0, 0.5254902)
-
-[node name="SelfFaceBoxExample8" type="ColorRect" parent="Control" unique_id=418250131]
-layout_mode = 0
-offset_left = 212.0
-offset_top = 630.0
-offset_right = 323.9652
-offset_bottom = 640.0
-scale = Vector2(1.009242, 1)
-color = Color(0, 0, 0, 0.5254902)
-
-[node name="SelfFaceBoxExample5" type="ColorRect" parent="Control" unique_id=1809235153]
-layout_mode = 0
-offset_left = 221.0
-offset_top = 505.0
-offset_right = 318.10257
-offset_bottom = 627.0
-scale = Vector2(1.009242, 1)
-color = Color(0.2627451, 0.2627451, 0.2627451, 1)
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 97.0
+offset_bottom = 122.0
+texture = ExtResource("3_iqet6")
+expand_mode = 1
