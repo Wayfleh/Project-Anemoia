@@ -8,12 +8,15 @@
 [ext_resource type="Texture2D" uid="uid://dl0m56lsp1jw6" path="res://assets/Textures/Placeholders/healthBarBackground.png" id="6_gvaf7"]
 [ext_resource type="Texture2D" uid="uid://uhb5ebyh3kwu" path="res://assets/Textures/Placeholders/blooodBar.png" id="6_rckqj"]
 [ext_resource type="Texture2D" uid="uid://dkfs2caf3uc86" path="res://assets/Textures/Placeholders/healthBar.png" id="7_mfg43"]
+[ext_resource type="Script" uid="uid://xqps7lg7lffg" path="res://HudManager.cs" id="9_0ma7x"]
+[ext_resource type="Script" uid="uid://vpsipehvhh2e" path="res://SignalBus.cs" id="10_q1itj"]
 
 [node name="RootScene" type="Node" unique_id=1546425798]
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=411674394]
 offset_right = 902.0
 offset_bottom = 648.0
+mouse_filter = 2
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=736033476]
@@ -25,6 +28,7 @@ render_target_update_mode = 4
 
 [node name="Control" type="Control" parent="." unique_id=2020734516]
 layout_mode = 3
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
@@ -164,20 +168,20 @@ grow_vertical = 2
 texture = ExtResource("4_t2jh2")
 expand_mode = 1
 
-[node name="Control" type="Control" parent="Control/PlayerStatsArea" unique_id=532856679]
+[node name="Other" type="Control" parent="Control/PlayerStatsArea" unique_id=532856679]
 anchors_preset = 0
 offset_left = 127.0
 offset_top = 425.0
 offset_right = 550.0
 offset_bottom = 648.0
 
-[node name="Portrait" type="Control" parent="Control/PlayerStatsArea/Control" unique_id=505911089]
+[node name="Player Portrait" type="Control" parent="Control/PlayerStatsArea/Other" unique_id=505911089]
 anchors_preset = 0
 offset_top = 94.0
 offset_right = 100.0
 offset_bottom = 219.0
 
-[node name="Background" type="ColorRect" parent="Control/PlayerStatsArea/Control/Portrait" unique_id=519382373]
+[node name="Background" type="ColorRect" parent="Control/PlayerStatsArea/Other/Player Portrait" unique_id=519382373]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -186,7 +190,7 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
-[node name="TextureRect" type="TextureRect" parent="Control/PlayerStatsArea/Control/Portrait" unique_id=2111416358]
+[node name="TextureRect" type="TextureRect" parent="Control/PlayerStatsArea/Other/Player Portrait" unique_id=2111416358]
 layout_mode = 0
 offset_left = 3.0
 offset_top = 3.0
@@ -194,3 +198,56 @@ offset_right = 97.0
 offset_bottom = 122.0
 texture = ExtResource("3_iqet6")
 expand_mode = 1
+
+[node name="Player Portrait2" type="Control" parent="Control/PlayerStatsArea/Other" unique_id=1775805275]
+anchors_preset = 0
+offset_left = 99.0
+offset_top = 92.0
+offset_right = 168.0
+offset_bottom = 180.0
+
+[node name="TextureRect" type="TextureRect" parent="Control/PlayerStatsArea/Other/Player Portrait2" unique_id=1323244779]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_iqet6")
+expand_mode = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="Control/PlayerStatsArea/Other/Player Portrait2" unique_id=1287053433]
+visible = false
+layout_mode = 0
+offset_left = 69.0
+offset_top = 3.0
+offset_right = 82.0
+offset_bottom = 84.0
+max_value = 10.0
+value = 2.0
+fill_mode = 3
+show_percentage = false
+
+[node name="VSlider" type="VSlider" parent="Control/PlayerStatsArea/Other/Player Portrait2" unique_id=1836684812]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = 3.0
+offset_right = 16.0
+offset_bottom = -3.0
+grow_horizontal = 0
+grow_vertical = 2
+max_value = 5.0
+editable = false
+scrollable = false
+tick_count = 6
+ticks_position = 3
+
+[node name="HUDManager" type="Node" parent="." unique_id=1025954270]
+script = ExtResource("9_0ma7x")
+
+[node name="SignalBus" type="Node" parent="." unique_id=2043548061]
+script = ExtResource("10_q1itj")

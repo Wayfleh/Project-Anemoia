@@ -19,6 +19,7 @@ config/icon="res://icon.svg"
 
 DialogueManager="*uid://c3rodes2l3gxb"
 Flags="*uid://crbtqtfpcn43"
+SignalBus="*uid://vpsipehvhh2e"
 
 [display]
 
