@@ -66,12 +66,12 @@ public partial class PlayerStats : Resource
 
 	public void SetSkill(Skill skill, int new_skill_value)
 	{
-		skills_list[skill] = Math.Clamp(new_skill_value, 0, 10);
+		skills_list[skill] = Math.Clamp(new_skill_value, 0, maxValue);
 	}
 
 	public void SetAttribute(Attribute attribute, int new_attribute_value)
 	{
-		attributes_list[attribute] = Math.Clamp(new_attribute_value, 1, 10);
+		attributes_list[attribute] = Math.Clamp(new_attribute_value, 1, maxValue);
 	}
 
 
