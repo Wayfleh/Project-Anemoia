@@ -12,6 +12,11 @@ public partial class player_stats_test_script : Node
 	public override void _Process(double delta)
 	{
 		if (Input.IsActionJustPressed("jump"))
+		{
+			PlayerStatsWrapper.Instance.playerStats.Health -= 5;
+			PlayerStatsWrapper.Instance.playerStats.Blood -= 5;
+			PlayerStatsWrapper.Instance.playerStats.Willpower -= 5;
 			PlayerStatsWrapper.Instance.Test();
+		}
 	}
 }

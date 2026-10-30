@@ -6,6 +6,10 @@ public partial class PlayerStatsWrapper : Node
 {
 	public static PlayerStatsWrapper Instance;
 
+	[Signal] public delegate void PlayerHealthChangedEventHandler(int health);
+	[Signal] public delegate void PlayerBloodChangedEventHandler(int blood);
+	[Signal] public delegate void PlayerWillpowerChangedEventHandler(int willpower);
+
 	public PlayerStats playerStats;
 
 	// Called when the node enters the scene tree for the first time.

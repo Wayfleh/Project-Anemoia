@@ -37,14 +37,41 @@ public partial class PlayerStats : Resource
 		occult,
 		technology,
 	}
-	
-	[Export] 
+
+	[Export]
 	public Dictionary<Attribute, int> attributes_list { get; private set; }
-	[Export] 
+	[Export]
 	public Dictionary<Skill, int> skills_list { get; private set; }
-	public int Health { get; set; } = 100;
-	public int Blood { get; set; } = 100;
-	public int Willpower { get; set; } = 100;
+	private int _health = 100;
+	public int Health
+	{
+		get { return _health; }
+		set
+		{
+			_health = Math.Max(value, 0);
+			PlayerStatsWrapper.Instance.EmitSignal(PlayerStatsWrapper.SignalName.PlayerHealthChanged, _health);
+		}
+	}
+	private int _blood = 100;
+	public int Blood
+	{
+		get { return _blood; }
+		set
+		{
+			_blood = Math.Max(value, 0);
+			PlayerStatsWrapper.Instance.EmitSignal(PlayerStatsWrapper.SignalName.PlayerBloodChanged, _blood);
+		}
+	}
+	private int _willpower = 10;
+	public int Willpower
+	{
+		get { return _willpower; }
+		set
+		{
+			_willpower = Math.Clamp(value, 0, 10);
+			PlayerStatsWrapper.Instance.EmitSignal(PlayerStatsWrapper.SignalName.PlayerWillpowerChanged, _willpower);
+		}
+	}
 
 	public int ReadAttribute(Attribute attribute)
 	{
@@ -90,7 +117,6 @@ public partial class PlayerStats : Resource
 			skills_list.Add(skill_name, 0);
 		}
 
-		PrintDebug();
 	}
 
 	public void PrintDebug()

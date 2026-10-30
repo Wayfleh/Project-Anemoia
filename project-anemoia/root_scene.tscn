@@ -9,6 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://uhb5ebyh3kwu" path="res://assets/Textures/Placeholders/blooodBar.png" id="6_rckqj"]
 [ext_resource type="Texture2D" uid="uid://dkfs2caf3uc86" path="res://assets/Textures/Placeholders/healthBar.png" id="7_mfg43"]
 [ext_resource type="Script" uid="uid://xqps7lg7lffg" path="res://HudManager.cs" id="9_0ma7x"]
+[ext_resource type="Texture2D" uid="uid://4v5u5o7chu48" path="res://assets/Textures/Placeholders/filledWillpowerBit.png" id="9_q1itj"]
+[ext_resource type="Texture2D" uid="uid://cgpgolvg7skea" path="res://assets/Textures/Placeholders/filledWillPowerBigBit.png" id="10_m330t"]
+[ext_resource type="Texture2D" uid="uid://b6udb8e1g4ykm" path="res://assets/Textures/Placeholders/unfilledWillpowerBit.png" id="11_q1itj"]
+[ext_resource type="Texture2D" uid="uid://cgbfq3lshnhbt" path="res://assets/Textures/Placeholders/unfilledWillPowerBigBit.png" id="13_5bbu2"]
 
 [node name="RootScene" type="Node" unique_id=1546425798]
 
@@ -174,6 +178,111 @@ offset_top = 425.0
 offset_right = 550.0
 offset_bottom = 648.0
 
+[node name="WillPower" type="Control" parent="Control/PlayerStatsArea/Other" unique_id=753261499]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Line2D" type="Line2D" parent="Control/PlayerStatsArea/Other/WillPower" unique_id=837032978]
+position = Vector2(165, 176)
+points = PackedVector2Array(-81, 25, 133, 30, 151, 4, 134, -21, 46, -24, 21, -49, 47, -75, 137, -73, 171, -59, 194, -28)
+width = 5.38
+default_color = Color(0.4862745, 0.6745098, 0.7411765, 1)
+joint_mode = 1
+
+[node name="WillpowerBit" type="TextureRect" parent="Control/PlayerStatsArea/Other/WillPower" unique_id=1916081028]
+layout_mode = 0
+offset_left = 117.0
+offset_top = 184.0
+offset_right = 152.0
+offset_bottom = 219.0
+texture = ExtResource("9_q1itj")
+expand_mode = 1
+
+[node name="WillpowerBit2" type="TextureRect" parent="Control/PlayerStatsArea/Other/WillPower" unique_id=1852054275]
+layout_mode = 0
+offset_left = 166.0
+offset_top = 185.0
+offset_right = 201.0
+offset_bottom = 220.0
+texture = ExtResource("9_q1itj")
+expand_mode = 1
+
+[node name="WillpowerBit3" type="TextureRect" parent="Control/PlayerStatsArea/Other/WillPower" unique_id=64489911]
+layout_mode = 0
+offset_left = 212.0
+offset_top = 186.0
+offset_right = 247.0
+offset_bottom = 221.0
+texture = ExtResource("9_q1itj")
+expand_mode = 1
+
+[node name="WillpowerBit4" type="TextureRect" parent="Control/PlayerStatsArea/Other/WillPower" unique_id=290918731]
+layout_mode = 0
+offset_left = 261.0
+offset_top = 186.0
+offset_right = 296.0
+offset_bottom = 221.0
+texture = ExtResource("9_q1itj")
+expand_mode = 1
+
+[node name="WillpowerBit5" type="TextureRect" parent="Control/PlayerStatsArea/Other/WillPower" unique_id=1611402921]
+layout_mode = 0
+offset_left = 261.0
+offset_top = 134.0
+offset_right = 296.0
+offset_bottom = 169.0
+texture = ExtResource("9_q1itj")
+expand_mode = 1
+
+[node name="WillpowerBit6" type="TextureRect" parent="Control/PlayerStatsArea/Other/WillPower" unique_id=1318045098]
+layout_mode = 0
+offset_left = 212.0
+offset_top = 134.0
+offset_right = 247.0
+offset_bottom = 169.0
+texture = ExtResource("9_q1itj")
+expand_mode = 1
+
+[node name="WillpowerBit7" type="TextureRect" parent="Control/PlayerStatsArea/Other/WillPower" unique_id=1101096489]
+layout_mode = 0
+offset_left = 212.0
+offset_top = 84.0
+offset_right = 247.0
+offset_bottom = 119.0
+texture = ExtResource("9_q1itj")
+expand_mode = 1
+
+[node name="WillpowerBit8" type="TextureRect" parent="Control/PlayerStatsArea/Other/WillPower" unique_id=1151994]
+layout_mode = 0
+offset_left = 267.0
+offset_top = 82.0
+offset_right = 302.0
+offset_bottom = 117.0
+rotation = 0.1741034
+texture = ExtResource("9_q1itj")
+expand_mode = 1
+
+[node name="WillpowerBit9" type="TextureRect" parent="Control/PlayerStatsArea/Other/WillPower" unique_id=1954323600]
+layout_mode = 0
+offset_left = 323.0
+offset_top = 94.0
+offset_right = 358.0
+offset_bottom = 129.0
+rotation = 0.3564038
+texture = ExtResource("9_q1itj")
+expand_mode = 1
+
+[node name="WillpowerBigBit" type="TextureRect" parent="Control/PlayerStatsArea/Other/WillPower" unique_id=1948203913]
+layout_mode = 0
+offset_left = 381.0
+offset_top = 67.0
+offset_right = 481.0
+offset_bottom = 167.0
+rotation = 0.78428733
+scale = Vector2(1.7088575, 1.6804173)
+texture = ExtResource("10_m330t")
+
 [node name="Player Portrait" type="Control" parent="Control/PlayerStatsArea/Other" unique_id=505911089]
 anchors_preset = 0
 offset_top = 94.0
@@ -245,5 +354,12 @@ scrollable = false
 tick_count = 6
 ticks_position = 3
 
-[node name="HUDManager" type="Node" parent="." unique_id=1025954270]
+[node name="HUDManager" type="Node" parent="." unique_id=1025954270 node_paths=PackedStringArray("healthBar", "bloodBar", "willPowerBits")]
 script = ExtResource("9_0ma7x")
+healthBar = NodePath("../Control/PlayerStatsArea/HealthAndBloodBar/HealthBar")
+bloodBar = NodePath("../Control/PlayerStatsArea/HealthAndBloodBar/BloodBar")
+willPowerBits = [NodePath("../Control/PlayerStatsArea/Other/WillPower/WillpowerBit"), NodePath("../Control/PlayerStatsArea/Other/WillPower/WillpowerBit2"), NodePath("../Control/PlayerStatsArea/Other/WillPower/WillpowerBit3"), NodePath("../Control/PlayerStatsArea/Other/WillPower/WillpowerBit4"), NodePath("../Control/PlayerStatsArea/Other/WillPower/WillpowerBit5"), NodePath("../Control/PlayerStatsArea/Other/WillPower/WillpowerBit6"), NodePath("../Control/PlayerStatsArea/Other/WillPower/WillpowerBit7"), NodePath("../Control/PlayerStatsArea/Other/WillPower/WillpowerBit8"), NodePath("../Control/PlayerStatsArea/Other/WillPower/WillpowerBit9"), NodePath("../Control/PlayerStatsArea/Other/WillPower/WillpowerBigBit")]
+filledBit = ExtResource("9_q1itj")
+unfilledBit = ExtResource("11_q1itj")
+filledBigBit = ExtResource("10_m330t")
+unfilledBigBit = ExtResource("13_5bbu2")

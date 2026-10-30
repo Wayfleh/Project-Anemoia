@@ -18,7 +18,6 @@ config/features=PackedStringArray("4.7", "C#", "Forward Plus")
 
 DialogueManager="*uid://c3rodes2l3gxb"
 Flags="*uid://crbtqtfpcn43"
-SignalBus="*uid://vpsipehvhh2e"
 PlayerStatsWrapper="*uid://wyidkc7ntht5"
 
 [display]
