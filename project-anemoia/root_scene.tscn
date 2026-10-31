@@ -1,5 +1,6 @@
 [gd_scene format=3 uid="uid://bq6nkxd2vnnj3"]
 
+[ext_resource type="Script" uid="uid://bgyayb3n845y" path="res://RootScene.cs" id="1_3x36b"]
 [ext_resource type="PackedScene" uid="uid://dig4kvuap37eb" path="res://example_game_level.tscn" id="1_itajj"]
 [ext_resource type="Texture2D" uid="uid://b4fbaayk7r7we" path="res://assets/Textures/Placeholders/spongebob.png" id="2_c77vg"]
 [ext_resource type="Texture2D" uid="uid://dncgbpeuqlyos" path="res://assets/Textures/Placeholders/nefarious dock.png" id="3_iqet6"]
@@ -15,11 +16,11 @@
 [ext_resource type="Texture2D" uid="uid://cgbfq3lshnhbt" path="res://assets/Textures/Placeholders/unfilledWillPowerBigBit.png" id="13_5bbu2"]
 
 [node name="RootScene" type="Node" unique_id=1546425798]
+script = ExtResource("1_3x36b")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=411674394]
 offset_right = 902.0
 offset_bottom = 648.0
-mouse_filter = 2
 stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=736033476]
@@ -36,12 +37,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 
 [node name="InternalDialogueBox" type="Control" parent="Control" unique_id=219436326]
 anchors_preset = 0
 offset_left = 902.0
 offset_right = 1152.0
 offset_bottom = 648.0
+mouse_filter = 1
 
 [node name="TextureRect" type="TextureRect" parent="Control/InternalDialogueBox" unique_id=526815807]
 layout_mode = 1
@@ -57,6 +60,7 @@ expand_mode = 1
 layout_mode = 0
 offset_right = 250.0
 offset_bottom = 648.0
+mouse_filter = 1
 color = Color(0, 0, 0, 0.75686276)
 
 [node name="RichTextLabel" type="RichTextLabel" parent="Control/InternalDialogueBox" unique_id=1620297845]
@@ -65,6 +69,7 @@ offset_left = 24.0
 offset_top = 41.0
 offset_right = 234.0
 offset_bottom = 362.0
+mouse_filter = 1
 bbcode_enabled = true
 text = "[color=darkgreen] Glug[/color] - I want [wave amp=90.0 freq=5.0]glug glug[/wave]"
 
@@ -74,6 +79,7 @@ offset_left = 24.0
 offset_top = 375.0
 offset_right = 234.0
 offset_bottom = 636.0
+mouse_filter = 1
 bbcode_enabled = true
 text = "[color=green] Shnub
 
@@ -92,6 +98,7 @@ anchors_preset = 0
 offset_left = 550.0
 offset_right = 902.0
 offset_bottom = 648.0
+mouse_filter = 1
 
 [node name="BackgroundTint" type="ColorRect" parent="Control/ExternalDialogueBox" unique_id=1233413394]
 layout_mode = 1
@@ -100,12 +107,14 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 color = Color(0, 0, 0, 0.21568628)
 
 [node name="Portrait" type="Control" parent="Control/ExternalDialogueBox" unique_id=1935525143]
 anchors_preset = 0
 offset_left = -100.0
 offset_bottom = 125.0
+mouse_filter = 1
 
 [node name="Background" type="ColorRect" parent="Control/ExternalDialogueBox/Portrait" unique_id=1822413903]
 layout_mode = 1
@@ -114,6 +123,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 color = Color(0, 0, 0, 1)
 
 [node name="TextureRect" type="TextureRect" parent="Control/ExternalDialogueBox/Portrait" unique_id=713801111]
@@ -129,12 +139,14 @@ expand_mode = 1
 anchors_preset = 0
 offset_right = 550.0
 offset_bottom = 648.0
+mouse_filter = 1
 
 [node name="HealthAndBloodBar" type="Control" parent="Control/PlayerStatsArea" unique_id=1382878646]
 anchors_preset = 0
 offset_top = 37.0
 offset_right = 126.0
 offset_bottom = 648.0
+mouse_filter = 1
 
 [node name="BloodBar" type="TextureProgressBar" parent="Control/PlayerStatsArea/HealthAndBloodBar" unique_id=87494267]
 layout_mode = 1
@@ -177,11 +189,13 @@ offset_left = 127.0
 offset_top = 425.0
 offset_right = 550.0
 offset_bottom = 648.0
+mouse_filter = 1
 
 [node name="WillPower" type="Control" parent="Control/PlayerStatsArea/Other" unique_id=753261499]
 anchors_preset = 0
 offset_right = 40.0
 offset_bottom = 40.0
+mouse_filter = 1
 
 [node name="Line2D" type="Line2D" parent="Control/PlayerStatsArea/Other/WillPower" unique_id=837032978]
 position = Vector2(165, 176)
@@ -288,6 +302,7 @@ anchors_preset = 0
 offset_top = 94.0
 offset_right = 100.0
 offset_bottom = 219.0
+mouse_filter = 1
 
 [node name="Background" type="ColorRect" parent="Control/PlayerStatsArea/Other/Player Portrait" unique_id=519382373]
 layout_mode = 1
@@ -296,6 +311,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 1
 color = Color(0, 0, 0, 1)
 
 [node name="TextureRect" type="TextureRect" parent="Control/PlayerStatsArea/Other/Player Portrait" unique_id=2111416358]
@@ -313,6 +329,7 @@ offset_left = 99.0
 offset_top = 92.0
 offset_right = 168.0
 offset_bottom = 180.0
+mouse_filter = 1
 
 [node name="TextureRect" type="TextureRect" parent="Control/PlayerStatsArea/Other/Player Portrait2" unique_id=1323244779]
 layout_mode = 1
@@ -331,6 +348,7 @@ offset_left = 69.0
 offset_top = 3.0
 offset_right = 82.0
 offset_bottom = 84.0
+mouse_filter = 1
 max_value = 10.0
 value = 2.0
 fill_mode = 3
@@ -348,6 +366,7 @@ offset_right = 16.0
 offset_bottom = -3.0
 grow_horizontal = 0
 grow_vertical = 2
+mouse_filter = 1
 max_value = 5.0
 editable = false
 scrollable = false

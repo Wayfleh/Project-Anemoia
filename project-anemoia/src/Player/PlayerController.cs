@@ -21,12 +21,14 @@ public partial class PlayerController : CharacterBody3D
 	private float head_tilt = Mathf.DegToRad(1.5f);
 	private Boolean is_rested = true;
 
-    public override void _Ready()
-    {
-        base._Ready();
+	public override void _Ready()
+	{
+		base._Ready();
 		camera = GetNode<Camera3D>("Head/Camera3D");
 		head = GetNode<Node3D>("Head");
-    }
+
+		Input.SetMouseMode(Input.MouseModeEnum.Captured);
+	}
 
 
 	public override void _PhysicsProcess(double delta)
@@ -61,7 +63,7 @@ public partial class PlayerController : CharacterBody3D
 
 		// Head Bob
 		Transform3D bobTransform = camera.Transform;
-		if(inputDir != Vector2.Zero && is_rested)
+		if (inputDir != Vector2.Zero && is_rested)
 		{
 			float onFloor = IsOnFloor() ? 1f : 0f;
 			tBob += (float)delta * velocity.Length() * onFloor;
@@ -85,12 +87,12 @@ public partial class PlayerController : CharacterBody3D
 		//head tilt
 		Vector3 headRot = head.Rotation;
 		if (inputDir.X < 0) // Left tilt
-			headRot.Z = Mathf.Lerp(headRot.Z, head_tilt, (float) delta * 4);
+			headRot.Z = Mathf.Lerp(headRot.Z, head_tilt, (float)delta * 4);
 		else if (inputDir.X > 0) // Right tilt
-			headRot.Z = Mathf.Lerp(headRot.Z, -head_tilt, (float) delta * 4);
+			headRot.Z = Mathf.Lerp(headRot.Z, -head_tilt, (float)delta * 4);
 		else
-			headRot.Z = Mathf.Lerp(headRot.Z, 0.0f, (float) delta * 7);
-		
+			headRot.Z = Mathf.Lerp(headRot.Z, 0.0f, (float)delta * 7);
+
 		if (Input.IsActionPressed("move_forward"))
 			head_tilt = Mathf.DegToRad(1);
 		else
@@ -101,12 +103,11 @@ public partial class PlayerController : CharacterBody3D
 		MoveAndSlide();
 	}
 
-    public override void _UnhandledInput(InputEvent @event)
-    {
-        base._UnhandledInput(@event);
+	public override void _UnhandledInput(InputEvent @event)
+	{
+		base._UnhandledInput(@event);
 		if (@event is InputEventMouseMotion mouseMotionEvent)
 		{
-			Input.SetMouseMode(Input.MouseModeEnum.Captured);
 			head.RotateY(-mouseMotionEvent.Relative.X * SENSITIVITY);
 			camera.RotateX(-mouseMotionEvent.Relative.Y * SENSITIVITY);
 			Vector3 camRot = camera.Rotation;
@@ -114,7 +115,7 @@ public partial class PlayerController : CharacterBody3D
 
 			camera.Rotation = camRot;
 		}
-    }
+	}
 
 	private Vector3 headbob(float time)
 	{
