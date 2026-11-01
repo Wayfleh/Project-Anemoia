@@ -260,16 +260,15 @@ fit_content = true
 [node name="ChoicesScrollContainer" type="ScrollContainer" parent="Control/InternalDialogueBox/VSplitContainer" unique_id=357814740]
 layout_mode = 2
 horizontal_scroll_mode = 0
-vertical_scroll_mode = 3
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Control/InternalDialogueBox/VSplitContainer/ChoicesScrollContainer" unique_id=312915218]
+clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="Button" type="Button" parent="Control/InternalDialogueBox/VSplitContainer/ChoicesScrollContainer/VBoxContainer" unique_id=837809515]
 layout_mode = 2
-size_flags_horizontal = 3
 theme_override_styles/normal = SubResource("StyleBoxFlat_vj07i")
 text = "Butoun haha"
 
@@ -479,6 +478,7 @@ custom_maximum_size = Vector2(-1, 184)
 layout_mode = 2
 
 [node name="ColorRect" type="ColorRect" parent="Control/ExternalDialogueBox/VSplitContainer/Control" unique_id=1120526279]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -725,7 +725,7 @@ scrollable = false
 tick_count = 6
 ticks_position = 3
 
-[node name="HUDManager" type="Node" parent="." unique_id=1025954270 node_paths=PackedStringArray("healthBar", "bloodBar", "willPowerBits", "externalDialogueBox", "externalDialogueBoxFooter", "externalScrollContainer", "internalScrollContainer", "choicesScrollContainer", "choicesVBoxContainer")]
+[node name="HUDManager" type="Node" parent="." unique_id=1025954270 node_paths=PackedStringArray("healthBar", "bloodBar", "willPowerBits", "externalDialogueBox", "externalDialogueBoxFooter", "externalScrollContainer", "internalScrollContainer", "choicesScrollContainer", "choicesVBoxContainer", "rootScene")]
 script = ExtResource("9_0ma7x")
 healthBar = NodePath("../Control/PlayerStatsArea/HealthAndBloodBar/HealthBar")
 bloodBar = NodePath("../Control/PlayerStatsArea/HealthAndBloodBar/BloodBar")
@@ -740,3 +740,4 @@ externalScrollContainer = NodePath("../Control/ExternalDialogueBox/VSplitContain
 internalScrollContainer = NodePath("../Control/InternalDialogueBox/VSplitContainer/ScrollContainer")
 choicesScrollContainer = NodePath("../Control/InternalDialogueBox/VSplitContainer/ChoicesScrollContainer")
 choicesVBoxContainer = NodePath("../Control/InternalDialogueBox/VSplitContainer/ChoicesScrollContainer/VBoxContainer")
+rootScene = NodePath("..")

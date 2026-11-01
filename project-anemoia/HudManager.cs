@@ -19,6 +19,8 @@ public partial class HudManager : Node
 	[Export] private VBoxContainer choicesVBoxContainer;
 	[Export] private float choicesScrContMaxHeight = 200f;
 
+	[Export] private RootScene rootScene;//used for input forwarding
+
 	public override void _Ready()
 	{
 		PlayerStatsWrapper.Instance.PlayerHealthChanged += OnPlayerHealthChanged;
@@ -33,10 +35,13 @@ public partial class HudManager : Node
 
 		choicesVBoxContainer.Resized += OnChoicesScrContResized;
 		OnChoicesScrContResized();
+		randomNumberGenerator = new RandomNumberGenerator();
 	}
 	private void OnChoicesScrContResized()
 	{
-		choicesScrollContainer.CustomMaximumSize = new Vector2(0, Mathf.Min(choicesVBoxContainer.Size.Y, choicesScrContMaxHeight));
+		Vector2 m = new Vector2(-1, Mathf.Min(choicesVBoxContainer.Size.Y, choicesScrContMaxHeight));
+		choicesScrollContainer.CustomMaximumSize = m;
+		externalDialogueBoxFooter.CustomMaximumSize = m;
 	}
 	private void OnPlayerHealthChanged(int newHealth) => healthBar.Value = newHealth;
 	private void OnPlayerBloodChanged(int newBlood) => bloodBar.Value = newBlood;
@@ -54,6 +59,7 @@ public partial class HudManager : Node
 	}
 
 	int direction = 1;
+	RandomNumberGenerator randomNumberGenerator;
 	public override void _Process(double delta)
 	{
 		float deltaFloat = (float)delta;
@@ -66,13 +72,23 @@ public partial class HudManager : Node
 		if (Input.IsActionJustPressed("jump"))
 		{
 			direction *= -1;
-			Control n = (Control)choicesVBoxContainer.GetChild(0).Duplicate();
+			Button n = (Button)choicesVBoxContainer.GetChild(0).Duplicate();
+
+			// 1. Fetch and duplicate the existing StyleBox to make it unique
+			if (n.GetThemeStylebox("normal").Duplicate() is StyleBoxFlat styleBox)
+			{
+				// 2. Change your decoration colors
+				styleBox.BgColor = new Color((float)GD.Randf(), (float)GD.Randf(), (float)GD.Randf());
+
+				// 3. Apply the modified StyleBox back to the button
+				n.AddThemeStyleboxOverride("normal", styleBox);
+			}
 			choicesVBoxContainer.AddChild(n);
 		}
 		if (Input.IsActionPressed("jump"))
 		{
-			externalDialogueBoxFooter.CustomMinimumSize += Vector2.Up * deltaFloat * 10 * direction;
-			externalDialogueBoxFooter.CustomMaximumSize += Vector2.Up * deltaFloat * 10 * direction;
+			choicesScrContMaxHeight += deltaFloat * 30 * direction;
+			choicesScrContMaxHeight += deltaFloat * 30 * direction;
 		}
 		if (Input.IsActionJustPressed("interact"))
 		{
@@ -81,6 +97,7 @@ public partial class HudManager : Node
 			externalDialogueBox.Visible = !externalDialogueBox.Visible;
 
 			Input.MouseMode = externalDialogueBox.Visible ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
+			rootScene.isForwardingInput = !externalDialogueBox.Visible;
 		}
 	}
 	private void OnInternalScrollBarChanged(double Value)
