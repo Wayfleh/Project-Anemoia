@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dig4kvuap37eb"]
 
-[ext_resource type="Script" uid="uid://cjsfbho2u3tn5" path="res://CharacterBody3dExample.cs" id="1_w4cy0"]
+[ext_resource type="PackedScene" uid="uid://duj7wlfj022je" path="res://src/Player/PlayerController.tscn" id="1_w4cy0"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_k4ib1"]
 size = Vector3(20, 1, 20)
@@ -23,10 +23,6 @@ bounce = 1.0
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bx870"]
 bounce = 1.0
-
-[sub_resource type="CylinderShape3D" id="CylinderShape3D_k4ib1"]
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_k4ib1"]
 
 [node name="Example Game Level" type="Node" unique_id=408259209]
 
@@ -76,25 +72,11 @@ mesh = SubResource("SphereMesh_k4ib1")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D2" unique_id=394697950]
 shape = SubResource("SphereShape3D_k4ib1")
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=398414809]
+[node name="CameraPos" type="Node3D" parent="." unique_id=1507085658]
 transform = Transform3D(0.6541083, -0.20155972, 0.7290515, 0, 0.96384263, 0.2664721, -0.75640094, -0.1743016, 0.63045746, 2.6440465, 5.1362753, 3.4482377)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=283336553]
 transform = Transform3D(0.3817658, 0.3031907, 0.8731153, -0.6376103, -0.59748894, 0.48627132, 0.6691097, -0.7423491, -0.034783266, 0, 5.4023376, 0)
 
-[node name="CharacterBody3D" type="CharacterBody3D" parent="." unique_id=1720813961]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.3206964, 1.4885798)
-script = ExtResource("1_w4cy0")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CharacterBody3D" unique_id=1511782929]
-shape = SubResource("CylinderShape3D_k4ib1")
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D" unique_id=1615061577]
-mesh = SubResource("CylinderMesh_k4ib1")
-
-[node name="Camera3D" type="Camera3D" parent="CharacterBody3D" unique_id=1317487663]
-current = true
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CharacterBody3D/Camera3D" unique_id=208954985]
-transform = Transform3D(0.095, 0, 0, 0, 0.2478352, 0.06447296, 0, -0.19280487, 0.08287482, -0.4670414, -0.14872098, -0.49003983)
-mesh = SubResource("CylinderMesh_k4ib1")
+[node name="PlayerController" parent="." unique_id=801469930 instance=ExtResource("1_w4cy0")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4819365, 1.5, 1.3947383)

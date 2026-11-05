@@ -11,14 +11,14 @@ config_version=5
 [application]
 
 config/name="Project Anemoia"
-run/main_scene="uid://wpwfkof3wb3p"
+run/main_scene="uid://bq6nkxd2vnnj3"
 config/features=PackedStringArray("4.7", "C#", "Forward Plus")
-config/icon="res://icon.svg"
 
 [autoload]
 
 DialogueManager="*uid://c3rodes2l3gxb"
 Flags="*uid://crbtqtfpcn43"
+PlayerStatsWrapper="*uid://wyidkc7ntht5"
 
 [display]
 
