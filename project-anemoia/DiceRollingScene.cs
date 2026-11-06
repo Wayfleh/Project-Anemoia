@@ -33,7 +33,7 @@ public partial class DiceRollingScene : Node
 	{
 		if (Input.IsActionJustPressed("interact"))
 		{
-			PlayScene(3);
+			PlayScene(GD.RandRange(1,3));
 		}
 	}
 	private void DeleteExistingDice()

@@ -13,13 +13,22 @@ public partial class HudManager : Node
 	[Export] private Control externalDialogueBox;
 	[Export] private Control externalDialogueBoxFooter;
 	[Export] private ScrollContainer externalScrollContainer, internalScrollContainer;
+	[Export] private VBoxContainer externalVBoxContainer, internalVBoxContainer;
 	private ScrollBar externalScrollBar, internalScrollBar;
 	private bool _syncing = false;
+	[Export] private PackedScene dialogueItemPackedScene; //same dialogue item for everything for now? NOTE:Margin Container
+
+	private int dialogueHeight = 0;
+
+
 	[Export] private ScrollContainer choicesScrollContainer;
 	[Export] private VBoxContainer choicesVBoxContainer;
-	[Export] private float choicesScrContMaxHeight = 200f;
+	[Export] private float choicesScrContHeightConstant = 200f;
+	[Export] private PackedScene buttonPackedScene;
 
 	[Export] private RootScene rootScene;//used for input forwarding
+
+	[Export] private bool DebuggingInput = true;
 
 	public override void _Ready()
 	{
@@ -39,9 +48,13 @@ public partial class HudManager : Node
 	}
 	private void OnChoicesScrContResized()
 	{
-		Vector2 m = new Vector2(-1, Mathf.Min(choicesVBoxContainer.Size.Y, choicesScrContMaxHeight));
-		choicesScrollContainer.CustomMaximumSize = m;
-		externalDialogueBoxFooter.CustomMaximumSize = m;
+		Vector2 max;
+		if (choicesVBoxContainer.GetChildCount() != 0)
+			max = new Vector2(-1, choicesScrContHeightConstant);
+		else
+			max = new Vector2(-1, 0);
+		choicesScrollContainer.CustomMaximumSize = max;
+		externalDialogueBoxFooter.CustomMaximumSize = max;
 	}
 	private void OnPlayerHealthChanged(int newHealth) => healthBar.Value = newHealth;
 	private void OnPlayerBloodChanged(int newBlood) => bloodBar.Value = newBlood;
@@ -60,45 +73,78 @@ public partial class HudManager : Node
 
 	int direction = 1;
 	RandomNumberGenerator randomNumberGenerator;
-	public override void _Process(double delta)
+	public override void _Process(double delta)//a mess
 	{
 		float deltaFloat = (float)delta;
+
+		if (Input.IsActionJustPressed("interact"))
+		{
+			ToggleExternalDialogueBox();
+		}
+
+		if (!DebuggingInput) return;
+
 		if (Input.IsActionPressed("interact"))
 		{
 			PlayerStatsWrapper.Instance.playerStats.Health -= (int)Math.Ceiling(20 * delta);
 			PlayerStatsWrapper.Instance.playerStats.Blood -= (int)Math.Ceiling(20 * delta);
 		}
-
-		if (Input.IsActionJustPressed("jump"))
-		{
-			direction *= -1;
-			Button n = (Button)choicesVBoxContainer.GetChild(0).Duplicate();
-
-			// 1. Fetch and duplicate the existing StyleBox to make it unique
-			if (n.GetThemeStylebox("normal").Duplicate() is StyleBoxFlat styleBox)
-			{
-				// 2. Change your decoration colors
-				styleBox.BgColor = new Color((float)GD.Randf(), (float)GD.Randf(), (float)GD.Randf());
-
-				// 3. Apply the modified StyleBox back to the button
-				n.AddThemeStyleboxOverride("normal", styleBox);
-			}
-			choicesVBoxContainer.AddChild(n);
-		}
-		if (Input.IsActionPressed("jump"))
-		{
-			choicesScrContMaxHeight += deltaFloat * 30 * direction;
-			choicesScrContMaxHeight += deltaFloat * 30 * direction;
-		}
 		if (Input.IsActionJustPressed("interact"))
 		{
 			PlayerStatsWrapper.Instance.playerStats.Willpower -= 1;
-			externalDialogueBox.Visible = !externalDialogueBox.Visible;
-
-			Input.MouseMode = externalDialogueBox.Visible ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
-			rootScene.isForwardingInput = !externalDialogueBox.Visible;
+		}
+		if (Input.IsActionPressed("jump"))
+		{
+			choicesScrContHeightConstant += deltaFloat * 30 * direction;
+			OnChoicesScrContResized();
+		}
+		if (Input.IsActionJustPressed("jump"))
+		{
+			AddInternalDialogueItem();
+			direction *= -1;
+			AddButton();
+			if (choicesVBoxContainer.GetChildCount() == 20)
+				RemoveButtons();
 		}
 	}
+	private void AddButton()//will be changed later when implementing stuff?
+	{
+		Button buttonInst = buttonPackedScene.Instantiate<Button>();
+
+		if (buttonInst.GetThemeStylebox("normal").Duplicate() is StyleBoxFlat styleBox)
+		{
+			styleBox.BgColor = new Color((float)GD.Randf(), (float)GD.Randf(), (float)GD.Randf());
+			buttonInst.AddThemeStyleboxOverride("normal", styleBox);
+		}
+		choicesVBoxContainer.AddChild(buttonInst);
+	}
+	private void RemoveButtons()
+	{
+		int childCount = choicesVBoxContainer.GetChildCount();
+		if (childCount == 0) return;
+
+		foreach (Node child in choicesVBoxContainer.GetChildren())
+		{
+			child.QueueFree();
+		}
+	}
+	private void ToggleExternalDialogueBox()
+	{
+		externalDialogueBox.Visible = !externalDialogueBox.Visible;
+		bool extDBoxActivated = externalDialogueBox.Visible;
+
+		Input.MouseMode = extDBoxActivated ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
+		rootScene.isForwardingInput = !extDBoxActivated;
+	}
+	private void AddInternalDialogueItem()
+	{
+		MarginContainer dialogueItemInst = dialogueItemPackedScene.Instantiate<MarginContainer>();
+		dialogueItemInst.AddThemeConstantOverride("margin_top", dialogueHeight);
+		dialogueHeight += (int)dialogueItemInst.Size.Y;/////////////////////////////////////UUUUUUH. gonna continue work here 
+		internalVBoxContainer.AddChild(dialogueItemInst);
+	}
+
+	//## scrolling dialogue boxes
 	private void OnInternalScrollBarChanged(double Value)
 	{
 		if (_syncing)//avoids an infinite cycle

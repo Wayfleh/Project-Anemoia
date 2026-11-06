@@ -4,9 +4,10 @@
 [ext_resource type="PackedScene" uid="uid://dig4kvuap37eb" path="res://example_game_level.tscn" id="1_itajj"]
 [ext_resource type="Texture2D" uid="uid://b4fbaayk7r7we" path="res://assets/Textures/Placeholders/spongebob.png" id="2_c77vg"]
 [ext_resource type="Texture2D" uid="uid://dncgbpeuqlyos" path="res://assets/Textures/Placeholders/nefarious dock.png" id="3_iqet6"]
+[ext_resource type="PackedScene" uid="uid://b230m27446rpm" path="res://dialogue_text_item.tscn" id="4_a34l3"]
 [ext_resource type="Texture2D" uid="uid://d03v67u1egwry" path="res://assets/Textures/Placeholders/heart.png" id="4_t2jh2"]
-[ext_resource type="Texture2D" uid="uid://05ltmj6m36ah" path="res://assets/Textures/Placeholders/WhiteBox.png" id="5_1nf4n"]
 [ext_resource type="Texture2D" uid="uid://cik6d8pylgnbx" path="res://assets/Textures/Placeholders/blooodBarBackground.png" id="5_4ty2a"]
+[ext_resource type="PackedScene" uid="uid://bp86hm5hegj35" path="res://dialogue_choice_button.tscn" id="5_vj07i"]
 [ext_resource type="Texture2D" uid="uid://dl0m56lsp1jw6" path="res://assets/Textures/Placeholders/healthBarBackground.png" id="6_gvaf7"]
 [ext_resource type="Texture2D" uid="uid://uhb5ebyh3kwu" path="res://assets/Textures/Placeholders/blooodBar.png" id="6_rckqj"]
 [ext_resource type="Texture2D" uid="uid://dkfs2caf3uc86" path="res://assets/Textures/Placeholders/healthBar.png" id="7_mfg43"]
@@ -16,9 +17,6 @@
 [ext_resource type="Texture2D" uid="uid://b6udb8e1g4ykm" path="res://assets/Textures/Placeholders/unfilledWillpowerBit.png" id="11_q1itj"]
 [ext_resource type="Texture2D" uid="uid://cgbfq3lshnhbt" path="res://assets/Textures/Placeholders/unfilledWillPowerBigBit.png" id="13_5bbu2"]
 [ext_resource type="PackedScene" uid="uid://bgvk18n8w07uu" path="res://dice_rolling_scene.tscn" id="13_rf7a2"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vj07i"]
-bg_color = Color(0, 0, 0, 1)
 
 [node name="RootScene" type="Node" unique_id=1546425798]
 script = ExtResource("1_3x36b")
@@ -61,44 +59,12 @@ grow_vertical = 2
 texture = ExtResource("2_c77vg")
 expand_mode = 1
 
-[node name="ColorRect" type="ColorRect" parent="Control/InternalDialogueBox" unique_id=151835388]
+[node name="ColorRect" type="ColorRect" parent="Control/InternalDialogueBox/TextureRect" unique_id=151835388]
 layout_mode = 0
 offset_right = 250.0
 offset_bottom = 648.0
 mouse_filter = 1
 color = Color(0, 0, 0, 0.75686276)
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Control/InternalDialogueBox" unique_id=1620297845]
-visible = false
-layout_mode = 0
-offset_left = 24.0
-offset_top = 41.0
-offset_right = 234.0
-offset_bottom = 362.0
-mouse_filter = 1
-bbcode_enabled = true
-text = "[color=darkgreen] Glug[/color] - I want [wave amp=90.0 freq=5.0]glug glug[/wave]"
-
-[node name="RichTextLabel2" type="RichTextLabel" parent="Control/InternalDialogueBox" unique_id=861282477]
-visible = false
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 1
-bbcode_enabled = true
-text = "[color=green] Shnub
-
-[bgcolor=yellow][color=black]Shnub Snub[/color][/bgcolor]
-
-I don't know what that is
-
-Leave the Library
-(Willpower + Academics)"
-fit_content = true
 
 [node name="VSplitContainer" type="VSplitContainer" parent="Control/InternalDialogueBox" unique_id=1815268000]
 layout_mode = 1
@@ -122,144 +88,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="DialogueText Item" type="MarginContainer" parent="Control/InternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer" unique_id=999386488]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="Control/InternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item" unique_id=439272323]
-layout_mode = 2
-texture = ExtResource("5_1nf4n")
-
-[node name="ColorRect" type="ColorRect" parent="Control/InternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item/TextureRect" unique_id=996285576]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.4392157)
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Control/InternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item" unique_id=770932384]
-layout_mode = 2
-bbcode_enabled = true
-text = "Hey Glug I was looking for my blicky, my pet must've took it on accident. Have you seen it?"
-fit_content = true
-
-[node name="DialogueText Item2" type="MarginContainer" parent="Control/InternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer" unique_id=1428787698]
-layout_mode = 2
-theme_override_constants/margin_top = 113
-
-[node name="TextureRect" type="TextureRect" parent="Control/InternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item2" unique_id=1567250549]
-layout_mode = 2
-texture = ExtResource("5_1nf4n")
-
-[node name="ColorRect" type="ColorRect" parent="Control/InternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item2/TextureRect" unique_id=742216386]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.4392157)
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Control/InternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item2" unique_id=497909246]
-layout_mode = 2
-bbcode_enabled = true
-text = "Tricky Tricky! Numberlock!"
-fit_content = true
-
-[node name="DialogueText Item3" type="MarginContainer" parent="Control/InternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer" unique_id=322375899]
-layout_mode = 2
-theme_override_constants/margin_top = 113
-
-[node name="TextureRect" type="TextureRect" parent="Control/InternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item3" unique_id=1287201266]
-layout_mode = 2
-texture = ExtResource("5_1nf4n")
-
-[node name="ColorRect" type="ColorRect" parent="Control/InternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item3/TextureRect" unique_id=337966689]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.4392157)
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Control/InternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item3" unique_id=1855023706]
-layout_mode = 2
-bbcode_enabled = true
-text = "Tricky Tricky! Numberlock!"
-fit_content = true
-
-[node name="DialogueText Item4" type="MarginContainer" parent="Control/InternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer" unique_id=1359340089]
-layout_mode = 2
-theme_override_constants/margin_top = 113
-
-[node name="TextureRect" type="TextureRect" parent="Control/InternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item4" unique_id=431191938]
-layout_mode = 2
-texture = ExtResource("5_1nf4n")
-
-[node name="ColorRect" type="ColorRect" parent="Control/InternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item4/TextureRect" unique_id=2102508378]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.4392157)
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Control/InternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item4" unique_id=20370213]
-layout_mode = 2
-bbcode_enabled = true
-text = "Tricky Tricky! Numberlock!"
-fit_content = true
-
-[node name="DialogueText Item5" type="MarginContainer" parent="Control/InternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer" unique_id=878365811]
-layout_mode = 2
-theme_override_constants/margin_top = 113
-
-[node name="TextureRect" type="TextureRect" parent="Control/InternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item5" unique_id=1323114840]
-layout_mode = 2
-texture = ExtResource("5_1nf4n")
-
-[node name="ColorRect" type="ColorRect" parent="Control/InternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item5/TextureRect" unique_id=570072483]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.4392157)
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Control/InternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item5" unique_id=873846218]
-layout_mode = 2
-bbcode_enabled = true
-text = "Tricky Tricky! Numberlock!"
-fit_content = true
-
-[node name="DialogueText Item6" type="MarginContainer" parent="Control/InternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer" unique_id=2003552345]
-layout_mode = 2
-theme_override_constants/margin_top = 113
-
-[node name="TextureRect" type="TextureRect" parent="Control/InternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item6" unique_id=10820091]
-layout_mode = 2
-texture = ExtResource("5_1nf4n")
-
-[node name="ColorRect" type="ColorRect" parent="Control/InternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item6/TextureRect" unique_id=914306859]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.4392157)
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Control/InternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item6" unique_id=945173288]
-layout_mode = 2
-bbcode_enabled = true
-text = "Tricky Tricky! Numberlock!"
-fit_content = true
-
 [node name="ChoicesScrollContainer" type="ScrollContainer" parent="Control/InternalDialogueBox/VSplitContainer" unique_id=357814740]
+custom_maximum_size = Vector2(-1, 97.86)
 layout_mode = 2
 horizontal_scroll_mode = 0
 
@@ -269,10 +99,8 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Button" type="Button" parent="Control/InternalDialogueBox/VSplitContainer/ChoicesScrollContainer/VBoxContainer" unique_id=837809515]
+[node name="DialogueChoiceButton" parent="Control/InternalDialogueBox/VSplitContainer/ChoicesScrollContainer/VBoxContainer" unique_id=1865274567 instance=ExtResource("5_vj07i")]
 layout_mode = 2
-theme_override_styles/normal = SubResource("StyleBoxFlat_vj07i")
-text = "Butoun haha"
 
 [node name="ExternalDialogueBox" type="Control" parent="Control" unique_id=651585856]
 anchors_preset = 0
@@ -339,145 +167,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="DialogueText Item" type="MarginContainer" parent="Control/ExternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer" unique_id=86533878]
-layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="Control/ExternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item" unique_id=229967333]
-layout_mode = 2
-texture = ExtResource("5_1nf4n")
-
-[node name="ColorRect" type="ColorRect" parent="Control/ExternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item/TextureRect" unique_id=2038988868]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.4392157)
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Control/ExternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item" unique_id=149359268]
-layout_mode = 2
-bbcode_enabled = true
-text = "Hey Glug I was looking for my blicky, my pet must've took it on accident. Have you seen it?"
-fit_content = true
-
-[node name="DialogueText Item2" type="MarginContainer" parent="Control/ExternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer" unique_id=1306654801]
-layout_mode = 2
-theme_override_constants/margin_top = 113
-
-[node name="TextureRect" type="TextureRect" parent="Control/ExternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item2" unique_id=703975333]
-layout_mode = 2
-texture = ExtResource("5_1nf4n")
-
-[node name="ColorRect" type="ColorRect" parent="Control/ExternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item2/TextureRect" unique_id=578744533]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.4392157)
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Control/ExternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item2" unique_id=274609505]
-layout_mode = 2
-bbcode_enabled = true
-text = "Tricky Tricky! Numberlock!"
-fit_content = true
-
-[node name="DialogueText Item3" type="MarginContainer" parent="Control/ExternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer" unique_id=914739785]
-layout_mode = 2
-theme_override_constants/margin_top = 113
-
-[node name="TextureRect" type="TextureRect" parent="Control/ExternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item3" unique_id=1213564401]
-layout_mode = 2
-texture = ExtResource("5_1nf4n")
-
-[node name="ColorRect" type="ColorRect" parent="Control/ExternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item3/TextureRect" unique_id=1157348602]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.4392157)
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Control/ExternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item3" unique_id=791661382]
-layout_mode = 2
-bbcode_enabled = true
-text = "Tricky Tricky! Numberlock!"
-fit_content = true
-
-[node name="DialogueText Item4" type="MarginContainer" parent="Control/ExternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer" unique_id=441017342]
-layout_mode = 2
-theme_override_constants/margin_top = 113
-
-[node name="TextureRect" type="TextureRect" parent="Control/ExternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item4" unique_id=1836073356]
-layout_mode = 2
-texture = ExtResource("5_1nf4n")
-
-[node name="ColorRect" type="ColorRect" parent="Control/ExternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item4/TextureRect" unique_id=552702189]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.4392157)
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Control/ExternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item4" unique_id=199623246]
-layout_mode = 2
-bbcode_enabled = true
-text = "Tricky Tricky! Numberlock!"
-fit_content = true
-
-[node name="DialogueText Item5" type="MarginContainer" parent="Control/ExternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer" unique_id=1762167487]
-layout_mode = 2
-theme_override_constants/margin_top = 113
-
-[node name="TextureRect" type="TextureRect" parent="Control/ExternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item5" unique_id=1061844755]
-layout_mode = 2
-texture = ExtResource("5_1nf4n")
-
-[node name="ColorRect" type="ColorRect" parent="Control/ExternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item5/TextureRect" unique_id=2023731433]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.4392157)
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Control/ExternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item5" unique_id=2063412151]
-layout_mode = 2
-bbcode_enabled = true
-text = "Tricky Tricky! Numberlock!"
-fit_content = true
-
-[node name="DialogueText Item6" type="MarginContainer" parent="Control/ExternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer" unique_id=1426456424]
-layout_mode = 2
-theme_override_constants/margin_top = 113
-
-[node name="TextureRect" type="TextureRect" parent="Control/ExternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item6" unique_id=526233248]
-layout_mode = 2
-texture = ExtResource("5_1nf4n")
-
-[node name="ColorRect" type="ColorRect" parent="Control/ExternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item6/TextureRect" unique_id=1204968028]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0, 0, 0, 0.4392157)
-
-[node name="RichTextLabel" type="RichTextLabel" parent="Control/ExternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer/DialogueText Item6" unique_id=949631900]
-layout_mode = 2
-bbcode_enabled = true
-text = "Tricky Tricky! Numberlock!"
-fit_content = true
-
 [node name="Control" type="Control" parent="Control/ExternalDialogueBox/VSplitContainer" unique_id=1611895790]
-custom_minimum_size = Vector2(0, 184)
 custom_maximum_size = Vector2(-1, 184)
 layout_mode = 2
 
@@ -747,7 +437,7 @@ render_target_update_mode = 4
 
 [node name="DiceRollingScene" parent="Control/SubViewportContainer2/SubViewport" unique_id=229583748 instance=ExtResource("13_rf7a2")]
 
-[node name="HUDManager" type="Node" parent="." unique_id=1025954270 node_paths=PackedStringArray("healthBar", "bloodBar", "willPowerBits", "externalDialogueBox", "externalDialogueBoxFooter", "externalScrollContainer", "internalScrollContainer", "choicesScrollContainer", "choicesVBoxContainer", "rootScene")]
+[node name="HUDManager" type="Node" parent="." unique_id=1025954270 node_paths=PackedStringArray("healthBar", "bloodBar", "willPowerBits", "externalDialogueBox", "externalDialogueBoxFooter", "externalScrollContainer", "internalScrollContainer", "externalVBoxContainer", "internalVBoxContainer", "choicesScrollContainer", "choicesVBoxContainer", "rootScene")]
 script = ExtResource("9_0ma7x")
 healthBar = NodePath("../Control/PlayerStatsArea/HealthAndBloodBar/HealthBar")
 bloodBar = NodePath("../Control/PlayerStatsArea/HealthAndBloodBar/BloodBar")
@@ -760,6 +450,10 @@ externalDialogueBox = NodePath("../Control/ExternalDialogueBox")
 externalDialogueBoxFooter = NodePath("../Control/ExternalDialogueBox/VSplitContainer/Control")
 externalScrollContainer = NodePath("../Control/ExternalDialogueBox/VSplitContainer/ScrollContainer")
 internalScrollContainer = NodePath("../Control/InternalDialogueBox/VSplitContainer/ScrollContainer")
+externalVBoxContainer = NodePath("../Control/ExternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer")
+internalVBoxContainer = NodePath("../Control/InternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer")
+dialogueItemPackedScene = ExtResource("4_a34l3")
 choicesScrollContainer = NodePath("../Control/InternalDialogueBox/VSplitContainer/ChoicesScrollContainer")
 choicesVBoxContainer = NodePath("../Control/InternalDialogueBox/VSplitContainer/ChoicesScrollContainer/VBoxContainer")
+buttonPackedScene = ExtResource("5_vj07i")
 rootScene = NodePath("..")
