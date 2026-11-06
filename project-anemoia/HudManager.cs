@@ -93,7 +93,6 @@ public partial class HudManager : Node
 		if (Input.IsActionJustPressed("interact"))
 		{
 			PlayerStatsWrapper.Instance.playerStats.Willpower -= 1;
-			Debug.Print("Willpower: " + PlayerStatsWrapper.Instance.playerStats.Willpower);
 			externalDialogueBox.Visible = !externalDialogueBox.Visible;
 
 			Input.MouseMode = externalDialogueBox.Visible ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;

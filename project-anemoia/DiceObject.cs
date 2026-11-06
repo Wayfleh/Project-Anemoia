@@ -5,12 +5,82 @@ using System.Diagnostics;
 public partial class DiceObject : RigidBody3D
 {
 	[Signal] public delegate void DiceFinishedEventHandler();
+
+	[Export] private MeshInstance3D side_1_meshInst;
+	[Export] private MeshInstance3D side_2_meshInst;
+	[Export] private MeshInstance3D side_3_meshInst;
+	[Export] private MeshInstance3D side_4_meshInst;
+	[Export] private MeshInstance3D side_5_meshInst;
+	[Export] private MeshInstance3D side_6_meshInst;
+	[Export] private MeshInstance3D ARTGHWUEHFHJAK;
+	[Export] private Color highlightedColor;
+
+	private bool startWithRandomSide = true;
+
 	public bool MarkedFinished { get; private set; } = false;
 	public int diceInt = -1;
 
 	public override void _Ready()
 	{
 		SleepingStateChanged += SleepStateCh;
+		if (startWithRandomSide)
+		{
+			float x = (float)GD.RandRange(0, 360f);
+			float y = (float)GD.RandRange(0, 360f);
+			float z = (float)GD.RandRange(0, 360f);
+			RotateX(x);
+			RotateX(y);
+			RotateX(z);
+		}
+	}
+	float x, y, z;
+	float ra = 5;
+	public override void _Process(double delta)
+	{
+		if (!MarkedFinished)
+			return;
+		ARTGHWUEHFHJAK.RotateZ(-z);
+		ARTGHWUEHFHJAK.RotateY(-y);
+		ARTGHWUEHFHJAK.RotateX(-x);
+		x = (float)(GD.RandRange(0, ra) * delta);
+		y = (float)(GD.RandRange(0, ra) * delta);
+		z = (float)(GD.RandRange(0, ra) * delta);
+		ARTGHWUEHFHJAK.RotateX(x);
+		ARTGHWUEHFHJAK.RotateY(y);
+		ARTGHWUEHFHJAK.RotateZ(z);
+	}
+
+	private void HighlightSide(CubeFace cubeFace)
+	{
+		MeshInstance3D meshInstance3D = null;
+		switch (cubeFace)
+		{
+			case CubeFace.Forward:
+				meshInstance3D = side_6_meshInst;
+				break;
+			case CubeFace.Back:
+				meshInstance3D = side_1_meshInst;
+				break;
+			case CubeFace.Left:
+				meshInstance3D = side_2_meshInst;
+				break;
+			case CubeFace.Right:
+				meshInstance3D = side_5_meshInst;
+				break;
+			case CubeFace.Top:
+				meshInstance3D = side_4_meshInst;
+				break;
+			case CubeFace.Bottom:
+				meshInstance3D = side_3_meshInst;
+				break;
+			default:
+				Debug.Print("unknown face to highlgigjt");
+				break;
+		}
+
+		StandardMaterial3D highlightedVersionMaterial = (StandardMaterial3D)meshInstance3D.Mesh.SurfaceGetMaterial(0).Duplicate();
+		highlightedVersionMaterial.AlbedoColor = highlightedColor;
+		meshInstance3D.MaterialOverride = highlightedVersionMaterial;
 	}
 	private void SleepStateCh()
 	{
@@ -32,46 +102,34 @@ public partial class DiceObject : RigidBody3D
 	{
 		CubeFace facingUp = GetUpwardFacingSide();
 		MarkedFinished = true;
-		Debug.Print("Dice " + diceInt + " " + facingUp + "Face facing up");
+
+		HighlightSide(facingUp);
 		EmitSignal(SignalName.DiceFinished);
 	}
 
+	//made w ai. works 
 	public enum CubeFace { Forward, Back, Right, Left, Top, Bottom, Unknown }
 
 	public CubeFace GetUpwardFacingSide()
 	{
-		Vector3 localRight = GlobalTransform.Basis.X;
-		Vector3 localLeft = -localRight;
-		Vector3 localTop = GlobalTransform.Basis.Y;
-		Vector3 localBottom = -localTop;
-		Vector3 localBack = GlobalTransform.Basis.Z;
-		Vector3 localFront = -localBack;
+		// Convert world UP (0, 1, 0) into the die's local coordinate space
+		Vector3 localUp = GlobalTransform.Basis.Inverse() * Vector3.Up;
 
-		Vector3 worldUp = Vector3.Up; // (0, 1, 0)
+		// Find which local axis aligns most with localUp
+		float maxDot = localUp.X;
+		CubeFace bestFace = localUp.X > 0 ? CubeFace.Right : CubeFace.Left;
 
-		float bestDot = float.NegativeInfinity;
-		CubeFace bestFace = CubeFace.Unknown;
+		if (Mathf.Abs(localUp.Y) > Mathf.Abs(maxDot))
+		{
+			maxDot = localUp.Y;
+			bestFace = localUp.Y > 0 ? CubeFace.Top : CubeFace.Bottom;
+		}
 
-		// Check each of the 6 faces
-		CheckAxis(localTop, CubeFace.Top, ref bestDot, ref bestFace, worldUp);
-		CheckAxis(localBottom, CubeFace.Bottom, ref bestDot, ref bestFace, worldUp);
-		CheckAxis(localFront, CubeFace.Forward, ref bestDot, ref bestFace, worldUp);
-		CheckAxis(localBack, CubeFace.Back, ref bestDot, ref bestFace, worldUp);
-		CheckAxis(localRight, CubeFace.Right, ref bestDot, ref bestFace, worldUp);
-		CheckAxis(localLeft, CubeFace.Left, ref bestDot, ref bestFace, worldUp);
+		if (Mathf.Abs(localUp.Z) > Mathf.Abs(maxDot))
+		{
+			bestFace = localUp.Z > 0 ? CubeFace.Back : CubeFace.Forward;
+		}
 
 		return bestFace;
-	}
-
-	private void CheckAxis(Vector3 worldDir, CubeFace face, ref float bestDot, ref CubeFace bestFace, Vector3 worldUp)
-	{
-		// Dot product yields 1 if perfectly aligned, 0 if perpendicular, -1 if completely upside down
-		float dot = worldDir.Normalized().Dot(worldUp);
-
-		if (dot > bestDot)
-		{
-			bestDot = dot;
-			bestFace = face;
-		}
 	}
 }
