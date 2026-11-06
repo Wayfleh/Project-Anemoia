@@ -33,7 +33,7 @@ material = ExtResource("6_lovj5")
 [sub_resource type="QuadMesh" id="QuadMesh_skasp"]
 material = ExtResource("7_stngw")
 
-[node name="DiceBody3D" type="RigidBody3D" unique_id=1665578112 node_paths=PackedStringArray("side_1_meshInst", "side_2_meshInst", "side_3_meshInst", "side_4_meshInst", "side_5_meshInst", "side_6_meshInst", "ARTGHWUEHFHJAK")]
+[node name="DiceBody3D" type="RigidBody3D" unique_id=1665578112 node_paths=PackedStringArray("side_1_meshInst", "side_2_meshInst", "side_3_meshInst", "side_4_meshInst", "side_5_meshInst", "side_6_meshInst", "diceBody")]
 script = ExtResource("1_vf2l3")
 side_1_meshInst = NodePath("MeshInstance3D/1")
 side_2_meshInst = NodePath("MeshInstance3D/2")
@@ -41,8 +41,8 @@ side_3_meshInst = NodePath("MeshInstance3D/3")
 side_4_meshInst = NodePath("MeshInstance3D/4")
 side_5_meshInst = NodePath("MeshInstance3D/5")
 side_6_meshInst = NodePath("MeshInstance3D/6")
-ARTGHWUEHFHJAK = NodePath("MeshInstance3D")
-highlightedColor = Color(5.187019, 4.150608, 0, 1)
+diceBody = NodePath("MeshInstance3D")
+glowingColor = Color(5.187019, 4.150608, 0, 1)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=321700675]
 shape = SubResource("BoxShape3D_h4d8y")

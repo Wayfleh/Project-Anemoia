@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Diagnostics;
+using System.Dynamic;
 
 public partial class DiceObject : RigidBody3D
 {
@@ -12,17 +13,20 @@ public partial class DiceObject : RigidBody3D
 	[Export] private MeshInstance3D side_4_meshInst;
 	[Export] private MeshInstance3D side_5_meshInst;
 	[Export] private MeshInstance3D side_6_meshInst;
-	[Export] private MeshInstance3D ARTGHWUEHFHJAK;
-	[Export] private Color highlightedColor;
+	[Export] private MeshInstance3D diceBody;
+	[Export] private float jitterMagnitude = 7;
+	[Export] private Color glowingColor;
+
+	MeshInstance3D upwardFacingMeshInst3D = null;
 
 	private bool startWithRandomSide = true;
 
-	public bool MarkedFinished { get; private set; } = false;
-	public int diceInt = -1;
+	public bool MarkedFinished { get; private set; } = false;//used to check if dice has stopped
+	public int ValueResult { get; private set; }
 
 	public override void _Ready()
 	{
-		SleepingStateChanged += SleepStateCh;
+		SleepingStateChanged += OnSleepStateChanged;
 		if (startWithRandomSide)
 		{
 			float x = (float)GD.RandRange(0, 360f);
@@ -33,57 +37,35 @@ public partial class DiceObject : RigidBody3D
 			RotateX(z);
 		}
 	}
-	float x, y, z;
-	float ra = 5;
+
+	float jitterX, jitterY, jitterZ;
 	public override void _Process(double delta)
 	{
-		if (!MarkedFinished)
+		float deltaF = (float)delta;
+		if (MarkedFinished || (AngularVelocity.DistanceSquaredTo(Vector3.Zero) > 0.5f) || (LinearVelocity.DistanceSquaredTo(Vector3.Zero) > 1f))
 			return;
-		ARTGHWUEHFHJAK.RotateZ(-z);
-		ARTGHWUEHFHJAK.RotateY(-y);
-		ARTGHWUEHFHJAK.RotateX(-x);
-		x = (float)(GD.RandRange(0, ra) * delta);
-		y = (float)(GD.RandRange(0, ra) * delta);
-		z = (float)(GD.RandRange(0, ra) * delta);
-		ARTGHWUEHFHJAK.RotateX(x);
-		ARTGHWUEHFHJAK.RotateY(y);
-		ARTGHWUEHFHJAK.RotateZ(z);
+
+		diceBody.RotateZ(-jitterZ);
+		diceBody.RotateY(-jitterY);
+		diceBody.RotateX(-jitterX);
+
+		jitterX = (float)GD.RandRange(0, jitterMagnitude) * deltaF;
+		jitterY = (float)GD.RandRange(0, jitterMagnitude) * deltaF;
+		jitterZ = (float)GD.RandRange(0, jitterMagnitude) * deltaF;
+		diceBody.RotateX(jitterX);
+		diceBody.RotateY(jitterY);
+		diceBody.RotateZ(jitterZ);
 	}
 
-	private void HighlightSide(CubeFace cubeFace)
+	private void HighlightSide(MeshInstance3D meshInstance3D)
 	{
-		MeshInstance3D meshInstance3D = null;
-		switch (cubeFace)
-		{
-			case CubeFace.Forward:
-				meshInstance3D = side_6_meshInst;
-				break;
-			case CubeFace.Back:
-				meshInstance3D = side_1_meshInst;
-				break;
-			case CubeFace.Left:
-				meshInstance3D = side_2_meshInst;
-				break;
-			case CubeFace.Right:
-				meshInstance3D = side_5_meshInst;
-				break;
-			case CubeFace.Top:
-				meshInstance3D = side_4_meshInst;
-				break;
-			case CubeFace.Bottom:
-				meshInstance3D = side_3_meshInst;
-				break;
-			default:
-				Debug.Print("unknown face to highlgigjt");
-				break;
-		}
-
 		StandardMaterial3D highlightedVersionMaterial = (StandardMaterial3D)meshInstance3D.Mesh.SurfaceGetMaterial(0).Duplicate();
-		highlightedVersionMaterial.AlbedoColor = highlightedColor;
+		highlightedVersionMaterial.AlbedoColor = glowingColor;
 		meshInstance3D.MaterialOverride = highlightedVersionMaterial;
 	}
-	private void SleepStateCh()
+	private void OnSleepStateChanged()
 	{
+		//in case we have new cool features that moves the dice again after they stop
 		if (!Sleeping)
 		{
 			MarkedFinished = false;
@@ -95,22 +77,58 @@ public partial class DiceObject : RigidBody3D
 	{
 		if (Sleeping && !MarkedFinished)
 		{
-			MarkFinished();
+			HandleDiceFinished();
 		}
 	}
-	private void MarkFinished()
+	private void HandleDiceFinished()
 	{
 		CubeFace facingUp = GetUpwardFacingSide();
 		MarkedFinished = true;
 
-		HighlightSide(facingUp);
+		UpdateValues(facingUp);
+
+		HighlightSide(upwardFacingMeshInst3D);
 		EmitSignal(SignalName.DiceFinished);
 	}
 
-	//made w ai. works 
+	private void UpdateValues(CubeFace cubeFace)
+	{
+		switch (cubeFace)
+		{
+			case CubeFace.Forward:
+				upwardFacingMeshInst3D = side_6_meshInst;
+				ValueResult = 6;
+				break;
+			case CubeFace.Back:
+				upwardFacingMeshInst3D = side_1_meshInst;
+				ValueResult = 1;
+				break;
+			case CubeFace.Left:
+				upwardFacingMeshInst3D = side_2_meshInst;
+				ValueResult = 2;
+				break;
+			case CubeFace.Right:
+				upwardFacingMeshInst3D = side_5_meshInst;
+				ValueResult = 5;
+				break;
+			case CubeFace.Top:
+				upwardFacingMeshInst3D = side_4_meshInst;
+				ValueResult = 4;
+				break;
+			case CubeFace.Bottom:
+				upwardFacingMeshInst3D = side_3_meshInst;
+				ValueResult = 3;
+				break;
+			default:
+				Debug.Print("unknown face");
+				break;
+		}
+	}
+
+	//made w ai. works. can be cleaned up ig
 	public enum CubeFace { Forward, Back, Right, Left, Top, Bottom, Unknown }
 
-	public CubeFace GetUpwardFacingSide()
+	private CubeFace GetUpwardFacingSide()
 	{
 		// Convert world UP (0, 1, 0) into the die's local coordinate space
 		Vector3 localUp = GlobalTransform.Basis.Inverse() * Vector3.Up;

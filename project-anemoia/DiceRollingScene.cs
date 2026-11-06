@@ -10,9 +10,10 @@ public partial class DiceRollingScene : Node
 	[Export] public PackedScene dicePackedScene;
 	[Export] public Node3D spawnPosition;
 	[Export] public float impulseMultiplier;
+	
 	List<DiceObject> diceObjects;
-
 	int numOfSpawnedDice;
+
 	public void PlayScene(int dice)
 	{
 		DeleteExistingDice();
@@ -30,7 +31,7 @@ public partial class DiceRollingScene : Node
 	}
 	public override void _Process(double delta)
 	{
-		if (Input.IsActionJustPressed("jump"))
+		if (Input.IsActionJustPressed("interact"))
 		{
 			PlayScene(3);
 		}
@@ -49,7 +50,6 @@ public partial class DiceRollingScene : Node
 	{
 		DiceObject diceInst = dicePackedScene.Instantiate<DiceObject>();
 
-		diceInst.diceInt = numOfSpawnedDice;
 		numOfSpawnedDice++;
 
 		AddChild(diceInst);
@@ -67,13 +67,20 @@ public partial class DiceRollingScene : Node
 
 	private void DiceFinished()
 	{
+		int[] result = new int[diceObjects.Count];
 		for (int i = 0; i < diceObjects.Count; i++)
 		{
 			if (!diceObjects[i].MarkedFinished)
 				return;
+			result[i] = diceObjects[i].ValueResult;
 		}
-		Debug.Print("dice scene finished, all dice finished");
+		string diceVals = "";
+		for (int i = 0; i < result.Length; i++)
+		{
+			diceVals += result[i] + " ";
+		}
+		Debug.Print("dice scene finished. result: " + diceVals);
 
-		// EmitSignal(SignalName.DiceSceneFinished, );
+		EmitSignal(SignalName.DiceSceneFinished, result);
 	}
 }
