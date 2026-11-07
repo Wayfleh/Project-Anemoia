@@ -92,7 +92,7 @@ public partial class HudManager : Node
 		float deltaFloat = (float)delta;
 
 		if (!useTestersThatAreInsideThisClass) return;
-		
+
 		if (Input.IsActionJustPressed("interact"))
 		{
 			ToggleExternalDialogueBox();
@@ -156,6 +156,8 @@ public partial class HudManager : Node
 		}
 
 		dialogueMarginLeftToMatchIntExt = 0;
+		lastExtDialogueItemAdded = null;
+		lastIntDialogueItemAdded = null;
 	}
 	private void RemoveButtons()
 	{
@@ -178,20 +180,22 @@ public partial class HudManager : Node
 		intVBoxContainer.AddChild(dialogueItemInst);
 
 		await GetSize(dialogueItemInst);
+		int itemSizeWithoutMargin = (int)dialogueItemInst.Size.Y;
 
-		if (lastIntDialogueItemAdded != null)
-			lastIntDialogueItemAdded.RemoveThemeConstantOverride("margin_bottom");
-		int itemSize = (int)dialogueItemInst.Size.Y;//size of dialogueItem(marginContainer) without added margin
-		if (lastDialogueWasInInternal == false)//last dialogue was in external
+		if (lastIntDialogueItemAdded != null) lastIntDialogueItemAdded.RemoveThemeConstantOverride("margin_bottom");
+
+		bool lastDialogueWasInExternal = lastDialogueWasInInternal == false;
+		if (lastDialogueWasInExternal)//last diag was in opposite side
 		{
-			dialogueItemInst.AddThemeConstantOverride("margin_top", dialogueMarginLeftToMatchIntExt);
+			dialogueItemInst.AddThemeConstantOverride("margin_top", dialogueMarginLeftToMatchIntExt);//push down to match height
 			dialogueMarginLeftToMatchIntExt = 0;
 		}
-		dialogueMarginLeftToMatchIntExt += itemSize;
-		if (lastExtDialogueItemAdded != null)
+		dialogueMarginLeftToMatchIntExt += itemSizeWithoutMargin;
+
+		if (lastExtDialogueItemAdded != null) //temporarily make extra space below so vboxContainers match height and scrolling will sync.
 			lastExtDialogueItemAdded.AddThemeConstantOverride("margin_bottom", dialogueMarginLeftToMatchIntExt);
 
-
+		//update history vars
 		lastDialogueWasInInternal = true;
 		lastIntDialogueItemAdded = dialogueItemInst;
 	}
@@ -201,19 +205,21 @@ public partial class HudManager : Node
 		extVBoxContainer.AddChild(dialogueItemInst);
 
 		await GetSize(dialogueItemInst);
+		int itemSizeWithoutMargin = (int)dialogueItemInst.Size.Y;
 
-		if (lastExtDialogueItemAdded != null)
-			lastExtDialogueItemAdded.RemoveThemeConstantOverride("margin_bottom");
-		int itemSize = (int)dialogueItemInst.Size.Y;//size of dialogueItem(marginContainer) without added margin
-		if (lastDialogueWasInInternal == true)//last dialogue was in internal
+
+		if (lastExtDialogueItemAdded != null) lastExtDialogueItemAdded.RemoveThemeConstantOverride("margin_bottom");
+		if (lastDialogueWasInInternal)//last diag was in opposite side
 		{
-			dialogueItemInst.AddThemeConstantOverride("margin_top", dialogueMarginLeftToMatchIntExt);
+			dialogueItemInst.AddThemeConstantOverride("margin_top", dialogueMarginLeftToMatchIntExt);//push down to match height
 			dialogueMarginLeftToMatchIntExt = 0;
 		}
-		dialogueMarginLeftToMatchIntExt += itemSize;
-		if (lastIntDialogueItemAdded != null)
+		dialogueMarginLeftToMatchIntExt += itemSizeWithoutMargin;
+
+		if (lastIntDialogueItemAdded != null) //temporarily make extra space below so vboxContainers match height and scrolling will sync.
 			lastIntDialogueItemAdded.AddThemeConstantOverride("margin_bottom", dialogueMarginLeftToMatchIntExt);
 
+		//update history vars
 		lastDialogueWasInInternal = false;
 		lastExtDialogueItemAdded = dialogueItemInst;
 	}
@@ -227,7 +233,7 @@ public partial class HudManager : Node
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
 
 		// The engine has finished sorting, and the size is now fully updated
-		GD.Print($"Updated Size after frame: {dialogueItemInst.Size}");
+		// GD.Print($"Updated Size after frame: {dialogueItemInst.Size}");
 	}
 
 	//## scrolling dialogue boxes

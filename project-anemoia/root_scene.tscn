@@ -87,6 +87,7 @@ clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/separation = 0
 
 [node name="ChoicesScrollContainer" type="ScrollContainer" parent="Control/InternalDialogueBox/VSplitContainer" unique_id=357814740]
 custom_maximum_size = Vector2(-1, 97.86)
@@ -166,6 +167,7 @@ clip_contents = true
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
+theme_override_constants/separation = 0
 
 [node name="Control" type="Control" parent="Control/ExternalDialogueBox/VSplitContainer" unique_id=1611895790]
 custom_maximum_size = Vector2(-1, 184)
