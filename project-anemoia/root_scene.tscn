@@ -419,7 +419,7 @@ scrollable = false
 tick_count = 6
 ticks_position = 3
 
-[node name="SubViewportContainer2" type="SubViewportContainer" parent="Control" unique_id=295416107]
+[node name="DiceSceneSubViewportContainer" type="SubViewportContainer" parent="Control" unique_id=295416107]
 texture_filter = 1
 layout_mode = 0
 offset_left = 273.0
@@ -429,13 +429,13 @@ offset_bottom = 411.0
 stretch = true
 stretch_shrink = 3
 
-[node name="SubViewport" type="SubViewport" parent="Control/SubViewportContainer2" unique_id=2110406472]
+[node name="SubViewport" type="SubViewport" parent="Control/DiceSceneSubViewportContainer" unique_id=2110406472]
 own_world_3d = true
 handle_input_locally = false
 size = Vector2i(83, 83)
 render_target_update_mode = 4
 
-[node name="DiceRollingScene" parent="Control/SubViewportContainer2/SubViewport" unique_id=229583748 instance=ExtResource("13_rf7a2")]
+[node name="DiceRollingScene" parent="Control/DiceSceneSubViewportContainer/SubViewport" unique_id=229583748 instance=ExtResource("13_rf7a2")]
 
 [node name="HUDManager" type="Node" parent="." unique_id=1025954270 node_paths=PackedStringArray("healthBar", "bloodBar", "willPowerBits", "extDialogueBox", "extDialogueBoxFooter", "extScrollContainer", "intScrollContainer", "extVBoxContainer", "intVBoxContainer", "choicesScrollContainer", "choicesVBoxContainer", "rootScene")]
 script = ExtResource("9_0ma7x")

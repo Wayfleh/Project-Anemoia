@@ -91,12 +91,12 @@ public partial class HudManager : Node
 	{
 		float deltaFloat = (float)delta;
 
+		if (!useTestersThatAreInsideThisClass) return;
+		
 		if (Input.IsActionJustPressed("interact"))
 		{
 			ToggleExternalDialogueBox();
 		}
-
-		if (!useTestersThatAreInsideThisClass) return;
 
 		if (Input.IsActionPressed("interact"))
 		{
@@ -179,17 +179,21 @@ public partial class HudManager : Node
 
 		await GetSize(dialogueItemInst);
 
-		int temp = dialogueMarginLeftToMatchIntExt;
-		dialogueMarginLeftToMatchIntExt += (int)dialogueItemInst.Size.Y;
-		if (lastDialogueWasInInternal == true)//last dialogue was in internal
+		if (lastIntDialogueItemAdded != null)
+			lastIntDialogueItemAdded.RemoveThemeConstantOverride("margin_bottom");
+		int itemSize = (int)dialogueItemInst.Size.Y;//size of dialogueItem(marginContainer) without added margin
+		if (lastDialogueWasInInternal == false)//last dialogue was in external
 		{
-			dialogueItemInst.AddThemeConstantOverride("margin_top", temp);
+			dialogueItemInst.AddThemeConstantOverride("margin_top", dialogueMarginLeftToMatchIntExt);
 			dialogueMarginLeftToMatchIntExt = 0;
 		}
+		dialogueMarginLeftToMatchIntExt += itemSize;
+		if (lastExtDialogueItemAdded != null)
+			lastExtDialogueItemAdded.AddThemeConstantOverride("margin_bottom", dialogueMarginLeftToMatchIntExt);
 
 
 		lastDialogueWasInInternal = true;
-		Debug.Print(dialogueMarginLeftToMatchIntExt + " b " + dialogueItemInst.Size.Y + " c " + dialogueItemInst.GetThemeConstant("margin_top"));
+		lastIntDialogueItemAdded = dialogueItemInst;
 	}
 	private async void AddExternalDialogueItem()
 	{
@@ -198,16 +202,20 @@ public partial class HudManager : Node
 
 		await GetSize(dialogueItemInst);
 
-		int temp = dialogueMarginLeftToMatchIntExt;
-		dialogueMarginLeftToMatchIntExt += (int)dialogueItemInst.Size.Y;
+		if (lastExtDialogueItemAdded != null)
+			lastExtDialogueItemAdded.RemoveThemeConstantOverride("margin_bottom");
+		int itemSize = (int)dialogueItemInst.Size.Y;//size of dialogueItem(marginContainer) without added margin
 		if (lastDialogueWasInInternal == true)//last dialogue was in internal
 		{
-			dialogueItemInst.AddThemeConstantOverride("margin_top", temp);
+			dialogueItemInst.AddThemeConstantOverride("margin_top", dialogueMarginLeftToMatchIntExt);
 			dialogueMarginLeftToMatchIntExt = 0;
 		}
+		dialogueMarginLeftToMatchIntExt += itemSize;
+		if (lastIntDialogueItemAdded != null)
+			lastIntDialogueItemAdded.AddThemeConstantOverride("margin_bottom", dialogueMarginLeftToMatchIntExt);
 
 		lastDialogueWasInInternal = false;
-		Debug.Print(dialogueMarginLeftToMatchIntExt + " b " + dialogueItemInst.Size.Y + " c " + dialogueItemInst.GetThemeConstant("margin_top"));
+		lastExtDialogueItemAdded = dialogueItemInst;
 	}
 
 	private async Task GetSize(MarginContainer dialogueItemInst)//ai help
