@@ -1,34 +1,50 @@
 using Godot;
 using System;
 using System.Diagnostics;
+using System.Threading.Tasks;
 
 public partial class HudManager : Node
 {
+	[ExportGroup("Stats Bars")]
 	[Export] private TextureProgressBar healthBar;
 	[Export] private TextureProgressBar bloodBar;
 	[Export] private TextureRect[] willPowerBits;
+	[ExportSubgroup("Textures")]
 	[Export] private Texture2D filledBit, unfilledBit;
 	[Export] private Texture2D filledBigBit, unfilledBigBit;
 
-	[Export] private Control externalDialogueBox;
-	[Export] private Control externalDialogueBoxFooter;
-	[Export] private ScrollContainer externalScrollContainer, internalScrollContainer;
-	[Export] private VBoxContainer externalVBoxContainer, internalVBoxContainer;
-	private ScrollBar externalScrollBar, internalScrollBar;
+	[ExportGroup("Dialogue Boxes")]
+	// [ExportSubgroup("Toggling External Box")]
+	[Export] private Control extDialogueBox;
+	[ExportSubgroup("Resizing External Footer")]
+	[Export] private Control extDialogueBoxFooter;
+	[ExportSubgroup("Dialogue Containers")]
+	[Export] private ScrollContainer extScrollContainer, intScrollContainer;
+	[Export] private VBoxContainer extVBoxContainer, intVBoxContainer;
+	//syncing scrolling
+	private ScrollBar extScrollBar, intScrollBar;
 	private bool _syncing = false;
+
+	[ExportGroup("Dialogue Items")]//creating dialogue text nodes
 	[Export] private PackedScene dialogueItemPackedScene; //same dialogue item for everything for now? NOTE:Margin Container
+	private MarginContainer lastExtDialogueItemAdded = null;//leading item
+	private MarginContainer lastIntDialogueItemAdded = null;
 
-	private int dialogueHeight = 0;
+	private bool lastDialogueWasInInternal;//toggle to either side, 
+	private int dialogueMarginLeftToMatchIntExt = 0;
 
 
+	[ExportGroup("Dialogue Choices")]
 	[Export] private ScrollContainer choicesScrollContainer;
 	[Export] private VBoxContainer choicesVBoxContainer;
-	[Export] private float choicesScrContHeightConstant = 200f;
+	[Export] private float choicesContainerHeight = 200f;
 	[Export] private PackedScene buttonPackedScene;
 
+	[ExportGroup("Input Forwarding")]
 	[Export] private RootScene rootScene;//used for input forwarding
 
-	[Export] private bool DebuggingInput = true;
+	[ExportGroup("Testing This Class")]
+	[Export] private bool useTestersThatAreInsideThisClass = true;
 
 	public override void _Ready()
 	{
@@ -36,25 +52,24 @@ public partial class HudManager : Node
 		PlayerStatsWrapper.Instance.PlayerBloodChanged += OnPlayerBloodChanged;
 		PlayerStatsWrapper.Instance.PlayerWillpowerChanged += OnPlayerWillpowerChanged;
 
-		externalScrollBar = externalScrollContainer.GetVScrollBar();
-		internalScrollBar = internalScrollContainer.GetVScrollBar();
+		extScrollBar = extScrollContainer.GetVScrollBar();
+		intScrollBar = intScrollContainer.GetVScrollBar();
 
-		externalScrollBar.ValueChanged += OnExternalScrollBarChanged;
-		internalScrollBar.ValueChanged += OnInternalScrollBarChanged;
+		extScrollBar.ValueChanged += OnExternalScrollBarChanged;
+		intScrollBar.ValueChanged += OnInternalScrollBarChanged;
 
 		choicesVBoxContainer.Resized += OnChoicesScrContResized;
 		OnChoicesScrContResized();
-		randomNumberGenerator = new RandomNumberGenerator();
 	}
 	private void OnChoicesScrContResized()
 	{
 		Vector2 max;
 		if (choicesVBoxContainer.GetChildCount() != 0)
-			max = new Vector2(-1, choicesScrContHeightConstant);
+			max = new Vector2(-1, choicesContainerHeight);
 		else
 			max = new Vector2(-1, 0);
 		choicesScrollContainer.CustomMaximumSize = max;
-		externalDialogueBoxFooter.CustomMaximumSize = max;
+		extDialogueBoxFooter.CustomMaximumSize = max;
 	}
 	private void OnPlayerHealthChanged(int newHealth) => healthBar.Value = newHealth;
 	private void OnPlayerBloodChanged(int newBlood) => bloodBar.Value = newBlood;
@@ -72,7 +87,6 @@ public partial class HudManager : Node
 	}
 
 	int direction = 1;
-	RandomNumberGenerator randomNumberGenerator;
 	public override void _Process(double delta)//a mess
 	{
 		float deltaFloat = (float)delta;
@@ -82,7 +96,7 @@ public partial class HudManager : Node
 			ToggleExternalDialogueBox();
 		}
 
-		if (!DebuggingInput) return;
+		if (!useTestersThatAreInsideThisClass) return;
 
 		if (Input.IsActionPressed("interact"))
 		{
@@ -95,19 +109,30 @@ public partial class HudManager : Node
 		}
 		if (Input.IsActionPressed("jump"))
 		{
-			choicesScrContHeightConstant += deltaFloat * 30 * direction;
+			choicesContainerHeight += deltaFloat * 30 * direction;
 			OnChoicesScrContResized();
 		}
 		if (Input.IsActionJustPressed("jump"))
 		{
-			AddInternalDialogueItem();
 			direction *= -1;
 			AddButton();
 			if (choicesVBoxContainer.GetChildCount() == 20)
 				RemoveButtons();
 		}
+		if (Input.IsActionJustPressed("move_right"))
+		{
+			AddInternalDialogueItem();
+		}
+		else if (Input.IsActionJustPressed("move_left"))
+		{
+			AddExternalDialogueItem();
+		}
+		else if (Input.IsActionJustPressed("move_backward"))
+		{
+			RemoveDialogueItems();
+		}
 	}
-	private void AddButton()//will be changed later when implementing stuff?
+	private void AddButton()//will be changed later when implementing stuff
 	{
 		Button buttonInst = buttonPackedScene.Instantiate<Button>();
 
@@ -118,11 +143,22 @@ public partial class HudManager : Node
 		}
 		choicesVBoxContainer.AddChild(buttonInst);
 	}
+	private void RemoveDialogueItems()
+	{
+		foreach (Node child in intVBoxContainer.GetChildren())
+		{
+			child.QueueFree();
+		}
+
+		foreach (Node child in extVBoxContainer.GetChildren())
+		{
+			child.QueueFree();
+		}
+
+		dialogueMarginLeftToMatchIntExt = 0;
+	}
 	private void RemoveButtons()
 	{
-		int childCount = choicesVBoxContainer.GetChildCount();
-		if (childCount == 0) return;
-
 		foreach (Node child in choicesVBoxContainer.GetChildren())
 		{
 			child.QueueFree();
@@ -130,18 +166,60 @@ public partial class HudManager : Node
 	}
 	private void ToggleExternalDialogueBox()
 	{
-		externalDialogueBox.Visible = !externalDialogueBox.Visible;
-		bool extDBoxActivated = externalDialogueBox.Visible;
+		extDialogueBox.Visible = !extDialogueBox.Visible;
+		bool extDBoxActivated = extDialogueBox.Visible;
 
 		Input.MouseMode = extDBoxActivated ? Input.MouseModeEnum.Visible : Input.MouseModeEnum.Captured;
 		rootScene.isForwardingInput = !extDBoxActivated;
 	}
-	private void AddInternalDialogueItem()
+	private async void AddInternalDialogueItem()
 	{
 		MarginContainer dialogueItemInst = dialogueItemPackedScene.Instantiate<MarginContainer>();
-		dialogueItemInst.AddThemeConstantOverride("margin_top", dialogueHeight);
-		dialogueHeight += (int)dialogueItemInst.Size.Y;/////////////////////////////////////UUUUUUH. gonna continue work here 
-		internalVBoxContainer.AddChild(dialogueItemInst);
+		intVBoxContainer.AddChild(dialogueItemInst);
+
+		await GetSize(dialogueItemInst);
+
+		int temp = dialogueMarginLeftToMatchIntExt;
+		dialogueMarginLeftToMatchIntExt += (int)dialogueItemInst.Size.Y;
+		if (lastDialogueWasInInternal == true)//last dialogue was in internal
+		{
+			dialogueItemInst.AddThemeConstantOverride("margin_top", temp);
+			dialogueMarginLeftToMatchIntExt = 0;
+		}
+
+
+		lastDialogueWasInInternal = true;
+		Debug.Print(dialogueMarginLeftToMatchIntExt + " b " + dialogueItemInst.Size.Y + " c " + dialogueItemInst.GetThemeConstant("margin_top"));
+	}
+	private async void AddExternalDialogueItem()
+	{
+		MarginContainer dialogueItemInst = dialogueItemPackedScene.Instantiate<MarginContainer>();
+		extVBoxContainer.AddChild(dialogueItemInst);
+
+		await GetSize(dialogueItemInst);
+
+		int temp = dialogueMarginLeftToMatchIntExt;
+		dialogueMarginLeftToMatchIntExt += (int)dialogueItemInst.Size.Y;
+		if (lastDialogueWasInInternal == true)//last dialogue was in internal
+		{
+			dialogueItemInst.AddThemeConstantOverride("margin_top", temp);
+			dialogueMarginLeftToMatchIntExt = 0;
+		}
+
+		lastDialogueWasInInternal = false;
+		Debug.Print(dialogueMarginLeftToMatchIntExt + " b " + dialogueItemInst.Size.Y + " c " + dialogueItemInst.GetThemeConstant("margin_top"));
+	}
+
+	private async Task GetSize(MarginContainer dialogueItemInst)//ai help
+	{
+		// Tell the container to queue a layout update normally
+		dialogueItemInst.QueueSort();
+
+		// Pause this method and wait for Godot to complete the frame processing loop
+		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
+
+		// The engine has finished sorting, and the size is now fully updated
+		GD.Print($"Updated Size after frame: {dialogueItemInst.Size}");
 	}
 
 	//## scrolling dialogue boxes
@@ -151,7 +229,7 @@ public partial class HudManager : Node
 			return;
 
 		_syncing = true;
-		externalScrollContainer.ScrollVertical = (int)Value;
+		extScrollContainer.ScrollVertical = (int)Value;
 		_syncing = false;
 	}
 	private void OnExternalScrollBarChanged(double Value)
@@ -160,7 +238,7 @@ public partial class HudManager : Node
 			return;
 
 		_syncing = true;
-		internalScrollContainer.ScrollVertical = (int)Value;
+		intScrollContainer.ScrollVertical = (int)Value;
 		_syncing = false;
 
 	}
@@ -169,8 +247,8 @@ public partial class HudManager : Node
 		PlayerStatsWrapper.Instance.PlayerHealthChanged -= OnPlayerHealthChanged;
 		PlayerStatsWrapper.Instance.PlayerBloodChanged -= OnPlayerBloodChanged;
 		PlayerStatsWrapper.Instance.PlayerWillpowerChanged -= OnPlayerWillpowerChanged;
-		externalScrollBar.ValueChanged -= OnExternalScrollBarChanged;
-		internalScrollBar.ValueChanged -= OnInternalScrollBarChanged;
+		extScrollBar.ValueChanged -= OnExternalScrollBarChanged;
+		intScrollBar.ValueChanged -= OnInternalScrollBarChanged;
 	}
 
 }

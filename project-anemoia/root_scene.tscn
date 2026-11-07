@@ -437,7 +437,7 @@ render_target_update_mode = 4
 
 [node name="DiceRollingScene" parent="Control/SubViewportContainer2/SubViewport" unique_id=229583748 instance=ExtResource("13_rf7a2")]
 
-[node name="HUDManager" type="Node" parent="." unique_id=1025954270 node_paths=PackedStringArray("healthBar", "bloodBar", "willPowerBits", "externalDialogueBox", "externalDialogueBoxFooter", "externalScrollContainer", "internalScrollContainer", "externalVBoxContainer", "internalVBoxContainer", "choicesScrollContainer", "choicesVBoxContainer", "rootScene")]
+[node name="HUDManager" type="Node" parent="." unique_id=1025954270 node_paths=PackedStringArray("healthBar", "bloodBar", "willPowerBits", "extDialogueBox", "extDialogueBoxFooter", "extScrollContainer", "intScrollContainer", "extVBoxContainer", "intVBoxContainer", "choicesScrollContainer", "choicesVBoxContainer", "rootScene")]
 script = ExtResource("9_0ma7x")
 healthBar = NodePath("../Control/PlayerStatsArea/HealthAndBloodBar/HealthBar")
 bloodBar = NodePath("../Control/PlayerStatsArea/HealthAndBloodBar/BloodBar")
@@ -446,12 +446,12 @@ filledBit = ExtResource("9_q1itj")
 unfilledBit = ExtResource("11_q1itj")
 filledBigBit = ExtResource("10_m330t")
 unfilledBigBit = ExtResource("13_5bbu2")
-externalDialogueBox = NodePath("../Control/ExternalDialogueBox")
-externalDialogueBoxFooter = NodePath("../Control/ExternalDialogueBox/VSplitContainer/Control")
-externalScrollContainer = NodePath("../Control/ExternalDialogueBox/VSplitContainer/ScrollContainer")
-internalScrollContainer = NodePath("../Control/InternalDialogueBox/VSplitContainer/ScrollContainer")
-externalVBoxContainer = NodePath("../Control/ExternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer")
-internalVBoxContainer = NodePath("../Control/InternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer")
+extDialogueBox = NodePath("../Control/ExternalDialogueBox")
+extDialogueBoxFooter = NodePath("../Control/ExternalDialogueBox/VSplitContainer/Control")
+extScrollContainer = NodePath("../Control/ExternalDialogueBox/VSplitContainer/ScrollContainer")
+intScrollContainer = NodePath("../Control/InternalDialogueBox/VSplitContainer/ScrollContainer")
+extVBoxContainer = NodePath("../Control/ExternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer")
+intVBoxContainer = NodePath("../Control/InternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer")
 dialogueItemPackedScene = ExtResource("4_a34l3")
 choicesScrollContainer = NodePath("../Control/InternalDialogueBox/VSplitContainer/ChoicesScrollContainer")
 choicesVBoxContainer = NodePath("../Control/InternalDialogueBox/VSplitContainer/ChoicesScrollContainer/VBoxContainer")
