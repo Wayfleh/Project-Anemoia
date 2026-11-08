@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://bgvk18n8w07uu"]
 
-[ext_resource type="Script" uid="uid://tbebptbyppnj" path="res://DiceRollingScene.cs" id="1_44doa"]
+[ext_resource type="Script" uid="uid://tbebptbyppnj" path="res://src/Dialogue/DiceRolling/DiceRollingScene.cs" id="1_44doa"]
 [ext_resource type="Texture2D" uid="uid://b4fbaayk7r7we" path="res://assets/Textures/Placeholders/spongebob.png" id="1_mrrms"]
-[ext_resource type="PackedScene" uid="uid://cs4p8nfx2x1cn" path="res://Dice.tscn" id="3_y5c6t"]
+[ext_resource type="PackedScene" uid="uid://cs4p8nfx2x1cn" path="res://src/Dialogue/DiceRolling/Dice.tscn" id="3_y5c6t"]
 
 [sub_resource type="Environment" id="Environment_y5c6t"]
 glow_enabled = true

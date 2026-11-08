@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cs4p8nfx2x1cn"]
 
-[ext_resource type="Script" uid="uid://cnavpnthm64t" path="res://DiceObject.cs" id="1_vf2l3"]
+[ext_resource type="Script" uid="uid://cnavpnthm64t" path="res://src/Dialogue/DiceRolling/DiceObject.cs" id="1_vf2l3"]
 [ext_resource type="Material" uid="uid://hpqg0rldghnw" path="res://assets/Materials/Dice/diceSide1.material" id="2_4xodc"]
 [ext_resource type="Material" uid="uid://cbvveqewkk802" path="res://assets/Materials/Dice/diceSide6.material" id="3_ojhn1"]
 [ext_resource type="Material" uid="uid://3de8dbsrasg5" path="res://assets/Materials/Dice/diceSide2.material" id="4_ugyt8"]
