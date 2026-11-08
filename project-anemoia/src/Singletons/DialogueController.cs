@@ -20,7 +20,7 @@ public partial class DialogueController : Node
 	private BitArray _dialogueFlags = new BitArray(200); //arbitrary size, increase as needed
 
 	//aside from test flags, don't change these flags once they're comitted, otherwise everything gets FUCKED
-	//to use these flags, replace flagIndex with DialogueController.Flags.[nameOfFlag]
+	//to use these flags, replace parameter flagIndex with DialogueController.Flags.[flag name]
 	public static class Flags
 	{
 		public const int test1 = 1;

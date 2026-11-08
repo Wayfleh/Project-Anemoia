@@ -2,6 +2,10 @@
 
 [ext_resource type="Script" uid="uid://cemewidpg2ps5" path="res://src/Player/PlayerController.cs" id="1_uhx54"]
 [ext_resource type="Script" uid="uid://cnhjr38qn0mje" path="res://src/Interaction/Interactor.cs" id="2_eryrk"]
+[ext_resource type="Script" uid="uid://d2u423bda7h10" path="res://src/StateMachine/StateMachine.cs" id="3_suier"]
+[ext_resource type="Script" uid="uid://ca3lndghunk8k" path="res://src/StateMachine/DialogueStates/LockedCursor.cs" id="4_wg7jm"]
+[ext_resource type="Script" uid="uid://d4lsnjj5883wx" path="res://src/StateMachine/DialogueStates/FreeCursor.cs" id="5_3151y"]
+[ext_resource type="Script" uid="uid://cat2nv4hsj2c1" path="res://src/StateMachine/PlayerState.cs" id="6_ugo85"]
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_ahknw"]
 
@@ -31,3 +35,21 @@ script = ExtResource("2_eryrk")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Head/Interactor" unique_id=1999706747]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.349823, -2.1124573)
 shape = SubResource("BoxShape3D_ahknw")
+
+[node name="PlayerSM" type="Node" parent="." unique_id=1389186072 node_paths=PackedStringArray("parent", "initialState")]
+script = ExtResource("3_suier")
+parent = NodePath("..")
+initialState = NodePath("LockedCursor")
+metadata/_custom_type_script = "uid://d2u423bda7h10"
+
+[node name="LockedCursor" type="Node" parent="PlayerSM" unique_id=399488313]
+script = ExtResource("4_wg7jm")
+metadata/_custom_type_script = "uid://cat2nv4hsj2c1"
+
+[node name="FreeCursor" type="Node" parent="PlayerSM" unique_id=113466564]
+script = ExtResource("5_3151y")
+metadata/_custom_type_script = "uid://cat2nv4hsj2c1"
+
+[node name="DialogueFreeze" type="Node" parent="PlayerSM" unique_id=937117720]
+script = ExtResource("6_ugo85")
+metadata/_custom_type_script = "uid://cat2nv4hsj2c1"

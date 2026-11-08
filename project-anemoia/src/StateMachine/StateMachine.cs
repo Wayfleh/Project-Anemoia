@@ -7,16 +7,17 @@ using System.Threading.Tasks;
 public partial class StateMachine : Node
 {
     public State currentState;
-    [Export] public CharacterBody2D parent;
+    [Export] public CharacterBody3D parent;
     public Dictionary<StringName, State> states;
     [Export] private State initialState;
 
     public override async void _Ready()
     {
-        await ToSignal(parent, CharacterBody2D.SignalName.Ready);
+        states = new();
+        await ToSignal(parent, CharacterBody3D.SignalName.Ready);
         foreach (State state in this.GetChildren())
         {
-            states[state.Name] = state;
+            states.Add(state.Name, state);
             state.TransitionToState += ChangeState;
         }
         currentState = initialState;
@@ -27,7 +28,7 @@ public partial class StateMachine : Node
     {
         if (currentState != null)
         {
-            currentState.Update();
+            currentState.Update(delta);
         }
     }
     public void ChangeState(string next)

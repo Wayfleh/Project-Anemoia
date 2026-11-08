@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Numerics;
+using System.Security.Cryptography.X509Certificates;
 namespace Godot;
 
 public partial class PlayerController : CharacterBody3D
@@ -33,6 +34,10 @@ public partial class PlayerController : CharacterBody3D
 
 	public override void _PhysicsProcess(double delta)
 	{
+
+	}
+	
+	public void HandleMovement(double delta){
 		Vector3 velocity = Velocity;
 
 		// Add the gravity.
@@ -103,11 +108,11 @@ public partial class PlayerController : CharacterBody3D
 		MoveAndSlide();
 	}
 
-	public override void _UnhandledInput(InputEvent @event)
+	public  void HandleCamera(InputEvent @event)
 	{
-		base._UnhandledInput(@event);
 		if (@event is InputEventMouseMotion mouseMotionEvent)
 		{
+			
 			head.RotateY(-mouseMotionEvent.Relative.X * SENSITIVITY);
 			camera.RotateX(-mouseMotionEvent.Relative.Y * SENSITIVITY);
 			Vector3 camRot = camera.Rotation;

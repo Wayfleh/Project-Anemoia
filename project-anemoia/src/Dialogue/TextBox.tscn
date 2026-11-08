@@ -1,0 +1,7 @@
+[gd_scene format=3 uid="uid://c02djvh2h3mfi"]
+
+[node name="TextBox" type="Label" unique_id=919002252]
+offset_right = 1.0
+offset_bottom = 23.0
+size_flags_horizontal = 3
+autowrap_mode = 2
