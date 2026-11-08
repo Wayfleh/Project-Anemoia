@@ -3,12 +3,14 @@ using System;
 
 public partial class PhysicalDialogueBox : PanelContainer
 {
-	public ScrollContainer scrollBar;
+	[Export]
+	public ScrollContainer scrollContainer;
 	public VBoxContainer history;
+	public ScrollBar scrollBar;
 	public override void _Ready()
 	{
-		scrollBar = (ScrollContainer)GetNode("HistoryScroll");
-		history = (VBoxContainer)GetNode("History");
+		history = (VBoxContainer)scrollContainer.GetNode("History");
+		scrollBar = scrollContainer.GetVScrollBar();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
