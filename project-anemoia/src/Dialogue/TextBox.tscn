@@ -1,7 +1,14 @@
 [gd_scene format=3 uid="uid://c02djvh2h3mfi"]
 
-[node name="TextBox" type="Label" unique_id=919002252]
+[node name="TextBox" type="HBoxContainer" unique_id=2080642718]
 offset_right = 1.0
 offset_bottom = 23.0
 size_flags_horizontal = 3
-autowrap_mode = 2
+
+[node name="Name" type="Label" parent="." unique_id=1043537671]
+layout_mode = 2
+text = "Name -- "
+
+[node name="Speech" type="Label" parent="." unique_id=2122689034]
+layout_mode = 2
+text = "Speech"

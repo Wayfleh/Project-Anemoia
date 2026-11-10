@@ -11,13 +11,14 @@
 using Godot;
 using System;
 using System.Collections;
-
+using DialogueManagerRuntime;
 
 public partial class DialogueController : Node
 {
 	public static DialogueController Instance { get; private set;}
 
 	private BitArray _dialogueFlags = new BitArray(200); //arbitrary size, increase as needed
+	[Signal] public delegate void DialogueStartedEventHandler(Resource dialogueResource);
 
 	//aside from test flags, don't change these flags once they're comitted, otherwise everything gets FUCKED
 	//to use these flags, replace parameter flagIndex with DialogueController.Flags.[flag name]
