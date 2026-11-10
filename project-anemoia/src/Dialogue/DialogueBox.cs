@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 public partial class DialogueBox : HBoxContainer
 {
 	private static readonly PackedScene ChoiceButtonScene = GD.Load<PackedScene>("res://src/Dialogue/ChoiceButton.tscn");
+	private static readonly PackedScene TextBoxScene = GD.Load<PackedScene>("res://src/Dialogue/TextBox.tscn");
 	private PhysicalDialogueBox extBox;
 
 	private PhysicalDialogueBox intBox;
@@ -15,6 +16,7 @@ public partial class DialogueBox : HBoxContainer
 	private VBoxContainer choices;
 
 	private DialogueLine currentLine;
+	private bool textIsInternal = true;
 
 	public override void _Ready()
 	{
@@ -32,21 +34,35 @@ public partial class DialogueBox : HBoxContainer
 		ProgressDialogue(dialogue, line);
 	}
 
+	
 	private void ProgressDialogue(Resource dialogue, DialogueLine line)
 	{
+		var textBox = TextBoxScene.Instantiate<TextBox>();
+		textBox.name.Text = $"{line.Character}";
+		textBox.speech.Text = line.Text;
+		var area = line.GetTagValue("area"); //it's either "internal" or "external"
+		if (area != "")
+			textIsInternal = (area == "external") ? false : true; //I'll just default it to true idc
+		if (textIsInternal)
+			intBox.history.AddChild(textBox);
+		else
+			extBox.history.AddChild(textBox);
+		
 		foreach (DialogueResponse response in line.Responses)
 		{
 			if (!response.IsAllowed) //if response failed its condition check, don't show it
 				continue;
 			var choice = ChoiceButtonScene.Instantiate<ChoiceButton>();
 			choice.Text = response.Text;
+			choice.Pressed += () => ChoiceSelected(dialogue, response.NextId);
 
 		}
 		if (choices.GetChildren().Count == 0) // if there are no responses or you don't meet any of the requirements
 		{
 			var emptyResponse = ChoiceButtonScene.Instantiate<ChoiceButton>();
 			emptyResponse.Text = "CONTINUE ------>";
-			emptyResponse.Pressed += () => ChoiceSelected(dialogue, emptyResponse.response.NextId);
+			emptyResponse.Pressed += () => ChoiceSelected(dialogue, line.NextId);
+			choices.AddChild(emptyResponse);
 		}
 	}
 
@@ -56,6 +72,7 @@ public partial class DialogueBox : HBoxContainer
 		foreach (ChoiceButton choice in choices.GetChildren())
 		{
 			choice.Pressed -= () => ChoiceSelected(dialogue, nextCue);
+			choices.RemoveChild(choice);
 			choice.QueueFree();
 		}
 	}
