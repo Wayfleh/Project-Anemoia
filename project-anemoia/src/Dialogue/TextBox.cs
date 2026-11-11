@@ -34,7 +34,7 @@ public partial class TextBox : Control
         name.AppendText(" - ");
         // calculate the position of the first line
         var firstLinePosition = name.GetContentWidth() - message.OffsetLeft;
-        message.AppendText($"[p tab_stops={firstLinePosition}]\t{message}[/p]");
+        message.AppendText($"[p tab_stops={firstLinePosition}]\t{_message}[/p]");
 	    // Set minimum size based on message content height
         CustomMinimumSize = new Vector2(CustomMinimumSize.X, message.GetContentHeight() );
     }

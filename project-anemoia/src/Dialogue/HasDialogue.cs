@@ -10,17 +10,19 @@ public partial class HasDialogue : Interactable
 	public Resource dialogue;
 
     public override void Focus(Interactor interactor)
-    {
-    }
+	{
+		GD.Print("Ready to play dialogue");
+	}
 
     public override void Interact(Interactor interactor)
 	{
-		EmitSignal(DialogueController.SignalName.DialogueStarted, dialogue);
+		DialogueController.Instance.StartDialogue(dialogue);
 	}
 
     public override void Unfocus(Interactor interactor)
-    {
-    }
+	{
+		GD.Print("UNFOCUSED");
+	}
 
 
 	// Called when the node enters the scene tree for the first time.

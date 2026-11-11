@@ -17,7 +17,7 @@ public partial class DialogueController : Node
 {
 	public static DialogueController Instance { get; private set;}
 	private BitArray _dialogueFlags = new BitArray(200); //arbitrary size, increase as needed
-	[Signal] public delegate void DialogueStartedEventHandler(Resource dialogueResource);
+	[Signal] public delegate void DialogueStartedEventHandler(Resource dialogueResource, String start);
 
 	//aside from test flags, don't change these flags once they're comitted, otherwise everything gets FUCKED
 	//to use these flags, replace parameter flagIndex with DialogueController.Flags.[flag name]
@@ -27,6 +27,14 @@ public partial class DialogueController : Node
 		public const int test2 = 2;
 	}
 
+	public void StartDialogue(Resource dialogueResource)
+	{
+		var error = EmitSignal(SignalName.DialogueStarted, dialogueResource, "~ start");
+		if (error is Error.Unavailable)
+		{
+			GD.Print("mm you fucked up");
+		}
+	}
 
 	public void SetFlag(int flagIndex, bool value)
 	{

@@ -5,11 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://b4fbaayk7r7we" path="res://assets/Textures/Placeholders/spongebob.png" id="2_c77vg"]
 [ext_resource type="Texture2D" uid="uid://dncgbpeuqlyos" path="res://assets/Textures/Placeholders/nefarious dock.png" id="3_iqet6"]
 [ext_resource type="Script" uid="uid://uu81v5c8jajr" path="res://src/Dialogue/DialogueBox.cs" id="3_yxhya"]
-[ext_resource type="Script" path="res://src/PhysicalDialogueBox.cs" id="4_0jxws"]
 [ext_resource type="Texture2D" uid="uid://d03v67u1egwry" path="res://assets/Textures/Placeholders/heart.png" id="4_t2jh2"]
 [ext_resource type="Texture2D" uid="uid://cik6d8pylgnbx" path="res://assets/Textures/Placeholders/blooodBarBackground.png" id="5_4ty2a"]
 [ext_resource type="Script" uid="uid://b22c7h8bv46sa" path="res://src/Dialogue/PhysicalDialogueBox.cs" id="5_g5imw"]
-[ext_resource type="PackedScene" uid="uid://c02djvh2h3mfi" path="res://src/Dialogue/TextBox.tscn" id="6_b8itj"]
 [ext_resource type="Texture2D" uid="uid://dl0m56lsp1jw6" path="res://assets/Textures/Placeholders/healthBarBackground.png" id="6_gvaf7"]
 [ext_resource type="Texture2D" uid="uid://uhb5ebyh3kwu" path="res://assets/Textures/Placeholders/blooodBar.png" id="6_rckqj"]
 [ext_resource type="Texture2D" uid="uid://dkfs2caf3uc86" path="res://assets/Textures/Placeholders/healthBar.png" id="7_mfg43"]
@@ -51,6 +49,7 @@ anchor_right = 1.0
 offset_left = -1000.0
 offset_bottom = 40.0
 grow_horizontal = 0
+mouse_filter = 1
 
 [node name="DialogueBox" type="HBoxContainer" parent="HUD/PanelContainer" unique_id=2012012328]
 layout_mode = 2
@@ -58,23 +57,28 @@ theme_override_constants/separation = 0
 alignment = 2
 script = ExtResource("3_yxhya")
 
-[node name="ExternalDialogueBox" type="PanelContainer" parent="HUD/PanelContainer/DialogueBox" unique_id=1768666198]
+[node name="ExternalDialogueBox" type="PanelContainer" parent="HUD/PanelContainer/DialogueBox" unique_id=293686729 node_paths=PackedStringArray("scrollContainer")]
 custom_minimum_size = Vector2(500, 1080)
 layout_mode = 2
 mouse_filter = 1
-script = ExtResource("4_0jxws")
+script = ExtResource("5_g5imw")
+scrollContainer = NodePath("HistoryScroll")
+metadata/_custom_type_script = "uid://b22c7h8bv46sa"
 
 [node name="HistoryScroll" type="ScrollContainer" parent="HUD/PanelContainer/DialogueBox/ExternalDialogueBox" unique_id=1847463967]
 layout_mode = 2
 
 [node name="History" type="VBoxContainer" parent="HUD/PanelContainer/DialogueBox/ExternalDialogueBox/HistoryScroll" unique_id=1462759461]
+custom_minimum_size = Vector2(0, 600)
 layout_mode = 2
 
-[node name="InternalDialogueBox" type="PanelContainer" parent="HUD/PanelContainer/DialogueBox" unique_id=1217680080]
+[node name="InternalDialogueBox" type="PanelContainer" parent="HUD/PanelContainer/DialogueBox" unique_id=1519466537 node_paths=PackedStringArray("scrollContainer")]
 custom_minimum_size = Vector2(500, 1080)
 layout_mode = 2
 mouse_filter = 1
 script = ExtResource("5_g5imw")
+scrollContainer = NodePath("VSplitContainer/HistoryScroll")
+metadata/_custom_type_script = "uid://b22c7h8bv46sa"
 
 [node name="TextureRect" type="TextureRect" parent="HUD/PanelContainer/DialogueBox/InternalDialogueBox" unique_id=526815807]
 modulate = Color(0.2036809, 0.20368093, 0.2036809, 1)
@@ -94,10 +98,6 @@ layout_mode = 2
 layout_mode = 2
 offset_transform_enabled = true
 offset_transform_position = Vector2(30, 0)
-alignment = 1
-
-[node name="TextBox" parent="HUD/PanelContainer/DialogueBox/InternalDialogueBox/VSplitContainer/HistoryScroll/History" unique_id=2080642718 instance=ExtResource("6_b8itj")]
-layout_mode = 2
 
 [node name="ChoiceScroll" type="ScrollContainer" parent="HUD/PanelContainer/DialogueBox/InternalDialogueBox/VSplitContainer" unique_id=861516547]
 unique_name_in_owner = true
@@ -354,5 +354,3 @@ filledBit = ExtResource("9_q1itj")
 unfilledBit = ExtResource("11_q1itj")
 filledBigBit = ExtResource("10_m330t")
 unfilledBigBit = ExtResource("13_5bbu2")
-
-[editable path="HUD/PanelContainer/DialogueBox/InternalDialogueBox/VSplitContainer/HistoryScroll/History/TextBox"]

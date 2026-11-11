@@ -33,15 +33,15 @@ public partial class HudManager : Node
 
 	public override void _Process(double delta)
 	{
-		if (Input.IsActionPressed("interact"))
-		{
-			PlayerStatsWrapper.Instance.playerStats.Health -= (int)Math.Ceiling(20 * delta);
-			PlayerStatsWrapper.Instance.playerStats.Blood -= (int)Math.Ceiling(20 * delta);
-		}
-		if (Input.IsActionJustPressed("interact"))
-		{
-			PlayerStatsWrapper.Instance.playerStats.Willpower -= 1;
-			Debug.Print("Willpower: " + PlayerStatsWrapper.Instance.playerStats.Willpower);
-		}
+		// if (Input.IsActionPressed("interact"))
+		// {
+		// 	PlayerStatsWrapper.Instance.playerStats.Health -= (int)Math.Ceiling(20 * delta);
+		// 	PlayerStatsWrapper.Instance.playerStats.Blood -= (int)Math.Ceiling(20 * delta);
+		// }
+		// if (Input.IsActionJustPressed("interact"))
+		// {
+		// 	PlayerStatsWrapper.Instance.playerStats.Willpower -= 1;
+		// 	Debug.Print("Willpower: " + PlayerStatsWrapper.Instance.playerStats.Willpower);
+		// }
 	}
 }

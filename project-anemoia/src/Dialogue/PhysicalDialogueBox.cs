@@ -1,6 +1,7 @@
 using Godot;
 using System;
 
+[GlobalClass]
 public partial class PhysicalDialogueBox : PanelContainer
 {
 	[Export]
@@ -9,7 +10,11 @@ public partial class PhysicalDialogueBox : PanelContainer
 	public ScrollBar scrollBar;
 	public override void _Ready()
 	{
-		history = (VBoxContainer)scrollContainer.GetNode("History");
+		foreach (Node child in scrollContainer.GetChildren())
+		{
+			GD.Print("Found child name: " + child.Name);
+		}
+		history = scrollContainer.GetNode<VBoxContainer>("History");
 		scrollBar = scrollContainer.GetVScrollBar();
 	}
 

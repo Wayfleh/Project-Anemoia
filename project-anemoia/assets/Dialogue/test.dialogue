@@ -1,11 +1,11 @@
 ~ start
-Nathan: [[Hi|Hello|Howdy]], this is some dialogue.
-Nathan: Here are some choices.
+Nathan: [#area=external] [[Hi|Hello|Howdy]], this is some dialogue.
+Nathan: [#area=internal] Here are some choices.
 - First one
-	Nathan: You picked the first one.
+	Nathan: [#area=external] You picked the first one.
 - Second one
 	Nathan: You picked the second one.
 - Start again => start
 - End the conversation => END
-Nathan: For more information see the online documentation.
+Nathan: [#area=internal] For more information see the online documentation.
 => END
