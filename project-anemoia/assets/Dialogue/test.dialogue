@@ -1,11 +1,21 @@
 ~ start
-Nathan: [[Hi|Hello|Howdy]], this is some dialogue.
-Nathan: Here are some choices.
-- First one
-	Nathan: You picked the first one.
-- Second one
-	Nathan: You picked the second one.
-- Start again => start
-- End the conversation => END
-Nathan: For more information see the online documentation.
+Test: [#area=external] Hi welcome to the test dialogue
+- 1. Show me the dice roll => roll
+- 2. Show me the automatic check => check
+
+~ roll
+Test: I've got some options here
+- Pop your shoulder \n(Resolve + Brawl) Degree 1 [#check=resolve_brawl_1]
+	if PlayerStatsWrapper.Instance.PerformCheck("resolve_brawl_1")
+		Test: Holy shit that was really impressive
+		Test: Looked like it hurt though, damn
+	else
+		Test: Are you okay? Your arm is kinda detached from your body
+- Make up an excuse \n(Wits + Performance) Degree 2 [#check=wits_performance_2]
+	if PlayerStatsWrapper.Instance.PerformCheck("wits_performance_2")
+		Test: Hmmm yeah I believe you
+	else
+		Test: What the fuck did you just say to me?
 => END
+
+~ check
