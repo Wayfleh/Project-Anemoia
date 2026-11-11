@@ -16,7 +16,6 @@ using DialogueManagerRuntime;
 public partial class DialogueController : Node
 {
 	public static DialogueController Instance { get; private set;}
-
 	private BitArray _dialogueFlags = new BitArray(200); //arbitrary size, increase as needed
 	[Signal] public delegate void DialogueStartedEventHandler(Resource dialogueResource);
 
@@ -27,6 +26,7 @@ public partial class DialogueController : Node
 		public const int test1 = 1;
 		public const int test2 = 2;
 	}
+
 
 	public void SetFlag(int flagIndex, bool value)
 	{

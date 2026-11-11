@@ -5,6 +5,10 @@ using System.Threading.Tasks;
 
 public partial class DialogueBox : HBoxContainer
 {
+	[Export]
+	public int MAX_NUMBER_OF_TEXTBOXES;
+	[Export]
+	public int intHistoryChoiceSeparation = 700;
 	private static readonly PackedScene ChoiceButtonScene = GD.Load<PackedScene>("res://src/Dialogue/ChoiceButton.tscn");
 	private static readonly PackedScene TextBoxScene = GD.Load<PackedScene>("res://src/Dialogue/TextBox.tscn");
 	private PhysicalDialogueBox extBox;
@@ -23,7 +27,7 @@ public partial class DialogueBox : HBoxContainer
 		extBox = GetNode<PhysicalDialogueBox>("ExternalDialogueBox");
 		intBox = GetNode<PhysicalDialogueBox>("InternalDialogueBox");
 
-		choicesScrollContainer = GetNode<ScrollContainer>("%ChoicesScrollBar");
+		choicesScrollContainer = GetNode<ScrollContainer>("%ChoiceScroll");
 		choicesScrollBar = choicesScrollContainer.GetVScrollBar();
 		choices = choicesScrollContainer.GetNode<VBoxContainer>("Choices");
 	}
@@ -38,15 +42,18 @@ public partial class DialogueBox : HBoxContainer
 	private void ProgressDialogue(Resource dialogue, DialogueLine line)
 	{
 		var textBox = TextBoxScene.Instantiate<TextBox>();
-		textBox.name.Text = $"{line.Character}";
-		textBox.speech.Text = line.Text;
+		textBox.SetDialogue(line.Character, line.Text);
 		var area = line.GetTagValue("area"); //it's either "internal" or "external"
 		if (area != "")
 			textIsInternal = (area == "external") ? false : true; //I'll just default it to true idc
 		if (textIsInternal)
 			intBox.history.AddChild(textBox);
 		else
+		{
+			if (extBox.Visible == false)
+				extBox.Show();
 			extBox.history.AddChild(textBox);
+		}
 		
 		foreach (DialogueResponse response in line.Responses)
 		{
@@ -66,6 +73,10 @@ public partial class DialogueBox : HBoxContainer
 		}
 	}
 
+	private void EndDialogue()
+	{
+		
+	}
 	private void ChoiceSelected(Resource dialogue, String nextCue)
 	{
 		QueryDialogue(dialogue, nextCue);
