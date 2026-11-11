@@ -1,0 +1,85 @@
+[gd_scene format=3 uid="uid://472sav1i7jka"]
+
+[ext_resource type="Script" uid="uid://c0jsqmp7vg3nl" path="res://src/Interaction/Door.cs" id="1_53jrs"]
+[ext_resource type="Texture2D" uid="uid://b4fbaayk7r7we" path="res://assets/Textures/Placeholders/spongebob.png" id="2_8vhk4"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wol25"]
+size = Vector3(2.1503906, 3, 0.25097656)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_gnq5l"]
+albedo_texture = ExtResource("2_8vhk4")
+uv1_scale = Vector3(0.5, 0.33, 7)
+uv1_offset = Vector3(0.5, 0.5, 0.5)
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_ahknw"]
+material = SubResource("StandardMaterial3D_gnq5l")
+size = Vector3(2, 3, 0.10644531)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ahknw"]
+size = Vector3(2, 3, 0.10644531)
+
+[sub_resource type="Animation" id="Animation_8vhk4"]
+resource_name = "Open"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot:rotation")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0, 1.5707964, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_gnast"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pivot:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hfpyg"]
+_data = {
+&"Open": SubResource("Animation_8vhk4"),
+&"RESET": SubResource("Animation_gnast")
+}
+
+[node name="Door" type="Node3D" unique_id=300336927]
+
+[node name="Pivot" type="Node3D" parent="." unique_id=938156581]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, 0)
+
+[node name="Interactable" type="Area3D" parent="Pivot" unique_id=1549571991]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.5, 0)
+script = ExtResource("1_53jrs")
+
+[node name="InteractableCollider" type="CollisionShape3D" parent="Pivot/Interactable" unique_id=637696945]
+shape = SubResource("BoxShape3D_wol25")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Pivot" unique_id=2100761965]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.5, 0)
+mesh = SubResource("BoxMesh_ahknw")
+
+[node name="DoorPanel" type="StaticBody3D" parent="Pivot" unique_id=542377388]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1.5, 0)
+
+[node name="DoorCollider" type="CollisionShape3D" parent="Pivot/DoorPanel" unique_id=1857027778]
+shape = SubResource("BoxShape3D_ahknw")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=337576125]
+libraries/ = SubResource("AnimationLibrary_hfpyg")
+
+[node name="DoorOpensThisWay" type="RayCast3D" parent="." unique_id=1136533167]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, 1.5354626, -0.2505586)

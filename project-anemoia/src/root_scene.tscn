@@ -1,0 +1,356 @@
+[gd_scene format=3 uid="uid://bq6nkxd2vnnj3"]
+
+[ext_resource type="Script" uid="uid://bgyayb3n845y" path="res://src/RootScene.cs" id="1_3x36b"]
+[ext_resource type="PackedScene" uid="uid://wpwfkof3wb3p" path="res://src/Test/TestWorld.tscn" id="2_3x36b"]
+[ext_resource type="Texture2D" uid="uid://b4fbaayk7r7we" path="res://assets/Textures/Placeholders/spongebob.png" id="2_c77vg"]
+[ext_resource type="Texture2D" uid="uid://dncgbpeuqlyos" path="res://assets/Textures/Placeholders/nefarious dock.png" id="3_iqet6"]
+[ext_resource type="Script" uid="uid://uu81v5c8jajr" path="res://src/Dialogue/DialogueBox.cs" id="3_yxhya"]
+[ext_resource type="Texture2D" uid="uid://d03v67u1egwry" path="res://assets/Textures/Placeholders/heart.png" id="4_t2jh2"]
+[ext_resource type="Texture2D" uid="uid://cik6d8pylgnbx" path="res://assets/Textures/Placeholders/blooodBarBackground.png" id="5_4ty2a"]
+[ext_resource type="Script" uid="uid://b22c7h8bv46sa" path="res://src/Dialogue/PhysicalDialogueBox.cs" id="5_g5imw"]
+[ext_resource type="Texture2D" uid="uid://dl0m56lsp1jw6" path="res://assets/Textures/Placeholders/healthBarBackground.png" id="6_gvaf7"]
+[ext_resource type="Texture2D" uid="uid://uhb5ebyh3kwu" path="res://assets/Textures/Placeholders/blooodBar.png" id="6_rckqj"]
+[ext_resource type="Texture2D" uid="uid://dkfs2caf3uc86" path="res://assets/Textures/Placeholders/healthBar.png" id="7_mfg43"]
+[ext_resource type="Script" uid="uid://xqps7lg7lffg" path="res://src/UI/HudManager.cs" id="9_0ma7x"]
+[ext_resource type="Texture2D" uid="uid://4v5u5o7chu48" path="res://assets/Textures/Placeholders/filledWillpowerBit.png" id="9_q1itj"]
+[ext_resource type="Texture2D" uid="uid://cgpgolvg7skea" path="res://assets/Textures/Placeholders/filledWillPowerBigBit.png" id="10_m330t"]
+[ext_resource type="Texture2D" uid="uid://b6udb8e1g4ykm" path="res://assets/Textures/Placeholders/unfilledWillpowerBit.png" id="11_q1itj"]
+[ext_resource type="Texture2D" uid="uid://cgbfq3lshnhbt" path="res://assets/Textures/Placeholders/unfilledWillPowerBigBit.png" id="13_5bbu2"]
+
+[node name="RootScene" type="Node" unique_id=1546425798]
+script = ExtResource("1_3x36b")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=411674394]
+offset_right = 1420.0
+offset_bottom = 1080.0
+stretch = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=736033476]
+handle_input_locally = false
+size = Vector2i(1420, 1080)
+render_target_update_mode = 4
+
+[node name="TestWorld" parent="SubViewportContainer/SubViewport" unique_id=1925020916 instance=ExtResource("2_3x36b")]
+
+[node name="HUD" type="Control" parent="." unique_id=2020734516]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="HUD" unique_id=791325490]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -1000.0
+offset_bottom = 40.0
+grow_horizontal = 0
+mouse_filter = 1
+
+[node name="DialogueBox" type="HBoxContainer" parent="HUD/PanelContainer" unique_id=2012012328]
+layout_mode = 2
+theme_override_constants/separation = 0
+alignment = 2
+script = ExtResource("3_yxhya")
+
+[node name="ExternalDialogueBox" type="PanelContainer" parent="HUD/PanelContainer/DialogueBox" unique_id=293686729 node_paths=PackedStringArray("scrollContainer")]
+custom_minimum_size = Vector2(500, 1080)
+layout_mode = 2
+mouse_filter = 1
+script = ExtResource("5_g5imw")
+scrollContainer = NodePath("HistoryScroll")
+metadata/_custom_type_script = "uid://b22c7h8bv46sa"
+
+[node name="HistoryScroll" type="ScrollContainer" parent="HUD/PanelContainer/DialogueBox/ExternalDialogueBox" unique_id=1847463967]
+layout_mode = 2
+
+[node name="History" type="VBoxContainer" parent="HUD/PanelContainer/DialogueBox/ExternalDialogueBox/HistoryScroll" unique_id=1462759461]
+custom_minimum_size = Vector2(0, 600)
+layout_mode = 2
+
+[node name="InternalDialogueBox" type="PanelContainer" parent="HUD/PanelContainer/DialogueBox" unique_id=1519466537 node_paths=PackedStringArray("scrollContainer")]
+custom_minimum_size = Vector2(500, 1080)
+layout_mode = 2
+mouse_filter = 1
+script = ExtResource("5_g5imw")
+scrollContainer = NodePath("VSplitContainer/HistoryScroll")
+metadata/_custom_type_script = "uid://b22c7h8bv46sa"
+
+[node name="TextureRect" type="TextureRect" parent="HUD/PanelContainer/DialogueBox/InternalDialogueBox" unique_id=526815807]
+modulate = Color(0.2036809, 0.20368093, 0.2036809, 1)
+layout_mode = 2
+texture = ExtResource("2_c77vg")
+expand_mode = 1
+
+[node name="VSplitContainer" type="VSplitContainer" parent="HUD/PanelContainer/DialogueBox/InternalDialogueBox" unique_id=354925293]
+layout_mode = 2
+split_offsets = PackedInt32Array(700)
+split_offset = 700
+
+[node name="HistoryScroll" type="ScrollContainer" parent="HUD/PanelContainer/DialogueBox/InternalDialogueBox/VSplitContainer" unique_id=983625178]
+layout_mode = 2
+
+[node name="History" type="VBoxContainer" parent="HUD/PanelContainer/DialogueBox/InternalDialogueBox/VSplitContainer/HistoryScroll" unique_id=2092079643]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(30, 0)
+
+[node name="ChoiceScroll" type="ScrollContainer" parent="HUD/PanelContainer/DialogueBox/InternalDialogueBox/VSplitContainer" unique_id=861516547]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Choices" type="VBoxContainer" parent="HUD/PanelContainer/DialogueBox/InternalDialogueBox/VSplitContainer/ChoiceScroll" unique_id=299922607]
+layout_mode = 2
+
+[node name="PlayerStatsArea" type="Control" parent="HUD" unique_id=948839065]
+anchors_preset = 0
+offset_right = 550.0
+offset_bottom = 648.0
+scale = Vector2(1.65, 1.65)
+mouse_filter = 1
+
+[node name="HealthAndBloodBar" type="Control" parent="HUD/PlayerStatsArea" unique_id=1382878646]
+anchors_preset = 0
+offset_top = 37.0
+offset_right = 126.0
+offset_bottom = 648.0
+mouse_filter = 1
+
+[node name="BloodBar" type="TextureProgressBar" parent="HUD/PlayerStatsArea/HealthAndBloodBar" unique_id=87494267]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = 63.0
+offset_right = 63.5
+value = 100.0
+fill_mode = 3
+texture_under = ExtResource("5_4ty2a")
+texture_progress = ExtResource("6_rckqj")
+
+[node name="HealthBar" type="TextureProgressBar" parent="HUD/PlayerStatsArea/HealthAndBloodBar" unique_id=440809815]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_right = 0.5
+value = 100.0
+fill_mode = 3
+texture_under = ExtResource("6_gvaf7")
+texture_progress = ExtResource("7_mfg43")
+
+[node name="HeartTexture" type="TextureRect" parent="HUD/PlayerStatsArea/HealthAndBloodBar" unique_id=1492865801]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -169.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_t2jh2")
+expand_mode = 1
+
+[node name="Other" type="Control" parent="HUD/PlayerStatsArea" unique_id=532856679]
+anchors_preset = 0
+offset_left = 127.0
+offset_top = 425.0
+offset_right = 550.0
+offset_bottom = 648.0
+mouse_filter = 1
+
+[node name="WillPower" type="Control" parent="HUD/PlayerStatsArea/Other" unique_id=753261499]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+mouse_filter = 1
+
+[node name="Line2D" type="Line2D" parent="HUD/PlayerStatsArea/Other/WillPower" unique_id=837032978]
+position = Vector2(165, 176)
+points = PackedVector2Array(-81, 25, 133, 30, 151, 4, 134, -21, 46, -24, 21, -49, 47, -75, 137, -73, 171, -59, 194, -28)
+width = 5.38
+default_color = Color(0.4862745, 0.6745098, 0.7411765, 1)
+joint_mode = 1
+
+[node name="WillpowerBit" type="TextureRect" parent="HUD/PlayerStatsArea/Other/WillPower" unique_id=1916081028]
+layout_mode = 0
+offset_left = 117.0
+offset_top = 184.0
+offset_right = 152.0
+offset_bottom = 219.0
+texture = ExtResource("9_q1itj")
+expand_mode = 1
+
+[node name="WillpowerBit2" type="TextureRect" parent="HUD/PlayerStatsArea/Other/WillPower" unique_id=1852054275]
+layout_mode = 0
+offset_left = 166.0
+offset_top = 185.0
+offset_right = 201.0
+offset_bottom = 220.0
+texture = ExtResource("9_q1itj")
+expand_mode = 1
+
+[node name="WillpowerBit3" type="TextureRect" parent="HUD/PlayerStatsArea/Other/WillPower" unique_id=64489911]
+layout_mode = 0
+offset_left = 212.0
+offset_top = 186.0
+offset_right = 247.0
+offset_bottom = 221.0
+texture = ExtResource("9_q1itj")
+expand_mode = 1
+
+[node name="WillpowerBit4" type="TextureRect" parent="HUD/PlayerStatsArea/Other/WillPower" unique_id=290918731]
+layout_mode = 0
+offset_left = 261.0
+offset_top = 186.0
+offset_right = 296.0
+offset_bottom = 221.0
+texture = ExtResource("9_q1itj")
+expand_mode = 1
+
+[node name="WillpowerBit5" type="TextureRect" parent="HUD/PlayerStatsArea/Other/WillPower" unique_id=1611402921]
+layout_mode = 0
+offset_left = 261.0
+offset_top = 134.0
+offset_right = 296.0
+offset_bottom = 169.0
+texture = ExtResource("9_q1itj")
+expand_mode = 1
+
+[node name="WillpowerBit6" type="TextureRect" parent="HUD/PlayerStatsArea/Other/WillPower" unique_id=1318045098]
+layout_mode = 0
+offset_left = 212.0
+offset_top = 134.0
+offset_right = 247.0
+offset_bottom = 169.0
+texture = ExtResource("9_q1itj")
+expand_mode = 1
+
+[node name="WillpowerBit7" type="TextureRect" parent="HUD/PlayerStatsArea/Other/WillPower" unique_id=1101096489]
+layout_mode = 0
+offset_left = 212.0
+offset_top = 84.0
+offset_right = 247.0
+offset_bottom = 119.0
+texture = ExtResource("9_q1itj")
+expand_mode = 1
+
+[node name="WillpowerBit8" type="TextureRect" parent="HUD/PlayerStatsArea/Other/WillPower" unique_id=1151994]
+layout_mode = 0
+offset_left = 267.0
+offset_top = 82.0
+offset_right = 302.0
+offset_bottom = 117.0
+rotation = 0.1741034
+texture = ExtResource("9_q1itj")
+expand_mode = 1
+
+[node name="WillpowerBit9" type="TextureRect" parent="HUD/PlayerStatsArea/Other/WillPower" unique_id=1954323600]
+layout_mode = 0
+offset_left = 323.0
+offset_top = 94.0
+offset_right = 358.0
+offset_bottom = 129.0
+rotation = 0.3564038
+texture = ExtResource("9_q1itj")
+expand_mode = 1
+
+[node name="WillpowerBigBit" type="TextureRect" parent="HUD/PlayerStatsArea/Other/WillPower" unique_id=1948203913]
+layout_mode = 0
+offset_left = 381.0
+offset_top = 67.0
+offset_right = 481.0
+offset_bottom = 167.0
+rotation = 0.78428733
+scale = Vector2(1.7088575, 1.6804173)
+texture = ExtResource("10_m330t")
+
+[node name="Player Portrait" type="Control" parent="HUD/PlayerStatsArea/Other" unique_id=505911089]
+anchors_preset = 0
+offset_top = 94.0
+offset_right = 100.0
+offset_bottom = 219.0
+mouse_filter = 1
+
+[node name="Background" type="ColorRect" parent="HUD/PlayerStatsArea/Other/Player Portrait" unique_id=519382373]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+color = Color(0, 0, 0, 1)
+
+[node name="TextureRect" type="TextureRect" parent="HUD/PlayerStatsArea/Other/Player Portrait" unique_id=2111416358]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 3.0
+offset_right = 97.0
+offset_bottom = 122.0
+texture = ExtResource("3_iqet6")
+expand_mode = 1
+
+[node name="Schema" type="Control" parent="HUD/PlayerStatsArea/Other" unique_id=1775805275]
+anchors_preset = 0
+offset_left = 99.0
+offset_top = 92.0
+offset_right = 168.0
+offset_bottom = 180.0
+mouse_filter = 1
+
+[node name="TextureRect" type="TextureRect" parent="HUD/PlayerStatsArea/Other/Schema" unique_id=1323244779]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("3_iqet6")
+expand_mode = 1
+
+[node name="ProgressBar" type="ProgressBar" parent="HUD/PlayerStatsArea/Other/Schema" unique_id=1287053433]
+visible = false
+layout_mode = 0
+offset_left = 69.0
+offset_top = 3.0
+offset_right = 82.0
+offset_bottom = 84.0
+mouse_filter = 1
+max_value = 10.0
+value = 2.0
+fill_mode = 3
+show_percentage = false
+
+[node name="VSlider" type="VSlider" parent="HUD/PlayerStatsArea/Other/Schema" unique_id=1836684812]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -16.0
+offset_top = 3.0
+offset_right = 16.0
+offset_bottom = -3.0
+grow_horizontal = 0
+grow_vertical = 2
+mouse_filter = 1
+max_value = 5.0
+editable = false
+scrollable = false
+tick_count = 6
+ticks_position = 3
+
+[node name="HUDManager" type="Node" parent="." unique_id=1025954270 node_paths=PackedStringArray("healthBar", "bloodBar", "willPowerBits")]
+script = ExtResource("9_0ma7x")
+healthBar = NodePath("../HUD/PlayerStatsArea/HealthAndBloodBar/HealthBar")
+bloodBar = NodePath("../HUD/PlayerStatsArea/HealthAndBloodBar/BloodBar")
+willPowerBits = []
+filledBit = ExtResource("9_q1itj")
+unfilledBit = ExtResource("11_q1itj")
+filledBigBit = ExtResource("10_m330t")
+unfilledBigBit = ExtResource("13_5bbu2")

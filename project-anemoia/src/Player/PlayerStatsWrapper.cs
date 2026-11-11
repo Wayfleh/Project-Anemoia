@@ -3,10 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 
-public partial class player_stats_tester : Node
+public partial class PlayerStatsWrapper : Node
 {
-	public static player_stats_tester instance;
-	[Export]
+	public static PlayerStatsWrapper Instance;
+
+	[Signal] public delegate void PlayerHealthChangedEventHandler(int health);
+	[Signal] public delegate void PlayerBloodChangedEventHandler(int blood);
+	[Signal] public delegate void PlayerWillpowerChangedEventHandler(int willpower);
+
 	public PlayerStats playerStats;
 	public struct Check
 	{
@@ -18,13 +22,10 @@ public partial class player_stats_tester : Node
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
-		if (instance == null)
-			instance = this;
-		else
-		{
-			GD.Print("two player stats auto loader instances");
-			return;
-		}
+		if (Instance != null)
+			Debug.Print("multiple instances of Player Stats Wrapper yo");
+		Instance = this;
+
 		playerStats = new PlayerStats();
 	}
 
@@ -90,9 +91,14 @@ public partial class player_stats_tester : Node
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+	}
+	int b = 0;
+	public void Test()
+	{
+		playerStats.PrintDebug();
 		// if (b >= playerStats.skills_list.Count) return;
 
-		PlayerStats.Skill[] skills_names = Enum.GetValues<PlayerStats.Skill>();
+		// PlayerStats.Skill[] skills_names = Enum.GetValues<PlayerStats.Skill>();
 
 		// int val = playerStats.ReadSkill(skills_names[b]);
 		// if (val == 10)
