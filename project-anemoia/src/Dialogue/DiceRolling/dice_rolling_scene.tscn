@@ -25,7 +25,7 @@ size = Vector3(10, 5, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_lnx8s"]
 
-[node name="DiceRollingScene" type="Node3D" unique_id=1880112503 node_paths=PackedStringArray("spawnPosition")]
+[node name="DiceRollingScene" type="Node" unique_id=1438724242 node_paths=PackedStringArray("spawnPosition")]
 script = ExtResource("1_44doa")
 dicePackedScene = ExtResource("3_y5c6t")
 spawnPosition = NodePath("SpawnPosition")
