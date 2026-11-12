@@ -32,7 +32,7 @@ spawnPosition = NodePath("SpawnPosition")
 impulseMultiplier = 3.0
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=658799698]
-transform = Transform3D(0.13731244, 0.35426545, 0.9250088, -0.9905099, 0.05473047, 0.12607469, -0.005962266, -0.93354195, 0.35841852, 81.51643, 28.440975, 44.042187)
+transform = Transform3D(1, 0, 0, 0, 0.77199465, 0.6356291, 0, -0.6356291, 0.77199465, 0, 6.5177755, 7.3368616)
 environment = SubResource("Environment_y5c6t")
 current = true
 fov = 37.849285

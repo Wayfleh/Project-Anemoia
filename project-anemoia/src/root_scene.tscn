@@ -16,7 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://cgbfq3lshnhbt" path="res://assets/Textures/Placeholders/unfilledWillPowerBigBit.png" id="13_5bbu2"]
 [ext_resource type="PackedScene" uid="uid://bgvk18n8w07uu" path="res://src/Dialogue/DiceRolling/dice_rolling_scene.tscn" id="13_rf7a2"]
 
-[node name="RootScene" type="Node" unique_id=1546425798]
+[node name="RootScene2" type="Node" unique_id=1546425798]
 script = ExtResource("1_3x36b")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=411674394]
@@ -315,4 +315,3 @@ handle_input_locally = false
 render_target_update_mode = 0
 
 [node name="DiceRollingScene" parent="DiceSceneSubViewport/Dice Scene" unique_id=983218817 instance=ExtResource("13_rf7a2")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4876986, 0, -87.48471)
