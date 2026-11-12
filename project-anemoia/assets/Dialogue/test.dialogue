@@ -16,6 +16,11 @@ Test: I've got some options here
 		Test: Hmmm yeah I believe you
 	else
 		Test: What the fuck did you just say to me?
+- Get your life together \n(Composure + Insight) Degree 20 [#check=composure_insight_20]
+	if PlayerStatsWrapper.Instance.PerformCheck("composure_insight_20")
+		Test: You should not have been able to do that
+	else
+		Test: Figures
 => END
 
 ~ check

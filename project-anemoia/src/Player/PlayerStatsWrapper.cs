@@ -12,6 +12,8 @@ public partial class PlayerStatsWrapper : Node
 	[Signal] public delegate void PlayerWillpowerChangedEventHandler(int willpower);
 
 	public PlayerStats playerStats;
+	private string psInstancePath = "res://assets/player_test_stats.tres";
+	
 	public struct Check
 	{
 		public PlayerStats.Attribute attribute;
@@ -26,10 +28,10 @@ public partial class PlayerStatsWrapper : Node
 			Debug.Print("multiple instances of Player Stats Wrapper yo");
 		Instance = this;
 
-		playerStats = new PlayerStats();
+		playerStats = GD.Load<PlayerStats>(psInstancePath);
 	}
 
-	public bool PerformCheck(string check, bool isAutomatic)
+	public bool PerformCheck(string check, bool isAutomatic = false)
 	{
 		if (ParseCheck(check) is not Check queriedCheck)
 		{
@@ -42,10 +44,14 @@ public partial class PlayerStatsWrapper : Node
 
 		if (isAutomatic)
 		{
-			return dicePool > queriedCheck.degree;
+			return dicePool >= queriedCheck.degree;
 		}
 		else
-			return DiceRoll(dicePool) > queriedCheck.degree;
+		{
+			GD.Print(Instance.playerStats.attributes_list[queriedCheck.attribute] );
+			GD.Print(Instance.playerStats.skills_list[queriedCheck.skill]);
+			return DiceRoll(dicePool) >= queriedCheck.degree;
+		}
 	}
 
 	//change this to use Ulugbek's dice rolling scene
@@ -77,7 +83,7 @@ public partial class PlayerStatsWrapper : Node
 			return null;
 		}
 
-		if (int.TryParse(elements[3], out int degree) && degree > 0)
+		if (int.TryParse(elements[2], out int degree) && degree > 0)
 			returnedCheck.degree = degree;
 		else
 		{

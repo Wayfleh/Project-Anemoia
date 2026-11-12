@@ -41,7 +41,8 @@ public partial class DialogueBox : HBoxContainer
 	private async void QueryDialogue(Resource dialogue, String nextCue)
 	{
 		var line = await DialogueManager.GetNextDialogueLine(dialogue, nextCue);
-		ProgressDialogue(dialogue, line);
+		if (line != null)
+			ProgressDialogue(dialogue, line);
 	}
 
 	
@@ -60,13 +61,6 @@ public partial class DialogueBox : HBoxContainer
 			spacer.CustomMinimumSize = new Vector2(textBox.CustomMinimumSize.X, textBox.CustomMinimumSize.Y);
 			spacer.MouseFilter = MouseFilterEnum.Pass;
 			extBox.history.AddChild(spacer);
-			// these numbers are kinda arbitrary
-			if (intBox.history.Size.Y >= intHistoryChoiceSeparation - 150 || !expandedBoxes) // making the external box larger to allow for scrolling
-			{
-				expandedBoxes = true;
-				intBox.history.CustomMinimumSize = new Vector2(0, intBox.history.Size.Y + 200);
-				extBox.history.CustomMinimumSize = new Vector2(0, extBox.history.Size.Y + GetViewport().GetVisibleRect().Size.Y / 2);
-			}
 		}
 		else // putting textbox in external box
 		{
@@ -77,6 +71,13 @@ public partial class DialogueBox : HBoxContainer
 			spacer.CustomMinimumSize = new Vector2(textBox.CustomMinimumSize.X, textBox.CustomMinimumSize.Y);
 			spacer.MouseFilter = MouseFilterEnum.Pass;
 			intBox.history.AddChild(spacer);
+		}
+		// these numbers are kinda arbitrary
+		if (intBox.history.Size.Y >= intHistoryChoiceSeparation && !expandedBoxes) // making the external box larger to allow for scrolling
+		{
+			expandedBoxes = true;
+			intBox.history.CustomMinimumSize = new Vector2(0, intBox.history.Size.Y + 200);
+			extBox.history.CustomMinimumSize = new Vector2(0, extBox.history.Size.Y + GetViewport().GetVisibleRect().Size.Y);
 		}
 		extBox.history.CustomMinimumSize = new Vector2(0, extBox.history.CustomMinimumSize.Y + textBox.CustomMinimumSize.Y);
 		ScrollHistoryToBottom();
