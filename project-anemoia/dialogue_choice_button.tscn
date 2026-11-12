@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://bp86hm5hegj35"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vj07i"]
+bg_color = Color(0, 0, 0, 1)
+
+[node name="DialogueChoiceButton" type="Button" unique_id=1865274567]
+theme_override_styles/normal = SubResource("StyleBoxFlat_vj07i")
+text = "Butoun haha"

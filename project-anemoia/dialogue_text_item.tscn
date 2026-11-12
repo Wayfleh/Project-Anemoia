@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://b230m27446rpm"]
+
+[ext_resource type="Texture2D" uid="uid://05ltmj6m36ah" path="res://assets/Textures/Placeholders/WhiteBox.png" id="1_wjueq"]
+
+[node name="DialogueText Item" type="MarginContainer" unique_id=553540817]
+offset_right = 300.0
+offset_bottom = 500.0
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1743434010]
+layout_mode = 2
+texture = ExtResource("1_wjueq")
+
+[node name="ColorRect" type="ColorRect" parent="TextureRect" unique_id=1187280622]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.4392157)
+
+[node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1390424245]
+layout_mode = 2
+bbcode_enabled = true
+text = "Hey Glug I was looking for my blicky, my pet must've took it on accident. Have you seen it?"
+fit_content = true

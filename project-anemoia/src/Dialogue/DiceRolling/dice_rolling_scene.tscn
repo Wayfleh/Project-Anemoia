@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://bgvk18n8w07uu"]
+
+[ext_resource type="Script" uid="uid://tbebptbyppnj" path="res://src/Dialogue/DiceRolling/DiceRollingScene.cs" id="1_44doa"]
+[ext_resource type="Texture2D" uid="uid://b4fbaayk7r7we" path="res://assets/Textures/Placeholders/spongebob.png" id="1_mrrms"]
+[ext_resource type="PackedScene" uid="uid://cs4p8nfx2x1cn" path="res://src/Dialogue/DiceRolling/Dice.tscn" id="3_y5c6t"]
+
+[sub_resource type="Environment" id="Environment_y5c6t"]
+glow_enabled = true
+glow_intensity = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_vclvx"]
+albedo_texture = ExtResource("1_mrrms")
+uv1_scale = Vector3(0.2, 0.2, 0.2)
+uv1_offset = Vector3(0.625, 0.53, 0)
+
+[sub_resource type="BoxMesh" id="BoxMesh_h4d8y"]
+material = SubResource("StandardMaterial3D_vclvx")
+size = Vector3(50, 1, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_k4ib1"]
+size = Vector3(50, 1, 50)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_lnx8s"]
+size = Vector3(10, 5, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_lnx8s"]
+
+[node name="DiceRollingScene" type="Node" unique_id=229583748 node_paths=PackedStringArray("spawnPosition")]
+script = ExtResource("1_44doa")
+dicePackedScene = ExtResource("3_y5c6t")
+spawnPosition = NodePath("SpawnPosition")
+impulseMultiplier = 3.0
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=658799698]
+transform = Transform3D(1, 0, 0, 0, 0.39820832, 0.91729504, 0, -0.91729504, 0.39820832, 2.3841858e-07, 7.655333, 2.7434626)
+environment = SubResource("Environment_y5c6t")
+fov = 37.849285
+
+[node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1255890276]
+transform = Transform3D(1, 0, 0, 0, 0.39820832, 0.91729504, 0, -0.91729504, 0.39820832, 0, 4.341592, 1.7828658)
+shadow_enabled = true
+spot_range = 8.686917
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=965227311]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Ground" unique_id=261846186]
+mesh = SubResource("BoxMesh_h4d8y")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=236890042]
+shape = SubResource("BoxShape3D_k4ib1")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1536590484]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1969068479]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+shape = SubResource("BoxShape3D_lnx8s")
+debug_color = Color(0, 0.6, 0.69803923, 1)
+
+[node name="CollisionShape3D3" type="CollisionShape3D" parent="StaticBody3D" unique_id=1998899674]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, 4, 0, 0)
+shape = SubResource("BoxShape3D_lnx8s")
+debug_color = Color(0, 0.6, 0.69803923, 1)
+
+[node name="CollisionShape3D4" type="CollisionShape3D" parent="StaticBody3D" unique_id=907104317]
+transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -4, 0, 0)
+shape = SubResource("BoxShape3D_lnx8s")
+debug_color = Color(0, 0.6, 0.69803923, 1)
+
+[node name="SpawnPosition" type="Node3D" parent="." unique_id=1656155913]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.701, 2.437)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="SpawnPosition" unique_id=1259364461]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.37959802, 1.1069441)
+visible = false
+mesh = SubResource("BoxMesh_lnx8s")

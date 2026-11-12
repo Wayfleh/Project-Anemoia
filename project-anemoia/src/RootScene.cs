@@ -1,9 +1,11 @@
 using Godot;
 using System;
+using System.Diagnostics;
 
 public partial class RootScene : Node
 {
 	private SubViewport _subViewport;
+	public bool isForwardingInput = true;
 
 	public override void _Ready()
 	{
@@ -18,7 +20,10 @@ public partial class RootScene : Node
 		// Forward raw mouse motion directly to the inner 3D viewport
 		if (@event is InputEventMouseMotion)
 		{
-			_subViewport.PushInput(@event);
+			if (isForwardingInput)
+			{
+				_subViewport.PushInput(@event);
+			}
 		}
 	}
 }

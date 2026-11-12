@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://cgpgolvg7skea" path="res://assets/Textures/Placeholders/filledWillPowerBigBit.png" id="10_m330t"]
 [ext_resource type="Texture2D" uid="uid://b6udb8e1g4ykm" path="res://assets/Textures/Placeholders/unfilledWillpowerBit.png" id="11_q1itj"]
 [ext_resource type="Texture2D" uid="uid://cgbfq3lshnhbt" path="res://assets/Textures/Placeholders/unfilledWillPowerBigBit.png" id="13_5bbu2"]
+[ext_resource type="PackedScene" uid="uid://bgvk18n8w07uu" path="res://src/Dialogue/DiceRolling/dice_rolling_scene.tscn" id="13_rf7a2"]
 
 [node name="RootScene" type="Node" unique_id=1546425798]
 script = ExtResource("1_3x36b")
@@ -346,7 +347,25 @@ scrollable = false
 tick_count = 6
 ticks_position = 3
 
-[node name="HUDManager" type="Node" parent="." unique_id=1025954270 node_paths=PackedStringArray("healthBar", "bloodBar", "willPowerBits")]
+[node name="DiceSceneSubViewportContainer" type="SubViewportContainer" parent="Control" unique_id=295416107]
+texture_filter = 1
+layout_mode = 0
+offset_left = 273.0
+offset_top = 161.0
+offset_right = 523.0
+offset_bottom = 411.0
+stretch = true
+stretch_shrink = 3
+
+[node name="SubViewport" type="SubViewport" parent="Control/DiceSceneSubViewportContainer" unique_id=2110406472]
+own_world_3d = true
+handle_input_locally = false
+size = Vector2i(83, 83)
+render_target_update_mode = 4
+
+[node name="DiceRollingScene" parent="Control/DiceSceneSubViewportContainer/SubViewport" unique_id=229583748 instance=ExtResource("13_rf7a2")]
+
+[node name="HUDManager" type="Node" parent="." unique_id=1025954270 node_paths=PackedStringArray("healthBar", "bloodBar", "willPowerBits", "extDialogueBox", "extDialogueBoxFooter", "extScrollContainer", "intScrollContainer", "extVBoxContainer", "intVBoxContainer", "choicesScrollContainer", "choicesVBoxContainer", "rootScene")]
 script = ExtResource("9_0ma7x")
 healthBar = NodePath("../HUD/PlayerStatsArea/HealthAndBloodBar/HealthBar")
 bloodBar = NodePath("../HUD/PlayerStatsArea/HealthAndBloodBar/BloodBar")
@@ -355,3 +374,14 @@ filledBit = ExtResource("9_q1itj")
 unfilledBit = ExtResource("11_q1itj")
 filledBigBit = ExtResource("10_m330t")
 unfilledBigBit = ExtResource("13_5bbu2")
+extDialogueBox = NodePath("../Control/ExternalDialogueBox")
+extDialogueBoxFooter = NodePath("../Control/ExternalDialogueBox/VSplitContainer/Control")
+extScrollContainer = NodePath("../Control/ExternalDialogueBox/VSplitContainer/ScrollContainer")
+intScrollContainer = NodePath("../Control/InternalDialogueBox/VSplitContainer/ScrollContainer")
+extVBoxContainer = NodePath("../Control/ExternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer")
+intVBoxContainer = NodePath("../Control/InternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer")
+dialogueItemPackedScene = ExtResource("4_a34l3")
+choicesScrollContainer = NodePath("../Control/InternalDialogueBox/VSplitContainer/ChoicesScrollContainer")
+choicesVBoxContainer = NodePath("../Control/InternalDialogueBox/VSplitContainer/ChoicesScrollContainer/VBoxContainer")
+buttonPackedScene = ExtResource("5_vj07i")
+rootScene = NodePath("..")
