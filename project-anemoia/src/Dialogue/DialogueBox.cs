@@ -3,6 +3,7 @@ using System;
 using DialogueManagerRuntime;
 using System.Threading.Tasks;
 
+[GlobalClass]
 public partial class DialogueBox : HBoxContainer
 {
 	[Export]
@@ -22,6 +23,19 @@ public partial class DialogueBox : HBoxContainer
 	private DialogueLine currentLine;
 	private bool textIsInternal = true;
 	private bool expandedBoxes = false;
+
+	[Export]
+	public DiceRollingScene diceRollingScene;
+	[Export]
+	public SubViewportContainer diceRollSubviewPortContainer;
+	[Export]
+	public float diceRollLingerTime = 3.0f;
+	public struct Check
+	{
+		public PlayerStats.Attribute attribute;
+		public PlayerStats.Skill skill;
+		public int degree;
+	}
 
 	public override void _Ready()
 	{
@@ -86,9 +100,10 @@ public partial class DialogueBox : HBoxContainer
 		{
 			if (!response.IsAllowed) // if response failed its condition check, don't show it
 				continue;
+			var diceRoll = line.GetTagValue("check");
 			var choice = ChoiceButtonScene.Instantiate<Button>();
 			choice.Text = response.Text;
-			choice.Pressed += () => ChoiceSelected(dialogue, response.Text, response.NextId);
+			choice.Pressed += () => ChoiceSelected(dialogue, response.Text, response.NextId, diceRoll != "");
 			choices.AddChild(choice);
 			
 		}
@@ -114,7 +129,7 @@ public partial class DialogueBox : HBoxContainer
 	{
 		
 	}
-	private void ChoiceSelected(Resource dialogue, String message, String nextId)
+	private async void ChoiceSelected(Resource dialogue, String message, String nextId, bool diceRoll = false)
 	{
 		if (message != "CONTINUE ------>")
 		{
@@ -128,14 +143,99 @@ public partial class DialogueBox : HBoxContainer
 			spacer.CustomMinimumSize = new Vector2(textBox.CustomMinimumSize.X, textBox.CustomMinimumSize.Y);
 			spacer.MouseFilter = MouseFilterEnum.Pass;
 			extBox.history.AddChild(spacer);
-		}
 
-		QueryDialogue(dialogue, nextId);
+			if (diceRoll)
+				await ToSignal(diceRollingScene, DiceRollingScene.SignalName.DiceSceneFinished); // wait for dice roll if choice is a check
+		}
 		foreach (Button choice in choices.GetChildren()) // empty choices
 		{
 			choices.RemoveChild(choice);
 			choice.QueueFree();
 		}
+
+		QueryDialogue(dialogue, nextId);
+	}
+
+	// Called in dialogue resource
+	public async Task<bool> PerformCheck(string check, bool isAutomatic = false)
+	{
+		if (ParseCheck(check) is not Check queriedCheck)
+		{
+			GD.Print("check could not be completed");
+			return false;
+		}
+
+		int dicePool = PlayerStatsWrapper.Instance.playerStats.attributes_list[queriedCheck.attribute] 
+					+ PlayerStatsWrapper.Instance.playerStats.skills_list[queriedCheck.skill];
+
+		if (isAutomatic)
+		{
+			return dicePool >= queriedCheck.degree;
+		}
+		else
+		{
+			GD.Print(PlayerStatsWrapper.Instance.playerStats.attributes_list[queriedCheck.attribute] );
+			GD.Print(PlayerStatsWrapper.Instance.playerStats.skills_list[queriedCheck.skill]);
+			var result = await DiceRoll(dicePool);
+			return result >= queriedCheck.degree;
+		}
+	}
+
+	// checks have the format "attribute_skill_degree"
+	// helper class that parses check string (probably from dialogue manager) into a Check
+	// returns null if any elements of the string are invalid
+	private Check? ParseCheck(string check)
+	{
+		string[] elements = check.Split('_');
+		Check returnedCheck = new Check();
+		if (Enum.TryParse(elements[0], out PlayerStats.Attribute attribute))
+			returnedCheck.attribute = attribute;
+		else
+		{
+			GD.Print("ERROR: parsed attribute ({elements[0]}) not a valid member in PlayerStats.Attribute");
+			return null;
+		}
+		
+		if (Enum.TryParse(elements[1], out PlayerStats.Skill skill))
+			returnedCheck.skill = skill;
+		else
+		{
+			GD.Print("ERROR: parsed skill ({elements[1]}) not a valid member in PlayerStats.Skill");
+			return null;
+		}
+
+		if (int.TryParse(elements[2], out int degree) && degree > 0)
+			returnedCheck.degree = degree;
+		else
+		{
+			GD.Print("ERROR: parsed degree ({elements[2]}) not a valid integer (must be positive nonzero)");
+			return null;
+		}
+		
+		return returnedCheck;
+		
+	}
+
+	//change this to use Ulugbek's dice rolling scene
+	private async Task<int> DiceRoll(int dicePool)
+	{
+		diceRollSubviewPortContainer.Show();
+		diceRollingScene.PlayScene(dicePool);
+		await ToSignal(diceRollingScene, DiceRollingScene.SignalName.DiceSceneFinished);
+		Timer timer = new Timer();
+		timer.WaitTime = 3.0f;
+		timer.Timeout += () => DelayDiceRollHide(timer);
+		AddChild(timer);
+		timer.Start();
+		return dicePool;
+	}
+
+	private async void DelayDiceRollHide(Timer timer)
+	{
+		timer.Timeout -= () => DelayDiceRollHide(timer);
+		RemoveChild(timer);
+		timer.QueueFree();
+		diceRollSubviewPortContainer.Hide();
 	}
 
 	// moves external box when internal box is scrolled (with mouse)

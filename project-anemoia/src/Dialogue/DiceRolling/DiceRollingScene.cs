@@ -27,7 +27,7 @@ public partial class DiceRollingScene : Node
 	public override void _Ready()
 	{
 		diceObjects = new List<DiceObject>();
-		PlayScene(3);
+		//PlayScene(3);
 	}
 	public override void _Process(double delta)
 	{

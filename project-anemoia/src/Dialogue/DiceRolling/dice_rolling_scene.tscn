@@ -25,15 +25,16 @@ size = Vector3(10, 5, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_lnx8s"]
 
-[node name="DiceRollingScene" type="Node" unique_id=229583748 node_paths=PackedStringArray("spawnPosition")]
+[node name="DiceRollingScene" type="Node3D" unique_id=1880112503 node_paths=PackedStringArray("spawnPosition")]
 script = ExtResource("1_44doa")
 dicePackedScene = ExtResource("3_y5c6t")
 spawnPosition = NodePath("SpawnPosition")
 impulseMultiplier = 3.0
 
 [node name="Camera3D" type="Camera3D" parent="." unique_id=658799698]
-transform = Transform3D(1, 0, 0, 0, 0.39820832, 0.91729504, 0, -0.91729504, 0.39820832, 2.3841858e-07, 7.655333, 2.7434626)
+transform = Transform3D(0.13731244, 0.35426545, 0.9250088, -0.9905099, 0.05473047, 0.12607469, -0.005962266, -0.93354195, 0.35841852, 81.51643, 28.440975, 44.042187)
 environment = SubResource("Environment_y5c6t")
+current = true
 fov = 37.849285
 
 [node name="SpotLight3D" type="SpotLight3D" parent="." unique_id=1255890276]
@@ -49,11 +50,20 @@ mesh = SubResource("BoxMesh_h4d8y")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Ground" unique_id=236890042]
 shape = SubResource("BoxShape3D_k4ib1")
 
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="Ground" unique_id=323281592]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.48106, 0)
+shape = SubResource("BoxShape3D_k4ib1")
+
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1536590484]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D" unique_id=1969068479]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+shape = SubResource("BoxShape3D_lnx8s")
+debug_color = Color(0, 0.6, 0.69803923, 1)
+
+[node name="CollisionShape3D2" type="CollisionShape3D" parent="StaticBody3D" unique_id=45875491]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.25377)
 shape = SubResource("BoxShape3D_lnx8s")
 debug_color = Color(0, 0.6, 0.69803923, 1)
 
@@ -68,7 +78,7 @@ shape = SubResource("BoxShape3D_lnx8s")
 debug_color = Color(0, 0.6, 0.69803923, 1)
 
 [node name="SpawnPosition" type="Node3D" parent="." unique_id=1656155913]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.701, 2.437)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.701, -2.4455225)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="SpawnPosition" unique_id=1259364461]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.37959802, 1.1069441)

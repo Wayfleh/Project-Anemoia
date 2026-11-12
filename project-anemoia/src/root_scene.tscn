@@ -2,12 +2,10 @@
 
 [ext_resource type="Script" uid="uid://bgyayb3n845y" path="res://src/RootScene.cs" id="1_3x36b"]
 [ext_resource type="PackedScene" uid="uid://wpwfkof3wb3p" path="res://src/Test/TestWorld.tscn" id="2_3x36b"]
-[ext_resource type="Texture2D" uid="uid://b4fbaayk7r7we" path="res://assets/Textures/Placeholders/spongebob.png" id="2_c77vg"]
 [ext_resource type="Texture2D" uid="uid://dncgbpeuqlyos" path="res://assets/Textures/Placeholders/nefarious dock.png" id="3_iqet6"]
-[ext_resource type="Script" uid="uid://uu81v5c8jajr" path="res://src/Dialogue/DialogueBox.cs" id="3_yxhya"]
+[ext_resource type="PackedScene" uid="uid://cf074kemaapny" path="res://src/Dialogue/dialogue_box.tscn" id="3_yxhya"]
 [ext_resource type="Texture2D" uid="uid://d03v67u1egwry" path="res://assets/Textures/Placeholders/heart.png" id="4_t2jh2"]
 [ext_resource type="Texture2D" uid="uid://cik6d8pylgnbx" path="res://assets/Textures/Placeholders/blooodBarBackground.png" id="5_4ty2a"]
-[ext_resource type="Script" uid="uid://b22c7h8bv46sa" path="res://src/Dialogue/PhysicalDialogueBox.cs" id="5_g5imw"]
 [ext_resource type="Texture2D" uid="uid://dl0m56lsp1jw6" path="res://assets/Textures/Placeholders/healthBarBackground.png" id="6_gvaf7"]
 [ext_resource type="Texture2D" uid="uid://uhb5ebyh3kwu" path="res://assets/Textures/Placeholders/blooodBar.png" id="6_rckqj"]
 [ext_resource type="Texture2D" uid="uid://dkfs2caf3uc86" path="res://assets/Textures/Placeholders/healthBar.png" id="7_mfg43"]
@@ -52,61 +50,11 @@ offset_bottom = 40.0
 grow_horizontal = 0
 mouse_filter = 1
 
-[node name="DialogueBox" type="HBoxContainer" parent="HUD/PanelContainer" unique_id=2012012328]
+[node name="DialogueBox" parent="HUD/PanelContainer" unique_id=1295133557 node_paths=PackedStringArray("diceRollingScene", "diceRollSubviewPortContainer") instance=ExtResource("3_yxhya")]
 layout_mode = 2
-theme_override_constants/separation = 0
-alignment = 2
-script = ExtResource("3_yxhya")
-intHistoryChoiceSeparation = 601
-
-[node name="ExternalDialogueBox" type="PanelContainer" parent="HUD/PanelContainer/DialogueBox" unique_id=293686729 node_paths=PackedStringArray("scrollContainer")]
-custom_minimum_size = Vector2(500, 1080)
-layout_mode = 2
-mouse_filter = 1
-script = ExtResource("5_g5imw")
-scrollContainer = NodePath("HistoryScroll")
-metadata/_custom_type_script = "uid://b22c7h8bv46sa"
-
-[node name="HistoryScroll" type="ScrollContainer" parent="HUD/PanelContainer/DialogueBox/ExternalDialogueBox" unique_id=1847463967]
-layout_mode = 2
-
-[node name="History" type="VBoxContainer" parent="HUD/PanelContainer/DialogueBox/ExternalDialogueBox/HistoryScroll" unique_id=1462759461]
-custom_minimum_size = Vector2(0, 600)
-layout_mode = 2
-
-[node name="InternalDialogueBox" type="PanelContainer" parent="HUD/PanelContainer/DialogueBox" unique_id=1519466537 node_paths=PackedStringArray("scrollContainer")]
-custom_minimum_size = Vector2(500, 1080)
-layout_mode = 2
-mouse_filter = 1
-script = ExtResource("5_g5imw")
-scrollContainer = NodePath("VSplitContainer/HistoryScroll")
-metadata/_custom_type_script = "uid://b22c7h8bv46sa"
-
-[node name="TextureRect" type="TextureRect" parent="HUD/PanelContainer/DialogueBox/InternalDialogueBox" unique_id=526815807]
-modulate = Color(0.2036809, 0.20368093, 0.2036809, 1)
-layout_mode = 2
-texture = ExtResource("2_c77vg")
-expand_mode = 1
-
-[node name="VSplitContainer" type="VSplitContainer" parent="HUD/PanelContainer/DialogueBox/InternalDialogueBox" unique_id=354925293]
-layout_mode = 2
-split_offsets = PackedInt32Array(700)
-split_offset = 700
-
-[node name="HistoryScroll" type="ScrollContainer" parent="HUD/PanelContainer/DialogueBox/InternalDialogueBox/VSplitContainer" unique_id=983625178]
-layout_mode = 2
-
-[node name="History" type="VBoxContainer" parent="HUD/PanelContainer/DialogueBox/InternalDialogueBox/VSplitContainer/HistoryScroll" unique_id=2092079643]
-layout_mode = 2
-offset_transform_enabled = true
-offset_transform_position = Vector2(30, 0)
-
-[node name="ChoiceScroll" type="ScrollContainer" parent="HUD/PanelContainer/DialogueBox/InternalDialogueBox/VSplitContainer" unique_id=861516547]
-unique_name_in_owner = true
-layout_mode = 2
-
-[node name="Choices" type="VBoxContainer" parent="HUD/PanelContainer/DialogueBox/InternalDialogueBox/VSplitContainer/ChoiceScroll" unique_id=299922607]
-layout_mode = 2
+MAX_NUMBER_OF_TEXTBOXES = 20
+diceRollingScene = NodePath("../../../DiceSceneSubViewport/Dice Scene/DiceRollingScene")
+diceRollSubviewPortContainer = NodePath("../../../DiceSceneSubViewport")
 
 [node name="PlayerStatsArea" type="Control" parent="HUD" unique_id=948839065]
 anchors_preset = 0
@@ -347,25 +295,7 @@ scrollable = false
 tick_count = 6
 ticks_position = 3
 
-[node name="DiceSceneSubViewportContainer" type="SubViewportContainer" parent="Control" unique_id=295416107]
-texture_filter = 1
-layout_mode = 0
-offset_left = 273.0
-offset_top = 161.0
-offset_right = 523.0
-offset_bottom = 411.0
-stretch = true
-stretch_shrink = 3
-
-[node name="SubViewport" type="SubViewport" parent="Control/DiceSceneSubViewportContainer" unique_id=2110406472]
-own_world_3d = true
-handle_input_locally = false
-size = Vector2i(83, 83)
-render_target_update_mode = 4
-
-[node name="DiceRollingScene" parent="Control/DiceSceneSubViewportContainer/SubViewport" unique_id=229583748 instance=ExtResource("13_rf7a2")]
-
-[node name="HUDManager" type="Node" parent="." unique_id=1025954270 node_paths=PackedStringArray("healthBar", "bloodBar", "willPowerBits", "extDialogueBox", "extDialogueBoxFooter", "extScrollContainer", "intScrollContainer", "extVBoxContainer", "intVBoxContainer", "choicesScrollContainer", "choicesVBoxContainer", "rootScene")]
+[node name="HUDManager" type="Node" parent="." unique_id=1025954270 node_paths=PackedStringArray("healthBar", "bloodBar", "willPowerBits")]
 script = ExtResource("9_0ma7x")
 healthBar = NodePath("../HUD/PlayerStatsArea/HealthAndBloodBar/HealthBar")
 bloodBar = NodePath("../HUD/PlayerStatsArea/HealthAndBloodBar/BloodBar")
@@ -374,14 +304,15 @@ filledBit = ExtResource("9_q1itj")
 unfilledBit = ExtResource("11_q1itj")
 filledBigBit = ExtResource("10_m330t")
 unfilledBigBit = ExtResource("13_5bbu2")
-extDialogueBox = NodePath("../Control/ExternalDialogueBox")
-extDialogueBoxFooter = NodePath("../Control/ExternalDialogueBox/VSplitContainer/Control")
-extScrollContainer = NodePath("../Control/ExternalDialogueBox/VSplitContainer/ScrollContainer")
-intScrollContainer = NodePath("../Control/InternalDialogueBox/VSplitContainer/ScrollContainer")
-extVBoxContainer = NodePath("../Control/ExternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer")
-intVBoxContainer = NodePath("../Control/InternalDialogueBox/VSplitContainer/ScrollContainer/VBoxContainer")
-dialogueItemPackedScene = ExtResource("4_a34l3")
-choicesScrollContainer = NodePath("../Control/InternalDialogueBox/VSplitContainer/ChoicesScrollContainer")
-choicesVBoxContainer = NodePath("../Control/InternalDialogueBox/VSplitContainer/ChoicesScrollContainer/VBoxContainer")
-buttonPackedScene = ExtResource("5_vj07i")
-rootScene = NodePath("..")
+
+[node name="DiceSceneSubViewport" type="SubViewportContainer" parent="." unique_id=585942807]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Dice Scene" type="SubViewport" parent="DiceSceneSubViewport" unique_id=1411866432]
+handle_input_locally = false
+render_target_update_mode = 0
+
+[node name="DiceRollingScene" parent="DiceSceneSubViewport/Dice Scene" unique_id=983218817 instance=ExtResource("13_rf7a2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.4876986, 0, -87.48471)

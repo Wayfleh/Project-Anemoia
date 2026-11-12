@@ -6,18 +6,18 @@ Test: [#area=external] Hi welcome to the test dialogue
 ~ roll
 Test: I've got some options here
 - Pop your shoulder \n(Resolve + Brawl) Degree 1 [#check=resolve_brawl_1]
-	if PlayerStatsWrapper.Instance.PerformCheck("resolve_brawl_1")
+	if DialogueBox.PerformCheck("resolve_brawl_1")
 		Test: Holy shit that was really impressive
 		Test: Looked like it hurt though, damn
 	else
 		Test: Are you okay? Your arm is kinda detached from your body
 - Make up an excuse \n(Wits + Performance) Degree 2 [#check=wits_performance_2]
-	if PlayerStatsWrapper.Instance.PerformCheck("wits_performance_2")
+	if DialogueBox.PerformCheck("wits_performance_2")
 		Test: Hmmm yeah I believe you
 	else
 		Test: What the fuck did you just say to me?
 - Get your life together \n(Composure + Insight) Degree 20 [#check=composure_insight_20]
-	if PlayerStatsWrapper.Instance.PerformCheck("composure_insight_20")
+	if DialogueBox.PerformCheck("composure_insight_20")
 		Test: You should not have been able to do that
 	else
 		Test: Figures

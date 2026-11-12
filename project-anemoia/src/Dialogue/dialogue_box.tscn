@@ -1,0 +1,68 @@
+[gd_scene format=3 uid="uid://cf074kemaapny"]
+
+[ext_resource type="Script" uid="uid://uu81v5c8jajr" path="res://src/Dialogue/DialogueBox.cs" id="1_l8o5w"]
+[ext_resource type="Script" uid="uid://b22c7h8bv46sa" path="res://src/Dialogue/PhysicalDialogueBox.cs" id="2_ml3pb"]
+[ext_resource type="Texture2D" uid="uid://b4fbaayk7r7we" path="res://assets/Textures/Placeholders/spongebob.png" id="3_txboq"]
+[ext_resource type="Script" uid="uid://cd3222nx3y3k5" path="res://addons/dialogue_manager/nodes/context/dialogue_state_context.gd" id="4_mmide"]
+
+[node name="DialogueBox" type="HBoxContainer" unique_id=1295133557]
+theme_override_constants/separation = 0
+alignment = 2
+script = ExtResource("1_l8o5w")
+intHistoryChoiceSeparation = 601
+metadata/_custom_type_script = "uid://uu81v5c8jajr"
+
+[node name="ExternalDialogueBox" type="PanelContainer" parent="." unique_id=1515112157 node_paths=PackedStringArray("scrollContainer")]
+custom_minimum_size = Vector2(500, 1080)
+layout_mode = 2
+mouse_filter = 1
+script = ExtResource("2_ml3pb")
+scrollContainer = NodePath("HistoryScroll")
+metadata/_custom_type_script = "uid://b22c7h8bv46sa"
+
+[node name="HistoryScroll" type="ScrollContainer" parent="ExternalDialogueBox" unique_id=195729844]
+layout_mode = 2
+
+[node name="History" type="VBoxContainer" parent="ExternalDialogueBox/HistoryScroll" unique_id=450636035]
+custom_minimum_size = Vector2(0, 600)
+layout_mode = 2
+
+[node name="InternalDialogueBox" type="PanelContainer" parent="." unique_id=1054497217 node_paths=PackedStringArray("scrollContainer")]
+custom_minimum_size = Vector2(500, 1080)
+layout_mode = 2
+mouse_filter = 1
+script = ExtResource("2_ml3pb")
+scrollContainer = NodePath("VSplitContainer/HistoryScroll")
+metadata/_custom_type_script = "uid://b22c7h8bv46sa"
+
+[node name="TextureRect" type="TextureRect" parent="InternalDialogueBox" unique_id=418236613]
+modulate = Color(0.2036809, 0.20368093, 0.2036809, 1)
+layout_mode = 2
+texture = ExtResource("3_txboq")
+expand_mode = 1
+
+[node name="VSplitContainer" type="VSplitContainer" parent="InternalDialogueBox" unique_id=1865793574]
+layout_mode = 2
+split_offsets = PackedInt32Array(700)
+split_offset = 700
+
+[node name="HistoryScroll" type="ScrollContainer" parent="InternalDialogueBox/VSplitContainer" unique_id=894087667]
+layout_mode = 2
+
+[node name="History" type="VBoxContainer" parent="InternalDialogueBox/VSplitContainer/HistoryScroll" unique_id=240237618]
+layout_mode = 2
+offset_transform_enabled = true
+offset_transform_position = Vector2(30, 0)
+
+[node name="ChoiceScroll" type="ScrollContainer" parent="InternalDialogueBox/VSplitContainer" unique_id=141462741]
+unique_name_in_owner = true
+layout_mode = 2
+
+[node name="Choices" type="VBoxContainer" parent="InternalDialogueBox/VSplitContainer/ChoiceScroll" unique_id=1695534611]
+layout_mode = 2
+
+[node name="DialogueStateContext" type="Node" parent="." unique_id=1746321379 node_paths=PackedStringArray("target")]
+script = ExtResource("4_mmide")
+alias = "DialogueBox"
+target = NodePath("..")
+metadata/_custom_type_script = "uid://cd3222nx3y3k5"

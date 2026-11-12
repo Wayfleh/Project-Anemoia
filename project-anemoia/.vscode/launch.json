@@ -5,7 +5,7 @@
             "name": "Project Anemoia Play",
             "type": "coreclr",
             "request": "launch",
-            "preLaunchTask": "build",
+            "preLaunchTask": "",
             "program": "C:\\Users\\rafae\\OneDrive\\Desktop\\Godot_v4.7-stable_mono_win64\\Godot_v4.7-stable_mono_win64.exe",
             "args": [
                 "--path",
