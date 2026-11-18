@@ -7,6 +7,7 @@
             "request": "launch",
             "preLaunchTask": "",
             "program": "C:\\Users\\rafae\\OneDrive\\Desktop\\Godot_v4.7-stable_mono_win64\\Godot_v4.7-stable_mono_win64.exe",
+            "debugServer": 6007,
             "args": [
                 "--path",
                 "C:\\Users\\rafae\\OneDrive\\Documents\\GitHub\\Project-Anemoia\\project-anemoia"

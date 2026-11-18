@@ -55,8 +55,12 @@ public partial class DialogueBox : HBoxContainer
 	private async void QueryDialogue(Resource dialogue, String nextCue)
 	{
 		var line = await DialogueManager.GetNextDialogueLine(dialogue, nextCue);
+		if (nextCue == "~ start")
+			StartDialogue();
 		if (line != null)
 			ProgressDialogue(dialogue, line);
+		else
+			EndDialogue();
 	}
 
 	
@@ -117,6 +121,7 @@ public partial class DialogueBox : HBoxContainer
 		}
 	}
 
+	// Called whenever choice is selected to make sure you can see the dialogue
 	private async void ScrollHistoryToBottom()
 	{
 		await ToSignal(GetTree(), SceneTree.SignalName.ProcessFrame);
@@ -124,10 +129,39 @@ public partial class DialogueBox : HBoxContainer
 		extBox.scrollContainer.ScrollVertical = (int)intBox.scrollBar.MaxValue;
 	}
 	
-
+	private void StartDialogue()
+	{
+		foreach (Node child in intBox.history.GetChildren())
+		{
+			intBox.history.RemoveChild(child);
+			child.QueueFree();
+		}
+		foreach (Node child in extBox.history.GetChildren())
+		{
+			extBox.history.RemoveChild(child);
+			child.QueueFree();
+		}
+	}
 	private void EndDialogue()
 	{
-		
+
+		foreach (Node child in intBox.history.GetChildren()) // put every textbox from external box into internal dialogue box, replace PanelContainers
+		{
+			if (child is TextBox)
+				continue;
+			var i = child.GetIndex();
+			var extChild = extBox.history.GetChild(i);
+			extBox.history.RemoveChild(extChild);
+			intBox.history.AddChild(extChild);
+			intBox.history.MoveChild(extChild,i);
+			intBox.history.RemoveChild(child);
+			child.QueueFree();
+		}
+		foreach (Node child in extBox.history.GetChildren())
+		{
+			extBox.history.RemoveChild(child);
+			child.QueueFree();
+		}
 	}
 	private async void ChoiceSelected(Resource dialogue, String message, String nextId, bool diceRoll = false)
 	{

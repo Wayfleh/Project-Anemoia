@@ -307,10 +307,11 @@ unfilledBigBit = ExtResource("13_5bbu2")
 
 [node name="DiceSceneSubViewport" type="SubViewportContainer" parent="." unique_id=585942807]
 visible = false
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 512.0
+offset_bottom = 512.0
 
 [node name="Dice Scene" type="SubViewport" parent="DiceSceneSubViewport" unique_id=1411866432]
+own_world_3d = true
 handle_input_locally = false
 render_target_update_mode = 0
 
