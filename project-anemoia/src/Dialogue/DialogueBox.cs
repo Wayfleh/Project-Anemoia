@@ -144,24 +144,30 @@ public partial class DialogueBox : HBoxContainer
 	}
 	private void EndDialogue()
 	{
-
-		foreach (Node child in intBox.history.GetChildren()) // put every textbox from external box into internal dialogue box, replace PanelContainers
-		{
+		int j = 0;
+		for (int i = 0; i < intBox.history.GetChildCount(); i++) // put every textbox from external box into internal dialogue box, replace PanelContainers
+		{ //every time you see a panel, remove the top of the extbox
+			var child = intBox.history.GetChild(i);
 			if (child is TextBox)
 				continue;
-			var i = child.GetIndex();
-			var extChild = extBox.history.GetChild(i);
+			GD.Print("FUCK");
+			var extChild = extBox.history.GetChild(i-j);
+			 // extbox index; GetChild() goes back however many nodes were removed
+			GD.Print(i);
+			GD.Print(extChild);
 			extBox.history.RemoveChild(extChild);
 			intBox.history.AddChild(extChild);
-			intBox.history.MoveChild(extChild,i);
+			intBox.history.MoveChild(extChild, i);
 			intBox.history.RemoveChild(child);
 			child.QueueFree();
+			j++;
 		}
 		foreach (Node child in extBox.history.GetChildren())
 		{
-			extBox.history.RemoveChild(child);
 			child.QueueFree();
 		}
+		extBox.history.CustomMinimumSize = Vector2.Zero;
+		intBox.history.CustomMinimumSize = Vector2.Zero;
 	}
 	private async void ChoiceSelected(Resource dialogue, String message, String nextId, bool diceRoll = false)
 	{
