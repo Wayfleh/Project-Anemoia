@@ -1,24 +1,71 @@
 [gd_scene format=3 uid="uid://cs4p8nfx2x1cn"]
 
 [ext_resource type="Script" uid="uid://cnavpnthm64t" path="res://src/Dialogue/DiceRolling/DiceObject.cs" id="1_vf2l3"]
-[ext_resource type="ArrayMesh" uid="uid://jd11xwpgqlo4" path="res://assets/Models/d10.res" id="2_1dg2r"]
+[ext_resource type="ArrayMesh" uid="uid://ceb44nqxoi3fq" path="res://assets/Models/Placeholder/dice_rolling_Die Scaled D10.res" id="2_v32k1"]
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_v32k1"]
 points = PackedVector3Array(5.4048853, 8.829106, 1.1686144, 4.4419947, -0.17073134, 0.9664488, 3.4441862, -0.09474606, -3.0817878, 3.0167055, 3.2424214, -5.54352, -0.4497013, 5.4336243, -6.296709, -1.8580613, 8.773442, -4.238075, -4.443053, 8.855613, -0.9676814, -3.4452438, 8.778744, 3.080556, -3.017763, 5.4415765, 5.542288, 0.44864368, 3.2503734, 6.296709, 1.8570037, -0.090328306, 4.23561, -5.4048853, -0.14510839, -1.1698465)
 
-[node name="DiceBody3D" type="RigidBody3D" unique_id=1665578112 node_paths=PackedStringArray("side_1_meshInst", "side_2_meshInst", "side_3_meshInst", "side_4_meshInst", "side_5_meshInst", "side_6_meshInst", "diceBody")]
+[node name="DiceBody3D" type="RigidBody3D" unique_id=1665578112 node_paths=PackedStringArray("diceBody")]
 script = ExtResource("1_vf2l3")
-side_1_meshInst = NodePath("")
-side_2_meshInst = NodePath("")
-side_3_meshInst = NodePath("")
-side_4_meshInst = NodePath("")
-side_5_meshInst = NodePath("")
-side_6_meshInst = NodePath("")
-diceBody = NodePath("MeshInstance3D")
+diceBody = NodePath("DiceRollingDieScaledD10")
 glowingColor = Color(5.187019, 4.150608, 0, 1)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1933458751]
-mesh = ExtResource("2_1dg2r")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=440637516]
 shape = SubResource("ConvexPolygonShape3D_v32k1")
+
+[node name="DiceRollingDieScaledD10" type="MeshInstance3D" parent="." unique_id=1233921473]
+mesh = ExtResource("2_v32k1")
+
+[node name="FaceNormals" type="Node3D" parent="." unique_id=572255829]
+transform = Transform3D(0.976296, 0, 0.21643962, 0, 1, 0, -0.21643962, 0, 0.976296, 0, 0, 0)
+
+[node name="Face_0" type="RayCast3D" parent="FaceNormals" unique_id=1058976584]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 8.87764, 0)
+target_position = Vector3(0, 1, 0)
+hit_from_inside = true
+
+[node name="Face_1" type="RayCast3D" parent="FaceNormals" unique_id=1137575831]
+transform = Transform3D(-0.36465293, -0.59359396, 0.71740776, 0.8078661, -0.58479744, -0.07323818, 0.4630122, 0.552863, 0.69279253, -2.3580866, 2.046923, 3.3760488)
+target_position = Vector3(0, 1, 0)
+hit_from_inside = true
+
+[node name="Face_2" type="RayCast3D" parent="FaceNormals" unique_id=2139827115]
+transform = Transform3D(-0.008701459, 0.9998708, -0.01348638, 0.0037312163, -0.013454328, -0.99990237, -0.9999549, -0.0087509155, -0.0036136645, 4.523366, 3.9701293, 0.02483958)
+target_position = Vector3(0, 1, 0)
+hit_from_inside = true
+
+[node name="Face_3" type="RayCast3D" parent="FaceNormals" unique_id=514219402]
+transform = Transform3D(-0.6003726, -0.59684265, -0.5322888, 0.563683, 0.15632308, -0.8110637, 0.56728655, -0.78698254, 0.24257797, -1.8428022, 5.3030987, -4.2689342)
+target_position = Vector3(0, 1, 0)
+hit_from_inside = true
+
+[node name="Face_4" type="RayCast3D" parent="FaceNormals" unique_id=524937337]
+transform = Transform3D(0.9687541, 0.08431655, -0.2332513, -0.24164861, 0.5327114, -0.8110637, 0.05586955, 0.84208626, 0.53644127, -0.39737815, 7.32874, 3.421669)
+target_position = Vector3(0, 1, 0)
+hit_from_inside = true
+
+[node name="Face_5" type="RayCast3D" parent="FaceNormals" unique_id=853158268]
+transform = Transform3D(-0.9902532, -0.05792427, -0.12666148, 0.13899209, -0.46922943, -0.8720692, -0.008919314, -0.88117415, 0.47270703, 1.475085, 2.2083476, -4.055292)
+target_position = Vector3(0, 1, 0)
+hit_from_inside = true
+
+[node name="Face_6" type="RayCast3D" parent="FaceNormals" unique_id=901781410]
+transform = Transform3D(0.8141241, 0.5806708, -0.0047753304, 0.0037312163, -0.013454327, -0.99990237, -0.5806784, 0.81402683, -0.013120105, 2.9588892, 3.9701293, 3.4127276)
+target_position = Vector3(0, 1, 0)
+hit_from_inside = true
+
+[node name="Face_7" type="RayCast3D" parent="FaceNormals" unique_id=1663317191]
+transform = Transform3D(0.07249679, -0.9967289, -0.03571079, 0.5805974, 0.07128838, -0.8110637, 0.81095666, 0.038065925, 0.5838665, -4.5783153, 5.3030987, 0.32118505)
+target_position = Vector3(0, 1, 0)
+hit_from_inside = true
+
+[node name="Face_8" type="RayCast3D" parent="FaceNormals" unique_id=1616483130]
+transform = Transform3D(0.7356736, 0.64561445, -0.2048565, -0.24164861, 0.5327113, 0.8110638, 0.632764, -0.54717493, 0.5479136, 2.140857, 7.32874, -2.6500232)
+target_position = Vector3(0, 1, 0)
+hit_from_inside = true
+
+[node name="Face_9" type="RayCast3D" parent="FaceNormals" unique_id=202118850]
+transform = Transform3D(-0.9999998, 8.742275e-08, 0, -8.742276e-08, -0.99999964, 0, -4.4703484e-08, 0, 0.99999946, 0.41712508, -0.1929267, 0.19744259)
+target_position = Vector3(0, 1, 0)
+hit_from_inside = true

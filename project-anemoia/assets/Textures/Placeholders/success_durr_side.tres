@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://4s4vpq5incc4"]
+
+[ext_resource type="Texture2D" uid="uid://53yyn3qh7u1r" path="res://assets/Textures/Placeholders/durr.png" id="1_ew722"]
+
+[resource]
+albedo_texture = ExtResource("1_ew722")
+uv1_scale = Vector3(2.8, 2.8, 2.8)
+uv1_offset = Vector3(-0.9, -1.1, 0)
+texture_repeat = false

@@ -2,22 +2,21 @@ using Godot;
 using System;
 using System.Diagnostics;
 using System.Dynamic;
+using System.Text.RegularExpressions;
 
 public partial class DiceObject : RigidBody3D
 {
 	[Signal] public delegate void DiceFinishedEventHandler();
 
-	[Export] private MeshInstance3D side_1_meshInst;
-	[Export] private MeshInstance3D side_2_meshInst;
-	[Export] private MeshInstance3D side_3_meshInst;
-	[Export] private MeshInstance3D side_4_meshInst;
-	[Export] private MeshInstance3D side_5_meshInst;
-	[Export] private MeshInstance3D side_6_meshInst;
-	[Export] private MeshInstance3D diceBody;
+	[Export] Material critMaterial;
+	[Export] Material succMaterial; //shut it
+	[Export] Material failMaterial;
+	private MeshInstance3D diceMesh;
 	[Export] private float jitterMagnitude = 7;
 	[Export] private Color glowingColor;
 
 	MeshInstance3D upwardFacingMeshInst3D = null;
+	private Node3D faceNormals;
 
 	private bool startWithRandomSide = true;
 
@@ -26,6 +25,8 @@ public partial class DiceObject : RigidBody3D
 
 	public override void _Ready()
 	{
+		diceMesh = GetNode<MeshInstance3D>("DiceMesh");
+		faceNormals = GetNode<Node3D>("FaceNormals");
 		SleepingStateChanged += OnSleepStateChanged;
 		if (startWithRandomSide)
 		{
@@ -45,16 +46,16 @@ public partial class DiceObject : RigidBody3D
 		if (MarkedFinished || (AngularVelocity.DistanceSquaredTo(Vector3.Zero) > 0.5f) || (LinearVelocity.DistanceSquaredTo(Vector3.Zero) > 1f))
 			return;
 
-		diceBody.RotateZ(-jitterZ);
-		diceBody.RotateY(-jitterY);
-		diceBody.RotateX(-jitterX);
+		diceMesh.RotateZ(-jitterZ);
+		diceMesh.RotateY(-jitterY);
+		diceMesh.RotateX(-jitterX);
 
 		jitterX = (float)GD.RandRange(0, jitterMagnitude) * deltaF;
 		jitterY = (float)GD.RandRange(0, jitterMagnitude) * deltaF;
 		jitterZ = (float)GD.RandRange(0, jitterMagnitude) * deltaF;
-		diceBody.RotateX(jitterX);
-		diceBody.RotateY(jitterY);
-		diceBody.RotateZ(jitterZ);
+		diceMesh.RotateX(jitterX);
+		diceMesh.RotateY(jitterY);
+		diceMesh.RotateZ(jitterZ);
 	}
 
 	private void HighlightSide(MeshInstance3D meshInstance3D)
@@ -82,72 +83,45 @@ public partial class DiceObject : RigidBody3D
 	}
 	private void HandleDiceFinished()
 	{
-		CubeFace facingUp = GetUpwardFacingSide();
 		MarkedFinished = true;
-
-		UpdateValues(facingUp);
 
 		HighlightSide(upwardFacingMeshInst3D);
 		EmitSignal(SignalName.DiceFinished);
 	}
 
-	private void UpdateValues(CubeFace cubeFace)
+	public void ShowMesh(String outcome)
 	{
-		switch (cubeFace)
+		int topFace = GetUpwardFacingSide();
+		if (topFace < 0)
 		{
-			case CubeFace.Forward:
-				upwardFacingMeshInst3D = side_6_meshInst;
-				ValueResult = 6;
+			throw new Exception("Upward facing side not determinible for dice: " + this);
+		}
+		switch(outcome){
+			case "success":
+				diceMesh.SetSurfaceOverrideMaterial(topFace, succMaterial);
 				break;
-			case CubeFace.Back:
-				upwardFacingMeshInst3D = side_1_meshInst;
-				ValueResult = 1;
+			case "failure":
+				diceMesh.SetSurfaceOverrideMaterial(topFace, failMaterial);
 				break;
-			case CubeFace.Left:
-				upwardFacingMeshInst3D = side_2_meshInst;
-				ValueResult = 2;
-				break;
-			case CubeFace.Right:
-				upwardFacingMeshInst3D = side_5_meshInst;
-				ValueResult = 5;
-				break;
-			case CubeFace.Top:
-				upwardFacingMeshInst3D = side_4_meshInst;
-				ValueResult = 4;
-				break;
-			case CubeFace.Bottom:
-				upwardFacingMeshInst3D = side_3_meshInst;
-				ValueResult = 3;
+			case "crit":
+				diceMesh.SetSurfaceOverrideMaterial(topFace, critMaterial);
 				break;
 			default:
-				Debug.Print("unknown face");
-				break;
+				throw new Exception("outcome must be success, failure, or crit");
 		}
 	}
+	
 
-	//made w ai. works. can be cleaned up ig
-	public enum CubeFace { Forward, Back, Right, Left, Top, Bottom, Unknown }
-
-	private CubeFace GetUpwardFacingSide()
+	//returns number of upwards facing side, returns -1 if not found
+	private int GetUpwardFacingSide()
 	{
-		// Convert world UP (0, 1, 0) into the die's local coordinate space
-		Vector3 localUp = GlobalTransform.Basis.Inverse() * Vector3.Up;
-
-		// Find which local axis aligns most with localUp
-		float maxDot = localUp.X;
-		CubeFace bestFace = localUp.X > 0 ? CubeFace.Right : CubeFace.Left;
-
-		if (Mathf.Abs(localUp.Y) > Mathf.Abs(maxDot))
+		foreach (RayCast3D ray in faceNormals.GetChildren())
 		{
-			maxDot = localUp.Y;
-			bestFace = localUp.Y > 0 ? CubeFace.Top : CubeFace.Bottom;
+			if (ray.IsColliding() && ray.GetCollider() is Node collider && collider.IsInGroup("floor"))
+			{
+				return Math.Abs(ray.GetIndex() - 9);
+			}
 		}
-
-		if (Mathf.Abs(localUp.Z) > Mathf.Abs(maxDot))
-		{
-			bestFace = localUp.Z > 0 ? CubeFace.Back : CubeFace.Forward;
-		}
-
-		return bestFace;
+		return -1;
 	}
 }
