@@ -11,6 +11,7 @@ public partial class DiceObject : RigidBody3D
 	[Export] Material critMaterial;
 	[Export] Material succMaterial; //shut it
 	[Export] Material failMaterial;
+	[Export] Material testIfFaceOnDie;
 	private MeshInstance3D diceMesh;
 	[Export] float minAngularSpeed = 0.5f;
 	[Export] float minLinearSpeed = 1.0f;
@@ -51,25 +52,13 @@ public partial class DiceObject : RigidBody3D
 		else if (currentRollingTime >= minRollingTimeS && ( (AngularVelocity.DistanceSquaredTo(Vector3.Zero) < minAngularSpeed) || (LinearVelocity.DistanceSquaredTo(Vector3.Zero) < minLinearSpeed) ) )
 		{
 			HandleDiceFinished();
+			GravityScale = 20.0f;
 		}
 		else
 			currentRollingTime += deltaF;
 
 	}
 
-    public override void _PhysicsProcess(double delta)
-    {
-		if (MarkedFinished || ( (AngularVelocity.DistanceSquaredTo(Vector3.Zero) < minAngularSpeed) && (LinearVelocity.DistanceSquaredTo(Vector3.Zero) < minLinearSpeed) ) )
-		{
-			AngularVelocity.Lerp(Vector3.Zero, (float)delta * 50);
-			LinearVelocity.Lerp(Vector3.Zero, (float)delta * 5);
-		}
-		if (currentRollingTime >= minRollingTimeS && !Sleeping && AngularVelocity.DistanceSquaredTo(Vector3.Zero) < 0.05 && LinearVelocity.DistanceSquaredTo(Vector3.Zero) < 0.1)
-		{
-			Freeze = true;
-			Sleeping = true;
-		}
-    }
 
 	private void OnSleepStateChanged()
 	{
@@ -77,7 +66,6 @@ public partial class DiceObject : RigidBody3D
 		if (!Sleeping)
 		{
 			MarkedFinished = false;
-			Debug.Print("not sleeping");
 		}
 	}
 
@@ -114,7 +102,7 @@ public partial class DiceObject : RigidBody3D
 	}
 	
 
-	//returns number of upwards facing side, returns -1 if not found
+	//returns face number of upwards facing side, returns -1 if not found
 	private int GetUpwardFacingSide()
 	{
 		int upFace = -1;
@@ -146,8 +134,9 @@ public partial class DiceObject : RigidBody3D
 				downRay = ray;
 			}
 		}
-		if (downRay.GetCollider() is DiceObject die)
+		if (downRay.GetCollider() is DiceObject die && die != this)
 		{
+			diceMesh.SetSurfaceOverrideMaterial(downRay.GetIndex(), testIfFaceOnDie);
 			MarkedFinished = false;
 			Freeze = false;
 			return true;

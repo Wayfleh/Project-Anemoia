@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://5lypsj56odqb"
-path.s3tc="res://.godot/imported/dice_rolling_Face_3.png-b8707e6649227db4c8b5a6d734dfc481.s3tc.ctex"
+uid="uid://doc83wosq3i71"
+path.s3tc="res://.godot/imported/dice_rolling_Face_4.png-9c098f2ecad0b6c393aa644a24a0823e.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "9ae5ef1bc0a61255757f0cf0d9f03ce6"
+"md5": "f6b39f77b67dbae6c05565d2d488fd5e"
 }
 
 [deps]
 
-source_file="res://assets/Models/Placeholder/dice_rolling_Face_3.png"
-dest_files=["res://.godot/imported/dice_rolling_Face_3.png-b8707e6649227db4c8b5a6d734dfc481.s3tc.ctex"]
+source_file="res://assets/Models/Placeholder/textures/dice_rolling_Face_4.png"
+dest_files=["res://.godot/imported/dice_rolling_Face_4.png-9c098f2ecad0b6c393aa644a24a0823e.s3tc.ctex"]
 
 [params]
 

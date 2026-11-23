@@ -37,14 +37,11 @@ size = Vector3(150, 20, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_lnx8s"]
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_ahknw"]
-size = Vector3(200, 40, 200)
-
 [node name="DiceRollingScene" type="Node" unique_id=1438724242 node_paths=PackedStringArray("spawnPosition")]
 script = ExtResource("1_44doa")
 dicePackedScene = ExtResource("3_y5c6t")
 spawnPosition = NodePath("SpawnPosition")
-impulseMultiplier = 3.0
+impulseMultiplier = 7.0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1784034416]
 environment = SubResource("Environment_ya3bc")
@@ -96,8 +93,9 @@ transform = Transform3D(-4.371139e-08, 0, 1, 0, 1, 0, -1, 0, -4.371139e-08, -70,
 shape = SubResource("BoxShape3D_lnx8s")
 debug_color = Color(0, 0.6, 0.69803923, 1)
 
-[node name="CollisionShape3D5" type="CollisionShape3D" parent="StaticBody3D" unique_id=1779495988 groups=["floor"]]
+[node name="CollisionShape3D5" type="CollisionShape3D" parent="StaticBody3D" unique_id=1779495988]
 transform = Transform3D(3, 0, 0, 0, 3, 0, 0, 0, 3, 0, 23.35778, 0)
+visible = false
 shape = SubResource("BoxShape3D_k4ib1")
 
 [node name="SpawnPosition" type="Node3D" parent="." unique_id=1656155913]
@@ -107,10 +105,3 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 12.150558, -2.4455225)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.37959802, 1.1069441)
 visible = false
 mesh = SubResource("BoxMesh_lnx8s")
-
-[node name="GravityOverride" type="Area3D" parent="." unique_id=708765430]
-gravity_space_override = 3
-gravity = 70.0
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="GravityOverride" unique_id=1583287326]
-shape = SubResource("BoxShape3D_ahknw")

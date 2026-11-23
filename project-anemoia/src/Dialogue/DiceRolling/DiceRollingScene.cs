@@ -86,7 +86,7 @@ public partial class DiceRollingScene : Node
 		{ //Make sure all dice are done first
 			if (!diceObjects[i].MarkedFinished)
 				return;
-			if (diceObjects[i].IsOnTopOfDie())
+			else if (diceObjects[i].IsOnTopOfDie())
 			{
 				ThrowDice(diceObjects[i]);
 				return;

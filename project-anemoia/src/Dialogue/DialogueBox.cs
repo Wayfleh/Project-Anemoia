@@ -58,6 +58,11 @@ public partial class DialogueBox : HBoxContainer
 		var line = await DialogueManager.GetNextDialogueLine(dialogue, nextCue);
 		if (nextCue == "~ start")
 		{
+			foreach (Button choice in choices.GetChildren()) // empty choices
+			{
+				choices.RemoveChild(choice);
+				choice.QueueFree();
+			}
 			StartDialogue();
 			currentDialogue = dialogue;
 		}
