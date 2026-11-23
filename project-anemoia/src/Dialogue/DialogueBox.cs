@@ -211,6 +211,8 @@ public partial class DialogueBox : HBoxContainer
 		}
 		extBox.history.CustomMinimumSize = Vector2.Zero;
 		intBox.history.CustomMinimumSize = Vector2.Zero;
+
+		extBox.Hide();
 	}
 
 	// Called in dialogue resource

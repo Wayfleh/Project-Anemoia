@@ -13,6 +13,7 @@ intHistoryChoiceSeparation = 601
 metadata/_custom_type_script = "uid://uu81v5c8jajr"
 
 [node name="ExternalDialogueBox" type="PanelContainer" parent="." unique_id=1515112157 node_paths=PackedStringArray("scrollContainer")]
+visible = false
 custom_minimum_size = Vector2(500, 1080)
 layout_mode = 2
 mouse_filter = 1
