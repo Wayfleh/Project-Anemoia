@@ -6,15 +6,16 @@
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "",
-            "program": "C:\\Users\\rafae\\Desktop\\Godot v4.7 .NET\\Godot_v4.7.2-stable_mono_win64.exe",
+            "program": "C:\\Users\\rafae\\OneDrive\\Desktop\\Godot_v4.7-stable_mono_win64\\Godot_v4.7-stable_mono_win64.exe",
+            "address": "127.0.0.1",
+            "port": 6007,
             "args": [
                 "--path",
-                "E:\\Documents\\GitHub\\Project-Anemoia\\project-anemoia",
-                "--remote-debug",
-                "tcp://127.0.0.1:6007"
+                "C:\\Users\\rafae\\OneDrive\\Documents\\GitHub\\Project-Anemoia\\project-anemoia"
             ],
-            "cwd": "E:\\Documents\\GitHub\\Project-Anemoia\\project-anemoia",
-            "stopAtEntry": false
+            "cwd": "C:\\Users\\rafae\\OneDrive\\Documents\\GitHub\\Project-Anemoia\\project-anemoia",
+            "stopAtEntry": false,
+            "launchGameInstance": true
         }
     ]
 }

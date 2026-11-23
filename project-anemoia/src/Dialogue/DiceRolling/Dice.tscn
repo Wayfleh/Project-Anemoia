@@ -1,20 +1,28 @@
 [gd_scene format=3 uid="uid://cs4p8nfx2x1cn"]
 
 [ext_resource type="Script" uid="uid://cnavpnthm64t" path="res://src/Dialogue/DiceRolling/DiceObject.cs" id="1_vf2l3"]
-[ext_resource type="ArrayMesh" uid="uid://ceb44nqxoi3fq" path="res://assets/Models/Placeholder/dice_rolling_Die Scaled D10.res" id="2_v32k1"]
+[ext_resource type="ArrayMesh" uid="uid://bs34nefya2oht" path="res://assets/Models/Placeholder/dice_rolling_Die Scaled D10.res" id="2_v32k1"]
+[ext_resource type="Material" uid="uid://4s4vpq5incc4" path="res://assets/Textures/Placeholders/success_durr_side.tres" id="3_v32k1"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5oysb"]
+albedo_color = Color(0.09900002, 0.99, 0, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_rc31k"]
+albedo_color = Color(0, 0, 0, 1)
 
 [sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_v32k1"]
 points = PackedVector3Array(5.4048853, 8.829106, 1.1686144, 4.4419947, -0.17073134, 0.9664488, 3.4441862, -0.09474606, -3.0817878, 3.0167055, 3.2424214, -5.54352, -0.4497013, 5.4336243, -6.296709, -1.8580613, 8.773442, -4.238075, -4.443053, 8.855613, -0.9676814, -3.4452438, 8.778744, 3.080556, -3.017763, 5.4415765, 5.542288, 0.44864368, 3.2503734, 6.296709, 1.8570037, -0.090328306, 4.23561, -5.4048853, -0.14510839, -1.1698465)
 
-[node name="DiceBody3D" type="RigidBody3D" unique_id=1665578112 node_paths=PackedStringArray("diceBody")]
+[node name="DiceBody3D" type="RigidBody3D" unique_id=1665578112]
 script = ExtResource("1_vf2l3")
-diceBody = NodePath("DiceRollingDieScaledD10")
-glowingColor = Color(5.187019, 4.150608, 0, 1)
+critMaterial = ExtResource("3_v32k1")
+succMaterial = SubResource("StandardMaterial3D_5oysb")
+failMaterial = SubResource("StandardMaterial3D_rc31k")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=440637516]
 shape = SubResource("ConvexPolygonShape3D_v32k1")
 
-[node name="DiceRollingDieScaledD10" type="MeshInstance3D" parent="." unique_id=1233921473]
+[node name="DiceMesh" type="MeshInstance3D" parent="." unique_id=1233921473]
 mesh = ExtResource("2_v32k1")
 
 [node name="FaceNormals" type="Node3D" parent="." unique_id=572255829]

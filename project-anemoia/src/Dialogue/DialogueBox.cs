@@ -21,6 +21,7 @@ public partial class DialogueBox : HBoxContainer
 	private VBoxContainer choices;
 
 	private DialogueLine currentLine;
+	private Resource currentDialogue;
 	private bool textIsInternal = true;
 	private bool expandedBoxes = false;
 
@@ -56,16 +57,23 @@ public partial class DialogueBox : HBoxContainer
 	{
 		var line = await DialogueManager.GetNextDialogueLine(dialogue, nextCue);
 		if (nextCue == "~ start")
+		{
 			StartDialogue();
+			currentDialogue = dialogue;
+		}
 		if (line != null)
 			ProgressDialogue(dialogue, line);
 		else
+		{
+			currentDialogue = null;
 			EndDialogue();
+		}
 	}
 
 	
 	private void ProgressDialogue(Resource dialogue, DialogueLine line)
 	{
+		currentLine = line;
 		var textBox = TextBoxScene.Instantiate<TextBox>();
 		textBox.SetDialogue(line.Character, line.Text);
 		var area = line.GetTagValue("area"); //it's either "internal" or "external"
@@ -99,12 +107,12 @@ public partial class DialogueBox : HBoxContainer
 		}
 		extBox.history.CustomMinimumSize = new Vector2(0, extBox.history.CustomMinimumSize.Y + textBox.CustomMinimumSize.Y);
 		ScrollHistoryToBottom();
-		
+
 		foreach (DialogueResponse response in line.Responses) // create a choice button for each response
 		{
 			if (!response.IsAllowed) // if response failed its condition check, don't show it
 				continue;
-			var diceRoll = line.GetTagValue("check");
+			var diceRoll = line.GetTagValue("check"); //check if choice triggers a dice roll
 			var choice = ChoiceButtonScene.Instantiate<Button>();
 			choice.Text = response.Text;
 			choice.Pressed += () => ChoiceSelected(dialogue, response.Text, response.NextId, diceRoll != "");
@@ -119,7 +127,36 @@ public partial class DialogueBox : HBoxContainer
 			emptyResponse.Pressed += () => ChoiceSelected(dialogue, emptyResponse.Text, line.NextId);
 			choices.AddChild(emptyResponse);
 		}
+		
 	}
+
+	private async void ChoiceSelected(Resource dialogue, String message, String nextId, bool diceRoll = false)
+	{
+		if (message != "CONTINUE ------>")
+		{
+			// save choice in internal textbox
+			var textBox = TextBoxScene.Instantiate<TextBox>();
+			textBox.SetDialogue("You", message);
+			intBox.history.AddChild(textBox);
+
+			// spacer in external textbox
+			var spacer = new PanelContainer();
+			spacer.CustomMinimumSize = new Vector2(textBox.CustomMinimumSize.X, textBox.CustomMinimumSize.Y);
+			spacer.MouseFilter = MouseFilterEnum.Pass;
+			extBox.history.AddChild(spacer);
+		}
+		foreach (Button choice in choices.GetChildren()) // empty choices
+		{
+			choices.RemoveChild(choice);
+			choice.QueueFree();
+		}
+
+		if (diceRoll)
+			return;
+
+		QueryDialogue(dialogue, nextId);
+	}
+
 
 	// Called whenever choice is selected to make sure you can see the dialogue
 	private async void ScrollHistoryToBottom()
@@ -131,6 +168,7 @@ public partial class DialogueBox : HBoxContainer
 	
 	private void StartDialogue()
 	{
+
 		foreach (Node child in intBox.history.GetChildren())
 		{
 			intBox.history.RemoveChild(child);
@@ -168,32 +206,6 @@ public partial class DialogueBox : HBoxContainer
 		}
 		extBox.history.CustomMinimumSize = Vector2.Zero;
 		intBox.history.CustomMinimumSize = Vector2.Zero;
-	}
-	private async void ChoiceSelected(Resource dialogue, String message, String nextId, bool diceRoll = false)
-	{
-		if (message != "CONTINUE ------>")
-		{
-			// save choice in internal textbox
-			var textBox = TextBoxScene.Instantiate<TextBox>();
-			textBox.SetDialogue("You", message);
-			intBox.history.AddChild(textBox);
-
-			// spacer in external textbox
-			var spacer = new PanelContainer();
-			spacer.CustomMinimumSize = new Vector2(textBox.CustomMinimumSize.X, textBox.CustomMinimumSize.Y);
-			spacer.MouseFilter = MouseFilterEnum.Pass;
-			extBox.history.AddChild(spacer);
-
-			if (diceRoll)
-				await ToSignal(diceRollingScene, DiceRollingScene.SignalName.DiceSceneFinished); // wait for dice roll if choice is a check
-		}
-		foreach (Button choice in choices.GetChildren()) // empty choices
-		{
-			choices.RemoveChild(choice);
-			choice.QueueFree();
-		}
-
-		QueryDialogue(dialogue, nextId);
 	}
 
 	// Called in dialogue resource
@@ -256,26 +268,29 @@ public partial class DialogueBox : HBoxContainer
 		
 	}
 
-	//change this to use Ulugbek's dice rolling scene
 	private async Task<int> DiceRoll(int dicePool)
 	{
 		diceRollSubviewPortContainer.Show();
 		diceRollingScene.PlayScene(dicePool);
+		int diceResult = 0;
+		diceRollingScene.DiceSceneFinished += (int successes) => diceResult = successes;
 		await ToSignal(diceRollingScene, DiceRollingScene.SignalName.DiceSceneFinished);
-		Timer timer = new Timer();
-		timer.WaitTime = 3.0f;
-		timer.Timeout += () => DelayDiceRollHide(timer);
-		AddChild(timer);
-		timer.Start();
-		return dicePool;
+		
+		//create a continue button when dice roll scene is done, previous query was skipped so this should work fine
+		var emptyResponse = ChoiceButtonScene.Instantiate<Button>();
+		emptyResponse.Text = "CONTINUE ------>";
+		emptyResponse.Pressed += () => ChoiceSelected(currentDialogue, emptyResponse.Text, currentLine.NextId);
+		emptyResponse.Pressed += () => DiceRollHide(emptyResponse);
+		choices.AddChild(emptyResponse);
+
+		return diceResult;
 	}
 
-	private async void DelayDiceRollHide(Timer timer)
+
+	private async void DiceRollHide(Button choice)
 	{
-		timer.Timeout -= () => DelayDiceRollHide(timer);
-		RemoveChild(timer);
-		timer.QueueFree();
 		diceRollSubviewPortContainer.Hide();
+		choice.Pressed -= () => DiceRollHide(choice);
 	}
 
 	// moves external box when internal box is scrolled (with mouse)

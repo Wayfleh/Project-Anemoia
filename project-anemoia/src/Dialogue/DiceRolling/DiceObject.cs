@@ -12,9 +12,10 @@ public partial class DiceObject : RigidBody3D
 	[Export] Material succMaterial; //shut it
 	[Export] Material failMaterial;
 	private MeshInstance3D diceMesh;
-	[Export] private float jitterMagnitude = 7;
-	[Export] private Color glowingColor;
-
+	[Export] float minAngularSpeed = 0.5f;
+	[Export] float minLinearSpeed = 1.0f;
+	[Export] float minRollingTimeS = 2.0f;
+	private float currentRollingTime = 0.0f;
 	MeshInstance3D upwardFacingMeshInst3D = null;
 	private Node3D faceNormals;
 
@@ -43,27 +44,33 @@ public partial class DiceObject : RigidBody3D
 	public override void _Process(double delta)
 	{
 		float deltaF = (float)delta;
-		if (MarkedFinished || (AngularVelocity.DistanceSquaredTo(Vector3.Zero) > 0.5f) || (LinearVelocity.DistanceSquaredTo(Vector3.Zero) > 1f))
+		if (MarkedFinished)
+		{
 			return;
+		}
+		else if (currentRollingTime >= minRollingTimeS && ( (AngularVelocity.DistanceSquaredTo(Vector3.Zero) < minAngularSpeed) || (LinearVelocity.DistanceSquaredTo(Vector3.Zero) < minLinearSpeed) ) )
+		{
+			HandleDiceFinished();
+		}
+		else
+			currentRollingTime += deltaF;
 
-		diceMesh.RotateZ(-jitterZ);
-		diceMesh.RotateY(-jitterY);
-		diceMesh.RotateX(-jitterX);
-
-		jitterX = (float)GD.RandRange(0, jitterMagnitude) * deltaF;
-		jitterY = (float)GD.RandRange(0, jitterMagnitude) * deltaF;
-		jitterZ = (float)GD.RandRange(0, jitterMagnitude) * deltaF;
-		diceMesh.RotateX(jitterX);
-		diceMesh.RotateY(jitterY);
-		diceMesh.RotateZ(jitterZ);
 	}
 
-	private void HighlightSide(MeshInstance3D meshInstance3D)
-	{
-		StandardMaterial3D highlightedVersionMaterial = (StandardMaterial3D)meshInstance3D.Mesh.SurfaceGetMaterial(0).Duplicate();
-		highlightedVersionMaterial.AlbedoColor = glowingColor;
-		meshInstance3D.MaterialOverride = highlightedVersionMaterial;
-	}
+    public override void _PhysicsProcess(double delta)
+    {
+		if (MarkedFinished || ( (AngularVelocity.DistanceSquaredTo(Vector3.Zero) < minAngularSpeed) && (LinearVelocity.DistanceSquaredTo(Vector3.Zero) < minLinearSpeed) ) )
+		{
+			AngularVelocity.Lerp(Vector3.Zero, (float)delta * 50);
+			LinearVelocity.Lerp(Vector3.Zero, (float)delta * 5);
+		}
+		if (currentRollingTime >= minRollingTimeS && !Sleeping && AngularVelocity.DistanceSquaredTo(Vector3.Zero) < 0.05 && LinearVelocity.DistanceSquaredTo(Vector3.Zero) < 0.1)
+		{
+			Freeze = true;
+			Sleeping = true;
+		}
+    }
+
 	private void OnSleepStateChanged()
 	{
 		//in case we have new cool features that moves the dice again after they stop
@@ -74,26 +81,20 @@ public partial class DiceObject : RigidBody3D
 		}
 	}
 
-	public override void _PhysicsProcess(double delta)
-	{
-		if (Sleeping && !MarkedFinished)
-		{
-			HandleDiceFinished();
-		}
-	}
 	private void HandleDiceFinished()
 	{
 		MarkedFinished = true;
-
-		HighlightSide(upwardFacingMeshInst3D);
+		currentRollingTime = 0.0f;
 		EmitSignal(SignalName.DiceFinished);
 	}
 
 	public void ShowMesh(String outcome)
 	{
+
 		int topFace = GetUpwardFacingSide();
 		if (topFace < 0)
 		{
+			GD.Print("Top face not found");
 			throw new Exception("Upward facing side not determinible for dice: " + this);
 		}
 		switch(outcome){
@@ -107,6 +108,7 @@ public partial class DiceObject : RigidBody3D
 				diceMesh.SetSurfaceOverrideMaterial(topFace, critMaterial);
 				break;
 			default:
+				System.Diagnostics.Debugger.Break();
 				throw new Exception("outcome must be success, failure, or crit");
 		}
 	}
@@ -115,13 +117,41 @@ public partial class DiceObject : RigidBody3D
 	//returns number of upwards facing side, returns -1 if not found
 	private int GetUpwardFacingSide()
 	{
+		int upFace = -1;
+		float bestDotProd = float.NegativeInfinity;
 		foreach (RayCast3D ray in faceNormals.GetChildren())
-		{
-			if (ray.IsColliding() && ray.GetCollider() is Node collider && collider.IsInGroup("floor"))
+		{ //convert ray to global space, compare with up vector; what's up vector? go fuck yourself
+			var globalRay = (ray.ToGlobal(ray.TargetPosition) - ray.GlobalPosition).Normalized();
+			var upDot = globalRay.Dot(Vector3.Up);
+			if (upDot > bestDotProd)
 			{
-				return Math.Abs(ray.GetIndex() - 9);
+				bestDotProd = upDot;
+				upFace = ray.GetIndex();
 			}
 		}
-		return -1;
+		return upFace;
+	}
+
+	public bool IsOnTopOfDie()
+	{
+		RayCast3D downRay = null;
+		float bestDotProd = float.NegativeInfinity;
+		foreach (RayCast3D ray in faceNormals.GetChildren())
+		{ 
+			var globalRay = (ray.ToGlobal(ray.TargetPosition) - ray.GlobalPosition).Normalized();
+			var upDot = globalRay.Dot(Vector3.Down);
+			if (upDot > bestDotProd)
+			{
+				bestDotProd = upDot;
+				downRay = ray;
+			}
+		}
+		if (downRay.GetCollider() is DiceObject die)
+		{
+			MarkedFinished = false;
+			Freeze = false;
+			return true;
+		}
+		return false;
 	}
 }
